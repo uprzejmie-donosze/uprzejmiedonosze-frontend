@@ -3,6 +3,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import Foot from './foot.component';
 
 import theme from '../theme';
 import interceptor from '../interceptor';
@@ -16,10 +17,8 @@ class App extends Component {
         return (
             <MuiThemeProvider muiTheme={theme}>
                 <div>
-                    <AppBar title="Uprzejmie donoszę"/>
-                    <div className="mainContainer">
-                        {this.props.children}
-                    </div>
+                    {this.props.children}
+                    <Foot/>
                 </div>
             </MuiThemeProvider>
         );
