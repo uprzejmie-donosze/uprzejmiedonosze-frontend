@@ -6,6 +6,8 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes/index';
 import store from './store';
 
+require('./app.scss');
+
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory} routes={routes}/>
