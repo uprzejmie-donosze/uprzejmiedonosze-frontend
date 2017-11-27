@@ -1,0 +1,32 @@
+$sm: 480px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1200px;
+
+$screen-sm: 'only screen and (min-width: #{$sm})';
+$screen-md: 'only screen and (min-width: #{$md})';
+$screen-lg: 'only screen and (min-width: #{$lg})';
+$screen-xl: 'only screen and (min-width: #{$xl})';
+
+$screen-only-xs: 'only screen and (max-width: #{$sm - 1})';
+$screen-only-sm: 'only screen and (min-width: #{$sm}) and (max-width: #{$md - 1})';
+$screen-only-md: 'only screen and (min-width: #{$md}) and (max-width: #{$lg - 1})';
+
+$screen-max-sm: 'only screen and (max-width: #{$sm - 1})';
+$screen-max-md: 'only screen and (max-width: #{$md - 1})';
+$screen-max-lg: 'only screen and (max-width: #{$lg - 1})';
+
+$container-width: 1020px;
+$side-padding: 30px;
+
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin: 0 auto;
+}
+
+@mixin container {
+  display: block;
+  max-width: $container-width;
+  margin: 0 auto;
+}

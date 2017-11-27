@@ -1,0 +1,92 @@
+.accordion {
+  $accordion-item-padding: 20px 30px;
+  $accordion-button-size: 36px;
+  $accordion-arrow-size: 18px;
+
+  width: 100%;
+
+  &__item {
+    border: 1px solid $accent;
+    border-radius: 10px;
+  }
+
+  &__item + &__item {
+    margin-top: 20px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $accordion-item-padding;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    color: $text;
+    margin: 0;
+  }
+
+  &__button {
+    top: 11px;
+    width: $accordion-button-size;
+    height: $accordion-button-size;
+    background: $white;
+    box-shadow: 0 0 10px 0 $accent;
+    border-radius: 100%;
+
+    &:hover {
+      .accordion__arrow::before,
+      .accordion__arrow::after {
+        top: 8px;
+        background: $primary;
+      }
+
+      .accordion__arrow::before {
+        transform: rotate(-45deg);
+      }
+
+      .accordion__arrow::after {
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__arrow {
+    display: inline-block;
+    position: relative;
+    width: $accordion-arrow-size;
+    height: $accordion-arrow-size;
+    transform: rotate(180deg);
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 6px;
+      width: 12px;
+      height: 4px;
+      background: $accent;
+      content: '';
+      transition: all .3s ease-in-out;
+    }
+
+    &::before {
+      left: 6px;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      right: 6px;
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__body {
+    height: 0;
+    overflow: hidden;
+  }
+
+  &__content {
+    padding: 0 $accordion-item-padding $accordion-item-padding;
+  }
+}

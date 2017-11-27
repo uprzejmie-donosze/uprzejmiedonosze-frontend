@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Link from './link.component';
+import Accordion from './accordion.component';
 
 class Main extends Component {
 
@@ -42,7 +43,7 @@ class Main extends Component {
                     <div className='container'>
                         <div className='row'>Wszystko co musisz wiedzieć o aplikacji</div>
                         <div className='row'>
-                            <p>FAQ Acordeon</p>
+                            <Accordion />
                         </div>
                     </div>
                 </div>
