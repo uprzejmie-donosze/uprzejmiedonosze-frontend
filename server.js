@@ -14,5 +14,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(publicDir, 'index.html'));
 });
 
-app.listen(port);
-console.info('Server started at port', port);
+app.listen(port, 'localhost');
+app.on('listening', function() {
+    console.info('Server started on port %s at %s', server.address().port, server.address().address);
+});
