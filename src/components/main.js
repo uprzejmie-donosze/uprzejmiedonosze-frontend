@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Link from './link.component';
 import Accordion from './accordion.component';
+import Card from './card.component';
 
 class Main extends Component {
 
@@ -39,10 +40,27 @@ class Main extends Component {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className='background'>
                     <section className='segment'>
-                        <h1 className='segment__title segment__title--centered'>Wszystko, co powinieneś wiedzieć o aplikacji</h1>
+                        <h2 className='segment__title segment__title--centered'>
+                            Jak działa Uprzejmie Donoszę?
+                        </h2>
+
+                        <Card
+                            icon='../assets/icons/icon_1.svg'
+                            text='Uprzejmie Donoszę ma być ogólnopolskim rozwiązaniem, pomagającym mieszkańcom w nierównej walce z recydywistami parkowania'
+                            title='Dokumentacja naruszenia'
+                        />
+                    </section>
+                </div>
+
+                <div className='background'>
+                    <section className='segment'>
+                        <h2 className='segment__title segment__title--centered'>
+                            Wszystko, co powinieneś wiedzieć o aplikacji
+                        </h2>
+
                         <Accordion />
                     </section>
                 </div>

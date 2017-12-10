@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 class AccordionItem extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             isOpen: false
@@ -15,7 +15,7 @@ class AccordionItem extends Component {
     render() {
         return (
             <li
-              className={`accordionItem ${this.state.isOpen ? 'accordionItem--open' : ''}`} 
+              className={`accordionItem ${this.state.isOpen ? 'accordionItem--open' : ''}`}
               onClick={this.toggleAccordionItem}
             >
               <div className="accordionItem__header">

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="186px" height="188px" viewBox="0 0 186 188" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <circle id="path-1" cx="78" cy="78" r="78"></circle>
+        <filter x="-13.5%" y="-13.5%" width="126.9%" height="126.9%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.870588235   0 0 0 0 0.890196078   0 0 0 0 0.925490196  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-4" x="6" y="16.5511811" width="78" height="110.346457" rx="4"></rect>
+        <rect id="path-5" x="38.9189189" y="129.748031" width="17.027027" height="16.976378" rx="8.48818898"></rect>
+        <circle id="path-6" cx="78" cy="78" r="78"></circle>
+        <filter x="-14.1%" y="-14.1%" width="128.2%" height="128.2%" filterUnits="objectBoundingBox" id="filter-7">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.870588235   0 0 0 0 0.890196078   0 0 0 0 0.925490196  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="-97.5131443%" y1="50%" x2="103.378576%" y2="50%" id="linearGradient-8">
+            <stop stop-color="#554481" offset="0%"></stop>
+            <stop stop-color="#567BE2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile" transform="translate(-530.000000, -2333.000000)">
+            <g id="Group-25" transform="translate(545.000000, 2347.000000)">
+                <g id="Group-35">
+                    <g id="Group-12">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Oval-6">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+                            <use fill="#F0F1F5" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="Group-11" mask="url(#mask-2)">
+                            <g transform="translate(33.000000, 33.000000)">
+                                <g id="Group-10" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Group-8">
+                                        <rect id="Rectangle-9" stroke="#567BE2" stroke-width="2" x="1" y="1" width="88" height="152" rx="17"></rect>
+                                        <g id="Rectangle-9">
+                                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                                            <rect stroke="#567BE2" stroke-width="2" x="7" y="17.5511811" width="76" height="108.346457" rx="4"></rect>
+                                        </g>
+                                        <circle id="Oval-7" stroke="#567BE2" fill="#D8D8D8" cx="45.5" cy="10.5" r="1.5"></circle>
+                                        <g id="Rectangle-9">
+                                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                                            <rect stroke="#567BE2" stroke-width="2" x="39.9189189" y="130.748031" width="15.027027" height="14.976378" rx="7.48818898"></rect>
+                                        </g>
+                                    </g>
+                                    <rect id="Rectangle-3" fill="#DEE3EC" x="18" y="26" width="55" height="15" rx="5"></rect>
+                                    <rect id="Rectangle-3" fill="#DEE3EC" x="18" y="47" width="55" height="15" rx="5"></rect>
+                                    <rect id="Rectangle-3" fill="#DEE3EC" x="18" y="69" width="55" height="15" rx="5"></rect>
+                                    <rect id="Rectangle-6" fill="#FFFFFF" x="24" y="30" width="7" height="7" rx="2"></rect>
+                                    <polyline id="Path-3" stroke="#567BE2" points="29.8807535 33.1902733 28.0541711 34.8701645 25.5091929 31.7689723"></polyline>
+                                    <rect id="Rectangle-6" fill="#FFFFFF" x="24" y="51" width="7" height="7" rx="2"></rect>
+                                    <polyline id="Path-3" stroke="#567BE2" points="29.8807535 54.1902733 28.0541711 55.8701645 25.5091929 52.7689723"></polyline>
+                                    <rect id="Rectangle-6" fill="#FFFFFF" x="24" y="74" width="7" height="7" rx="2"></rect>
+                                    <polyline id="Path-3" stroke="#567BE2" points="29.8807535 77.1902733 28.0541711 78.8701645 25.5091929 75.7689723"></polyline>
+                                    <rect id="Rectangle-3" fill="#DEE3EC" x="18" y="90" width="55" height="15" rx="5"></rect>
+                                </g>
+                                <rect id="Rectangle-6" stroke="none" fill="#FFFFFF" fill-rule="evenodd" x="24" y="95" width="7" height="7" rx="2"></rect>
+                                <polyline id="Path-3" stroke="#567BE2" stroke-width="1" fill="none" points="29.8807535 98.1902733 28.0541711 99.8701645 25.5091929 96.7689723"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g id="Group-12" transform="translate(0.000000, 3.000000)">
+                    <g id="Group-5">
+                        <g id="Oval-6">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                            <use stroke="#567BE2" stroke-width="2" xlink:href="#path-6"></use>
+                        </g>
+                    </g>
+                    <path d="M78,156 C121.07821,156 156,121.07821 156,78 C156,34.9217895 121.07821,0 78,0" id="Oval-6" stroke="url(#linearGradient-8)" stroke-width="9"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="193px" height="187px" viewBox="0 0 193 187" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <circle id="path-1" cx="78" cy="80" r="78"></circle>
+        <filter x="-13.5%" y="-13.5%" width="126.9%" height="126.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.870588235   0 0 0 0 0.890196078   0 0 0 0 0.925490196  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="86" cy="78" r="78"></circle>
+        <filter x="-14.1%" y="-14.1%" width="128.2%" height="128.2%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.870588235   0 0 0 0 0.890196078   0 0 0 0 0.925490196  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="-97.5131443%" y1="50%" x2="103.378576%" y2="50%" id="linearGradient-5">
+            <stop stop-color="#554481" offset="0%"></stop>
+            <stop stop-color="#567BE2" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-6" x="5" y="25" width="40" height="62" rx="4"></rect>
+        <rect id="path-7" x="21" y="89" width="9" height="9" rx="4.5"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile" transform="translate(-725.000000, -2093.000000)">
+            <g id="Group-36" transform="translate(739.000000, 2105.000000)">
+                <g id="Group-5" transform="translate(0.000000, 3.000000)">
+                    <g id="Oval-6">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#F0F1F5" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="Oval-6">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use stroke="#567BE2" stroke-width="2" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+                <path d="M86.5,0 C40.9365081,0 4,36.9365081 4,82.5 L13,82.5 C13,41.9070709 45.9070709,9 86.5,9 L86.5,0 Z" id="Oval-6" fill="url(#linearGradient-5)" fill-rule="nonzero"></path>
+                <g id="Group-8" transform="translate(56.000000, 29.000000)">
+                    <rect id="Rectangle-9" stroke="#567BE2" stroke-width="2" x="1" y="18" width="48" height="84" rx="10"></rect>
+                    <g id="Group-7" transform="translate(41.000000, 0.000000)" fill="#567BE2">
+                        <rect id="Rectangle-5" x="0" y="0" width="2" height="12" rx="1"></rect>
+                        <rect id="Rectangle-5" transform="translate(21.000000, 26.000000) rotate(90.000000) translate(-21.000000, -26.000000) " x="20" y="20" width="2" height="12" rx="1"></rect>
+                        <rect id="Rectangle-5" transform="translate(17.239054, 10.622770) rotate(44.000000) translate(-17.239054, -10.622770) " x="16.2390543" y="4.6227701" width="2" height="12" rx="1"></rect>
+                    </g>
+                    <g id="Rectangle-9">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-6"></use>
+                        <rect stroke="#567BE2" stroke-width="2" x="6" y="26" width="38" height="60" rx="4"></rect>
+                    </g>
+                    <g id="Rectangle-9">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        <rect stroke="#567BE2" stroke-width="2" x="22" y="90" width="7" height="7" rx="3.5"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="193px" height="187px" viewBox="0 0 193 187" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <circle id="path-1" cx="78" cy="80" r="78"></circle>
+        <filter x="-13.5%" y="-13.5%" width="126.9%" height="126.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.870588235   0 0 0 0 0.890196078   0 0 0 0 0.925490196  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="86" cy="78" r="78"></circle>
+        <filter x="-14.1%" y="-14.1%" width="128.2%" height="128.2%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.870588235   0 0 0 0 0.890196078   0 0 0 0 0.925490196  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="-97.5131443%" y1="50%" x2="103.378576%" y2="50%" id="linearGradient-5">
+            <stop stop-color="#554481" offset="0%"></stop>
+            <stop stop-color="#567BE2" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,37 L42.5690551,2.20193388 L42.5690551,2.20193388 C45.5495685,-0.234486269 49.8427061,-0.202642357 52.7867498,2.27772259 L94,37 L94,89 L0,89 L0,37 Z" id="path-6"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile" transform="translate(-732.000000, -2609.000000)">
+            <g id="Group-26" transform="translate(746.000000, 2619.000000)">
+                <g id="Group-5" transform="translate(0.000000, 5.000000)">
+                    <g id="Oval-6">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#F0F1F5" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="Oval-6">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use stroke="#567BE2" stroke-width="2" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+                <path d="M86,165.5 C107.65045,165.5 127.992889,157.11798 143.265708,142.387726 C159.28206,126.940352 168.5,105.698751 168.5,83 C168.5,37.4365081 131.563492,0.5 86,0.5 C40.4365081,0.5 3.5,37.4365081 3.5,83 L12.5,83 C12.5,42.4070709 45.4070709,9.5 86,9.5 C126.592929,9.5 159.5,42.4070709 159.5,83 C159.5,103.22992 151.293164,122.141556 137.017852,135.909741 C123.406158,149.037881 105.29624,156.5 86,156.5 L86,165.5 Z" id="Oval-6" fill="url(#linearGradient-5)" fill-rule="nonzero"></path>
+                <g id="Group-19" transform="translate(37.000000, 37.000000)">
+                    <g id="Group-18">
+                        <g id="Group-14">
+                            <g id="Group-15">
+                                <g id="Rectangle-10">
+                                    <use fill="#DEE3EC" fill-rule="evenodd" xlink:href="#path-6"></use>
+                                    <path stroke="#567BE2" stroke-width="2" d="M1,37.4741477 L1,88 L93,88 L93,37.4650946 L52.1424362,3.04248399 C49.566398,0.872164658 45.8099026,0.844301235 43.2019533,2.97616886 L1,37.4741477 Z"></path>
+                                </g>
+                                <path d="M3.14997075,37 L91.122449,37" id="Line-4" stroke="#567BE2" stroke-width="2" stroke-linecap="square"></path>
+                                <g id="Group-13" transform="translate(57.551020, 37.000000)" stroke="#567BE2" stroke-width="2">
+                                    <path d="M35.6025789,0.964133143 L0.307736372,25.7457167" id="Path-6"></path>
+                                </g>
+                                <path d="M0.920703819,37.3579831 L36.9285714,62.5" id="Path-5" stroke="#567BE2" stroke-width="2"></path>
+                            </g>
+                        </g>
+                        <g id="Group-17" transform="translate(20.142857, 9.000000)" stroke="#567BE2" stroke-width="2">
+                            <path d="M0.225430898,41.7984129 L0.225430898,4.2056329 L0.225430898,4.2056329 C0.225430898,1.9964939 2.0162919,0.205632896 4.2254309,0.205632896 L51.2371856,0.205632896 L51.2371856,0.205632896 C53.4463246,0.205632896 55.2371856,1.9964939 55.2371856,4.2056329 L55.2371856,41.7984129 L27.7313083,64.3789369 L0.225430898,41.7984129 Z" id="Path-7" fill="#FFFFFF"></path>
+                            <g id="Group-16" transform="translate(8.632653, 7.000000)" stroke-linecap="square">
+                                <path d="M30.2142857,1 L37.8877551,1" id="Line-5"></path>
+                                <path d="M0.479591837,8 L5.75510204,8" id="Line-5"></path>
+                                <path d="M0.479591837,12 L12.4693878,12" id="Line-5"></path>
+                                <path d="M0.479591837,20 L25.8979592,20" id="Line-5"></path>
+                                <path d="M0.479591837,25 L34.5306122,25" id="Line-5"></path>
+                                <path d="M0.479591837,30 L28.7755102,30" id="Line-5"></path>
+                                <path d="M0.479591837,36 L32.6122449,36" id="Line-5"></path>
+                            </g>
+                        </g>
+                    </g>
+                    <path d="M5,88 L34.8659841,64.0109579 L34.8659841,64.0109579 C42.6118115,57.789332 53.657743,57.8471177 61.3380526,64.1494438 L90,87.6689306 L5,88 Z" id="Path-4" stroke="#567BE2" stroke-width="2" fill="#DEE3EC"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
