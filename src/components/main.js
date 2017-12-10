@@ -39,14 +39,14 @@ class Main extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='content dim'>
-                    <div className='container'>
-                        <div className='row'>Wszystko co musisz wiedzieć o aplikacji</div>
-                        <div className='row'>
-                            <Accordion />
-                        </div>
-                    </div>
+                
+                <div className='background'>
+                    <section className='segment'>
+                        <h1 className='segment__title segment__title--centered'>Wszystko, co powinieneś wiedzieć o aplikacji</h1>
+                        <Accordion />
+                    </section>
                 </div>
+
                 <div className='content'>
                     <div className='container'>
                         <div className='row'>

@@ -1,0 +1,15 @@
+.segment {
+  @include container;
+
+  padding: $segment-spacing $side-padding;
+
+  &__title {
+    font-size: 2.5rem;
+
+    &--centered {
+      margin: 0 auto;
+      max-width: 500px;
+      text-align: center;
+    }
+  }
+}

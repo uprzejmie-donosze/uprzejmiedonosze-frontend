@@ -1,11 +1,12 @@
 .accordionItem {
   $accordion-item-padding: 20px;
   $accordion-item-spacing: 30px;
-  $accordion-button-size: 36px;
-  $accordion-arrow-size: 18px;
-  $accordion-arrow-position: 6px;
+  $accordion-button-size: 32px;
+  $accordion-arrow-size: 16px;
+  $accordion-arrow-position: 5px;
 
   padding: $accordion-item-padding $accordion-item-padding;
+  margin-right: $accordion-button-size/2;
   border: 1px solid $accent;
   border-radius: 10px;
   transition: all .3s ease-in-out;
@@ -15,25 +16,29 @@
   }
 
   &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: relative;
   }
 
   &__title {
-    font-size: 1.25rem;
+    width: 90%;
+    font-size: 1.5rem;
+    font-weight: 300;
     color: $text;
     margin: 0;
     transition: color .4s ease-in-out;
   }
 
   &__button {
-    top: 11px;
+    position: absolute;
+    top: calc(50% - #{$accordion-arrow-size});
+    right: -$accordion-button-size;
+    flex: 0 0 auto;
     width: $accordion-button-size;
     height: $accordion-button-size;
     background: $white;
     box-shadow: 0 0 10px 0 $accent;
     border-radius: 100%;
+    transition: background .5s ease;
   }
 
   &__arrow {
@@ -50,6 +55,7 @@
       width: 12px;
       height: 4px;
       background: $accent;
+      border-radius: 2px;
       content: '';
       transition: all .3s ease-in-out;
     }
@@ -72,6 +78,9 @@
 
   &__content {
     padding-top: $accordion-item-padding;
+    font-size: 14px;
+    font-weight: 500;
+    color: #747a85;
   }
 
   &--open {
@@ -83,10 +92,14 @@
       color: $primary;
     }
 
+    .accordionItem__button {
+      background: $primary;
+    }
+
     .accordionItem__arrow::after,
     .accordionItem__arrow::before {
-      top: 8px;
-      background: $primary;
+      top: 6px;
+      background: $white;
     }
 
     .accordionItem__arrow::before {
@@ -95,6 +108,12 @@
 
     .accordionItem__arrow::after {
       transform: rotate(45deg);
+    }
+  }
+
+  @media #{$screen-md} {
+    &__content {
+      width: 90%;
     }
   }
 }

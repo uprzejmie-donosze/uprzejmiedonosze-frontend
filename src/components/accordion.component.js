@@ -8,6 +8,7 @@ export default class Accordion extends Component {
             <ul className="accordion">
               <AccordionItem />
               <AccordionItem />
+              <AccordionItem />
             </ul>
         );
     }

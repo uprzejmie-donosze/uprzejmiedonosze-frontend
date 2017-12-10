@@ -17,7 +17,8 @@ $screen-max-md: 'only screen and (max-width: #{$md - 1})';
 $screen-max-lg: 'only screen and (max-width: #{$lg - 1})';
 
 $container-width: 1020px;
-$side-padding: 30px;
+$side-padding: 25px;
+$segment-spacing: 100px;
 
 .container {
   width: 100%;
