@@ -19,9 +19,7 @@ class AccordionItem extends Component {
               onClick={this.toggleAccordionItem}
             >
               <div className="accordionItem__header">
-                <h4 className="accordionItem__title">
-                  Co jeśli kierowca nie przyjmie mandatu?
-                </h4>
+                <h4 className="accordionItem__title">{this.props.title}</h4>
 
                 <button type="button" className="accordionItem__button">
                   <span className="accordionItem__arrow"></span>
@@ -32,9 +30,7 @@ class AccordionItem extends Component {
                 className="accordionItem__body"
                 style={{ height: `${this.state.isOpen && this.refs.content ? this.refs.content.clientHeight : 0}px` }}
               >
-                <p className="accordionItem__content" ref='content'>
-                  Uprzejmie Donoszę ma być ogólnopolskim rozwiązaniem, pomagającym mieszkańcom w nierównej walce z recydywistami parkowania. 
-                </p>
+                <p className="accordionItem__content" ref='content'>{this.props.text}</p>
               </div>
             </li>
         );

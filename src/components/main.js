@@ -4,8 +4,9 @@ import Link from './link.component';
 import Accordion from './accordion.component';
 import Card from './card.component';
 
-class Main extends Component {
+import { accordionData } from '../data/accordion.data';
 
+class Main extends Component {
     render() {
         return (
             <div>
@@ -61,7 +62,7 @@ class Main extends Component {
                             Wszystko, co powinieneś wiedzieć o aplikacji
                         </h2>
 
-                        <Accordion />
+                        <Accordion data={accordionData}/>
                     </section>
                 </div>
 
