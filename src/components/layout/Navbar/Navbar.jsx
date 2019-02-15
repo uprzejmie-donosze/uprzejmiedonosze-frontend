@@ -9,7 +9,7 @@ import SignedOutLinks from '../SignedOutLinks/SignedOutLinks';
 
 const Navbar = (props) => {
   const { auth, profile } = props;
-  const links = auth.isUserAutorized ? <SignedInLinks profile={profile} /> : <SignedOutLinks />;
+  const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />;
 
   return (
     <Nav>
@@ -31,8 +31,7 @@ Navbar.defaultProps = {
 
 Navbar.propTypes = {
   auth: PropTypes.shape({
-    uid: PropTypes.number,
-    isUserAutorized: PropTypes.bool
+    uid: PropTypes.string
   }),
   profile: PropTypes.shape({
     name: PropTypes.string
@@ -57,8 +56,8 @@ const Nav = styled.nav`
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
-    profile: null // TO DO
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
   };
 };
 

@@ -11,7 +11,7 @@ const SignedInLinks = (props) => {
       <Link to='/slsl'>Your Profile</Link>
       <Link to='/slsl/lddld'>Your Reports</Link>
 
-      <button onClick={() => props.signOut()}>logout</button>
+      <button onClick={props.signOut}>logout</button>
     </Fragment>
   );
 };

@@ -1,6 +1,7 @@
 const initialState = {
   uid: null,
-  isUserAutorized: false
+  isUserAutorized: false,
+  isUserRegistered: false
 };
 
 const authReducer = (state, action) => {

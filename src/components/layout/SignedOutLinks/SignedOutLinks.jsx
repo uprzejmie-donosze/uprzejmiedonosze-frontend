@@ -5,7 +5,7 @@ import { signInUser } from '../../../store/actions/authActions';
 
 const SignedOutLinks = (props) => {
   return (
-    <button onClick={() => props.signIn(12331)}>login</button>
+    <button onClick={() => props.signIn()}>login</button>
   );
 };
 
@@ -15,7 +15,7 @@ SignedOutLinks.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   signIn: (uid) => dispatch(signInUser(uid))
+   signIn: () => dispatch(signInUser())
   };
 };
 

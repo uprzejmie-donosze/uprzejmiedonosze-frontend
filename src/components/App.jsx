@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Router } from "@reach/router";
-
-import FirebaseService from './../services/FirebaseService';
 import Navbar from './layout/Navbar/Navbar';
 
 // logout links

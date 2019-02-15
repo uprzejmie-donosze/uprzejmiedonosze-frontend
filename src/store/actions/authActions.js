@@ -1,13 +1,19 @@
-export const signInUser = (uid) => {
-  return (dispatch, getState, { getFirebase }) => {
+export const signInUser = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
     const authProvider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(authProvider).then((result) => {
-      const token = result.credential.accessToken;
-      const user = result.user;
+    firebase.auth().signInWithPopup(authProvider).then((resp) => {
+      firestore.collection('users').doc(resp.user.uid).set({
+        name: resp.user.displayName,
+        email: resp.user.email,
+        address: 'address',
+        passport: '111'
+      });
 
-      dispatch({ type: 'LOGIN_USER', uid: uid, isUserAutorized: true });
+    }).then(() => {
+      dispatch({ type: 'LOGIN_USER', uid: 111, isUserAutorized: true });
 
     }).catch((error) => {
       // TO DO dispatch error
@@ -21,7 +27,11 @@ export const signInUser = (uid) => {
 };
 
 export const signOutUser = () => {
-  return (dispatch, getState) => {
-    dispatch({ type: 'LOGOUT_USER', uid: null, isUserAutorized: false });
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase.auth().signOut().then(() => {
+      dispatch({ type: 'LOGOUT_USER', uid: null, isUserAutorized: false });
+    });
   };
 };
