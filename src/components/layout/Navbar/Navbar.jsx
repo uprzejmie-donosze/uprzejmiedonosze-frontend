@@ -7,15 +7,19 @@ import PropTypes from 'prop-types';
 import SignedInLinks from '../SignedInLinks/SignedInLinks';
 import SignedOutLinks from '../SignedOutLinks/SignedOutLinks';
 
+import * as S from './styles';
+
 const Navbar = (props) => {
   const { auth, profile } = props;
   const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />;
 
   return (
-    <Nav>
-      <Link to='/'>Uprzejmie Donoszę</Link>
-      {links}
-    </Nav>
+    <S.Navbar>
+      <S.Navbar.Container>
+        <Link to='/'>Uprzejmie Donoszę</Link>
+        {links}
+      </S.Navbar.Container>
+    </S.Navbar>
   );
 };
 
@@ -34,25 +38,10 @@ Navbar.propTypes = {
     uid: PropTypes.string
   }),
   profile: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
+    photoURL: PropTypes.string
   })
 };
-
-const Nav = styled.nav`
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  background: green;
-  margin-bottom: 1rem;
-
-  > a {
-    padding: .5rem 1rem;
-    font-size: .8rem;
-    font-weight: 600;
-    font-family: sans-serif;
-    color: white;
-  }
-`;
 
 const mapStateToProps = (state) => {
   return {

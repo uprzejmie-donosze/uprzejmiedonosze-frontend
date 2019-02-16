@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Router } from "@reach/router";
 import Navbar from './layout/Navbar/Navbar';
+import GlobalStyle from '../styles/globalStyles';
+
+import Home from '../pages/Home';
+import FormNew from '../pages/FormNew';
 
 // logout links
-const Home = () => <div>about</div>;
 const LogIn = () => <div>login</div>;
 const ReportPreview = () => <div>Report preview</div>; // note: different mode for unregistered user
 
@@ -23,12 +26,13 @@ class App extends Component {
   render() {
     return (
       <AppContainer>
+        <GlobalStyle />
         <Navbar />
 
         <Router>
           <Home path='/' />
           <LogIn path='/login' />
-          <NewForm path='/report/new' />
+          <FormNew path='/report' />
           <FormConfirm path='/report/create' />
           <FormThankYou path='/report/confirmation' />
           <Profile path='/user/:userId' />
@@ -42,11 +46,6 @@ class App extends Component {
 
 const AppContainer = styled.div`
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1rem;
-  text-align: center;
-  color: green;
 `;
 
 export default App;
