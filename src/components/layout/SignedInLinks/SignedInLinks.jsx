@@ -2,16 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { signOutUser } from '../../../store/actions/authActions';
+import { openNavbar, closeNavbar } from '../../../store/actions/appActions';
 
 import * as S from './styles';
 class SignedInLinks extends Component {
-  state = {
-    isNavOpened: false
-  }
-
   toggleMenu = () => {
-    this.setState(state => state.isNavOpened = !state.isNavOpened);
+    this.props.isNavOpened ? this.props.closeNav() : this.props.openNav();
   }
 
   render() {
@@ -27,9 +25,9 @@ class SignedInLinks extends Component {
           </svg>
         </S.SignInMenu.Burger>
 
-        <S.SignInMenu.Overlay onClick={() => this.toggleMenu()} isNavOpened={this.state.isNavOpened} />
+        <S.SignInMenu.Overlay onClick={() => this.toggleMenu()} isNavOpened={this.props.isNavOpened} />
 
-        <S.SignInMenu isNavOpened={this.state.isNavOpened}>
+        <S.SignInMenu isNavOpened={this.props.isNavOpened}>
           <S.SignInMenu.Header>
             <S.SignInMenu.Avatar>
               <S.SignInMenu.Photo src={photoURL} />
@@ -40,15 +38,15 @@ class SignedInLinks extends Component {
 
           <S.SignInMenu.Body>
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link to='app'>Home</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link to='app/report/new'>New report</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link to={`app/user/${this.props.user.uid}`}>Your Profile</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link to={`app/user/${this.props.user.uid}/reports`}>Your Reports</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='app'>Home</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='app/report/new'>New report</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to={`app/user/${this.props.user.uid}`}>Your Profile</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to={`app/user/${this.props.user.uid}/reports`}>Your Reports</Link></S.SignInMenu.Item>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link to='/regulations'>Regulations</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link to='/faq'>FAQ</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='/regulations'>Regulations</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='/faq'>FAQ</Link></S.SignInMenu.Item>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Footer>
@@ -76,12 +74,17 @@ SignedInLinks.propTypes = {
   }),
   user: PropTypes.shape({
     uid: PropTypes.string
-  })
+  }),
+  isNavOpened: PropTypes.bool,
+  openNav: PropTypes.func,
+  closeNav: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOutUser()),
+    openNav: () => dispatch(openNavbar()),
+    closeNav: () => dispatch(closeNavbar()),
   };
 };
 
@@ -89,7 +92,8 @@ const mapStateToProps = (state) => {
   return {
     user: {
       uid: state.firebase.auth.uid
-    }
+    },
+    isNavOpened: state.app.isNavOpened
   };
 };
 
