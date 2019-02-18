@@ -25,8 +25,8 @@ export const signInUser = () => {
           });
         }
       }).then(() => {
-        dispatch({ type: 'LOGIN_USER', uid: 111, isUserAutorized: true });
-        navigate('/');
+        dispatch({ type: 'LOGIN_USER', uid: resp.user.uid, isUserAutorized: true });
+        navigate('/app');
 
       }).catch(error => {
         console.log(error);
@@ -46,6 +46,7 @@ export const signOutUser = () => {
 
     firebase.auth().signOut().then(() => {
       dispatch({ type: 'LOGOUT_USER', uid: null, isUserAutorized: false });
+      navigate('/');
     });
   };
 };

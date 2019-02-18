@@ -40,9 +40,10 @@ class SignedInLinks extends Component {
 
           <S.SignInMenu.Body>
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link to='/report/new'>New report</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link to='/slsl'>Your Profile</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link to='/slsl/lddld'>Your Reports</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link to='app'>Home</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link to='app/report/new'>New report</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link to={`app/user/${this.props.user.uid}`}>Your Profile</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link to={`app/user/${this.props.user.uid}/reports`}>Your Reports</Link></S.SignInMenu.Item>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Menu>
@@ -72,13 +73,24 @@ SignedInLinks.propTypes = {
   profile: PropTypes.shape({
     name: PropTypes.string,
     photoURL: PropTypes.string
+  }),
+  user: PropTypes.shape({
+    uid: PropTypes.string
   })
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signOut: () => dispatch(signOutUser())
+    signOut: () => dispatch(signOutUser()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignedInLinks);
+const mapStateToProps = (state) => {
+  return {
+    user: {
+      uid: state.firebase.auth.uid
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);

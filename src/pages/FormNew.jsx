@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { Redirect, Link } from '@reach/router';
 
 import { Container } from '../styles/styledComponents';
 
 const FormNew = ({ auth }) => {
-  if (!auth.uid) navigate('/login');
+  if (!auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
   return (
     <Container>
@@ -63,8 +63,8 @@ const FormNew = ({ auth }) => {
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
-        <button style={{background: 'white'}}>back</button>
-        <button style={{background: 'white'}}>next</button>
+        <Link style={{background: 'white'}} to="/app">back home</Link>
+        <Link style={{background: 'white'}} to="/app/report/create">next</Link>
       </div>
     </Container>
   );

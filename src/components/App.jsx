@@ -7,20 +7,24 @@ import Navbar from './layout/Navbar/Navbar';
 import GlobalStyle from '../styles/globalStyles';
 
 import Home from '../pages/Home';
+import Login from '../pages/Login';
+import UserProfile from '../pages/UserProfile';
+import Reports from '../pages/Reports';
+import FormConfirm from '../pages/FormConfirm';
+
 import FormNew from '../pages/FormNew';
+import { Container } from '../styles/styledComponents';
 
 // logout links
-const LogIn = () => <div>login</div>;
-const ReportPreview = () => <div>Report preview</div>; // note: different mode for unregistered user
+const Landing = () => <Container>landing</Container>;
+const ReportPreview = () => <Container>Report preview</Container>; // note: different mode for unregistered user
 
 // login links
-const NewForm = () => <div>New form</div>;
-const FormConfirm = () => <div>Form Confirm</div>;
 const FormEdit = () => <div>Form Edit</div>;
 const FormThankYou = () => <div>Thank you</div>;
-const Profile = () => <div>user profile</div>;
 const ReportPreview2 = () => <div>Report preview</div>;
 const Register = () => <div>Register Page</div>;
+const NotFound = () => <Container>Sorry, nothing here</Container>;
 
 class App extends Component {
   render() {
@@ -30,19 +34,26 @@ class App extends Component {
         <Navbar />
 
         <Router>
-          <Home path='/' />
-          <LogIn path='/login' />
-          <FormNew path='/report' />
-          <FormConfirm path='/report/create' />
-          <FormThankYou path='/report/confirmation' />
-          <Profile path='/user/:userId' />
-          <ReportPreview path='/:reportId' />
-          <Register path='/:user/register' />
+          <Landing path='/' />
+          <Login path='login' />
+
+          <Home path='app' />
+          <UserProfile path='app/user/:userId' />
+          <Register path='app/:user/:userId/register' />
+
+          <Reports path='app/user/:userId/reports'/>
+          <ReportPreview path='app/:reportId' />
+
+          <FormNew path='app/report/new' />
+          <FormConfirm path='app/report/create' />
+          <FormThankYou path='app/report/confirmation' />
+
+          <NotFound default />
         </Router>
       </AppContainer>
     );
-  }
-}
+  };
+};
 
 const AppContainer = styled.div`
   width: 100%;
