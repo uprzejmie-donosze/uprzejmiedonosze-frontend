@@ -1,5 +1,6 @@
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: 'production',
@@ -10,7 +11,10 @@ const config = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'src/redirect', to: '' },
+    ])
   ]
 };
 

@@ -39,6 +39,7 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-styled-components": "^1.10.0",
     "babel-polyfill": "^6.26.0",
+    "copy-webpack-plugin": "^4.6.0",
     "eslint": "^5.13.0",
     "eslint-plugin-react": "^7.12.4",
     "eslint-watch": "^4.0.2",
