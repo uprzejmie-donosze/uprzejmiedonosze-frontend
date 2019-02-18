@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
     display: block;
     width: 100%;
   }
+
+  img {
+    max-width: 100%;
+  }
 `;
 
 export default GlobalStyle;
