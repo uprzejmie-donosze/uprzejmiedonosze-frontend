@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from '@reach/router';
@@ -6,30 +6,32 @@ import { Redirect } from '@reach/router';
 import { signInUser } from '../store/actions/authActions';
 import { Container } from '../styles/styledComponents';
 
-const Login = (props) => {
-  if (props.auth.uid) return <Redirect from="login" to='app' noThrow />;
+class Login extends Component {
+  render() {
+    if (this.props.auth.uid) return <Redirect from="login" to='app' noThrow />;
 
-  return (
-    <Container>
-      <h1>Zaloguj się</h1>
-      <button onClick={() => props.signIn()}>
-        zaloguj się przez Google
-      </button>
+    return (
+      <Container>
+        <h1>Zaloguj się</h1>
+        <button onClick={() => this.props.signIn()} disabled={this.props.waitingForAuth}>
+          zaloguj się przez Google
+        </button>
 
-      <p>
-        <span>Nie masz konta Google? Mozesz je załozyć </span>
-        <a href="https://support.google.com/mail/answer/56256?hl=pl" target="_blank" rel="noopener noreferrer">tutaj</a>
-      </p>
-    </Container>
-  );
+        <p>
+          <span>Nie masz konta Google? Możesz je założyć </span>
+          <a href="https://support.google.com/mail/answer/56256?hl=pl" target="_blank" rel="noopener noreferrer">tutaj</a>
+        </p>
+      </Container>
+    );
+  }
 };
-
 
 Login.propTypes = {
   signIn: PropTypes.func,
   auth: PropTypes.shape({
     uid: PropTypes.string
-  })
+  }),
+  waitingForAuth: PropTypes.bool
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -40,7 +42,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-   auth: state.firebase.auth
+   auth: state.firebase.auth,
+   waitingForAuth: state.auth.waitingForAuth
   };
 };
 

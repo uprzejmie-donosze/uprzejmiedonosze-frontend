@@ -6,12 +6,14 @@ export const signInUser = () => {
     const firestore = getFirestore();
     const authProvider = new firebase.auth.GoogleAuthProvider();
 
+    dispatch({ type: 'auth/DISABLED_AUTH' });
+
     firebase.auth().signInWithPopup(authProvider).then((resp) => {
       const userFromCollection = firestore.collection('users').doc(resp.user.uid).get();
 
       userFromCollection.then((doc) => {
         if (!doc.data()) {
-          firestore.collection('users').doc(resp.user.uid).set({
+          firestore.collection('users').doc(resp.user.uid.a).set({
             name: resp.user.displayName,
             email: resp.user.email,
             photoURL: resp.user.photoURL,
@@ -25,17 +27,14 @@ export const signInUser = () => {
           });
         }
       }).then(() => {
-        dispatch({ type: 'LOGIN_USER', uid: resp.user.uid, isUserAutorized: true });
+        dispatch({ type: 'auth/LOGIN_USER_SUCCESS' });
         navigate('/app');
 
       }).catch(error => {
-        console.log(error);
+        dispatch({ type: 'auth/LOGIN_USER_ERROR', authError: error });
       });
     }).catch((error) => {
-      const errorCode = error.code; // TO DO dispatch error
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = error.credential;
+      dispatch({ type: 'auth/LOGIN_USER_ERROR', authError: error });
     });
   };
 };
@@ -45,8 +44,10 @@ export const signOutUser = () => {
     const firebase = getFirebase();
 
     firebase.auth().signOut().then(() => {
-      dispatch({ type: 'LOGOUT_USER', uid: null, isUserAutorized: false });
+      dispatch({ type: 'auth/LOGOUT_USER_SUCCESS' });
       navigate('/');
+    }).catch(error => {
+      dispatch({ type: 'auth/LOGOUT_USER_ERROR', authError: error });
     });
   };
 };

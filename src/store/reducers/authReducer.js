@@ -1,23 +1,42 @@
 const initialState = {
-  uid: null,
-  isUserAutorized: false,
-  isUserRegistered: false
+  authError: null,
+  waitingForAuth: false
 };
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN_USER":
+    case "auth/LOGIN_USER_SUCCESS":
       return {
         ...state,
-        uid: action.uid,
-        isUserAutorized: action.isUserAutorized
+        authError: false,
+        waitingForAuth: false
       };
 
-    case "LOGOUT_USER":
+    case "auth/LOGIN_USER_ERROR":
       return {
         ...state,
-        uid: action.uid,
-        isUserAutorized: action.isUserAutorized
+        authError: action.authError.message,
+        waitingForAuth: false
+      };
+
+    case "auth/LOGOUT_USER_SUCCESS":
+      return {
+        ...state,
+        authError: false,
+        waitingForAuth: false
+      };
+
+    case "auth/LOGOUT_USER_ERROR":
+      return {
+        ...state,
+        authError: action.authError.message,
+        waitingForAuth: false
+      };
+
+    case "auth/DISABLED_AUTH":
+      return {
+        ...state,
+        waitingForAuth: true
       };
 
     default:
