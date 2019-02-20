@@ -13,7 +13,7 @@ class FormConfirm extends Component {
   };
 
   componentDidMount() {
-    if(this.props.auth.uid) {
+    if (this.props.auth.uid) {
       this.props.getFormData(this.props.raportId);
     }
   }
@@ -67,7 +67,11 @@ FormConfirm.propTypes = {
   auth: PropTypes.shape({
     uid: PropTypes.string
   }),
-  getFormData: PropTypes.func
+  getFormData: PropTypes.func,
+  raportId: PropTypes.string,
+  form: PropTypes.shape({
+    id: PropTypes.string,
+  })
 };
 
 const mapStateToProps = (state) => {
