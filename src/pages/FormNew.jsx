@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from '@reach/router';
+import { Redirect, Link, navigate } from '@reach/router';
 import Script from 'react-load-script';
 
 import { Container } from '../styles/styledComponents';
-
 import googleMapsConfig from '../config/googleMapsConfig';
-import { autocompleteLocation, addComment, addCrimeType, addCarNumber, submitReport } from '../store/actions/formActions';
+import {
+  autocompleteLocation,
+  addComment,
+  addCrimeType,
+  addCarNumber,
+  submitReport,
+  createNewReport,
+  getFormData
+} from '../store/actions/formActions';
 
 class FormNew extends Component {
   autocompleteRef = React.createRef();
-
-  componentDidMount() {
-    // dispatch action => create new report
-  }
 
   handleScriptLoad = () => {
     const { completeLocation } = this.props;
@@ -33,12 +36,28 @@ class FormNew extends Component {
     autocomplete.addListener('place_changed', () => completeLocation(autocomplete.getPlace()));
   }
 
+  componentDidMount() {
+    // console.log(this.props.profile.draftId);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { profile } = this.props;
+
+    if(profile.name !== prevProps.profile.name && profile.draftId !== undefined && profile.draftId) {
+      this.props.getFormData(profile.draftId);
+    }
+  }
+
+  submit() {
+    console.log('submit')
+    navigate(`/app/report/${this.props.form.id}`);
+  }
+
   render() {
     if (!this.props.auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
     return (
       <Container>
-        <button onClick={this.props.submitReport}>submit form</button>
         <div>
           <span style={{color: '#34dd7eff'}}>New report &gt; </span>
           <span style={{color: 'lightgray'}}>Confirm &gt; </span>
@@ -67,7 +86,7 @@ class FormNew extends Component {
 
           <p style={{padding: '1rem 0'}}>
             <label>Car numbers</label>
-            <input value={this.props.form.carNumber || ''} type="text" onChange={(e) => this.props.addCarNumber(e.target.value)} />
+            <input value={this.props.form.carInfo.plateId || ''} type="text" onChange={(e) => this.props.addCarNumber(e.target.value)} />
           </p>
 
           <p style={{padding: '1rem 0'}}>
@@ -82,8 +101,8 @@ class FormNew extends Component {
           <p>
             <label htmlFor="formCrime1">Crime 1</label>
             <input
-              type="radio" value="1" id="formCrime1"
-              checked={this.props.form.crimeType == 1}
+              type="radio" value={1} id="formCrime1"
+              checked={this.props.form.category == 1}
               onChange={(e) => this.props.addCrimeType(e.target.value)}
             />
           </p>
@@ -91,8 +110,8 @@ class FormNew extends Component {
           <p>
             <label htmlFor="formCrime2">Crime 2</label>
             <input
-              type="radio" value="2" id="formCrime2"
-              checked={this.props.form.crimeType == 2}
+              type="radio" value={2} id="formCrime2"
+              checked={this.props.form.category === 2}
               onChange={(e) => this.props.addCrimeType(e.target.value)}
             />
           </p>
@@ -100,7 +119,10 @@ class FormNew extends Component {
 
         <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
           <Link style={{background: 'white'}} to="/app">back home</Link>
-          <Link style={{background: 'white'}} to="/app/report/create">next</Link>
+
+          <button style={{background: 'white'}} onClick={() => this.props.profile.draftId ? this.submit() : this.props.createNewReport()}>
+            {this.props.profile.draftId ? 'save changes' : 'save report'}
+          </button>
         </div>
         <Script url={googleMapsConfig.url} onLoad={this.handleScriptLoad} />
       </Container>
@@ -113,20 +135,28 @@ FormNew.propTypes = {
     uid: PropTypes.string
   }),
   form: PropTypes.shape({
-    crimeType: PropTypes.string,
-    carNumber: PropTypes.string
+    category: PropTypes.string,
+    carInfo: PropTypes.shape({
+      plateId: PropTypes.string
+    })
+  }),
+  profile: PropTypes.shape({
+    name: PropTypes.string,
   }),
   completeLocation: PropTypes.func,
   addComment: PropTypes.func,
   addCrimeType: PropTypes.func,
   addCarNumber: PropTypes.func,
-  submitReport: PropTypes.func
+  submitReport: PropTypes.func,
+  createNewReport: PropTypes.func,
+  getFormData: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    form: state.form
+    form: state.form.formData,
+    profile: state.firebase.profile
   };
 };
 
@@ -136,7 +166,9 @@ const mapDispatchToProps = (dispatch) => {
     addComment: (text) => dispatch(addComment(text)),
     addCrimeType: (type) => dispatch(addCrimeType(type)),
     addCarNumber: (number) => dispatch(addCarNumber(number)),
-    submitReport: () => dispatch(submitReport())
+    createNewReport: () => dispatch(createNewReport()),
+    submitReport: () => dispatch(submitReport()),
+    getFormData: (reportId) => dispatch(getFormData(reportId))
   };
 };
 
