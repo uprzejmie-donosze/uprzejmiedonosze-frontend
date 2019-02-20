@@ -13,7 +13,8 @@ import {
   addCarNumber,
   submitReport,
   createNewReport,
-  getFormData
+  getFormData,
+  addContextImage
 } from '../store/actions/formActions';
 
 class FormNew extends Component {
@@ -43,13 +44,12 @@ class FormNew extends Component {
   componentDidUpdate(prevProps) {
     const { profile } = this.props;
 
-    if(profile.name !== prevProps.profile.name && profile.draftId !== undefined && profile.draftId) {
+    if (profile.name !== prevProps.profile.name && profile.draftId !== undefined && profile.draftId) {
       this.props.getFormData(profile.draftId);
     }
   }
 
   submit() {
-    console.log('submit')
     navigate(`/app/report/${this.props.form.id}`);
   }
 
@@ -71,7 +71,7 @@ class FormNew extends Component {
 
           <p style={{padding: '1rem 0'}}>
             <label htmlFor="contextImage">Add image</label>
-            <input id="contextImage" type="file" accept="image/jpeg" />
+            <input id="contextImage" type="file" accept="image/jpeg" onChange={(e) => this.props.addContextImage(e.target.files[0])}/>
           </p>
 
           <p style={{padding: '1rem 0'}}>
@@ -125,6 +125,7 @@ class FormNew extends Component {
           </button>
         </div>
         <Script url={googleMapsConfig.url} onLoad={this.handleScriptLoad} />
+        <Script url='https://cdn.jsdelivr.net/npm/exif-js' />
       </Container>
     );
   }
@@ -135,6 +136,7 @@ FormNew.propTypes = {
     uid: PropTypes.string
   }),
   form: PropTypes.shape({
+    id: PropTypes.string,
     category: PropTypes.string,
     carInfo: PropTypes.shape({
       plateId: PropTypes.string
@@ -142,6 +144,7 @@ FormNew.propTypes = {
   }),
   profile: PropTypes.shape({
     name: PropTypes.string,
+    draftId: PropTypes.string
   }),
   completeLocation: PropTypes.func,
   addComment: PropTypes.func,
@@ -149,7 +152,8 @@ FormNew.propTypes = {
   addCarNumber: PropTypes.func,
   submitReport: PropTypes.func,
   createNewReport: PropTypes.func,
-  getFormData: PropTypes.func
+  getFormData: PropTypes.func,
+  addContextImage: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -168,7 +172,8 @@ const mapDispatchToProps = (dispatch) => {
     addCarNumber: (number) => dispatch(addCarNumber(number)),
     createNewReport: () => dispatch(createNewReport()),
     submitReport: () => dispatch(submitReport()),
-    getFormData: (reportId) => dispatch(getFormData(reportId))
+    getFormData: (reportId) => dispatch(getFormData(reportId)),
+    addContextImage: (file) => dispatch(addContextImage(file))
   };
 };
 

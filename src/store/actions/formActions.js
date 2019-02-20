@@ -1,4 +1,5 @@
 import { navigate } from '@reach/router';
+import { readGeoDataFromImage } from '../helpers/formHelpers';
 
 export const autocompleteLocation = (place) => {
   return (dispatch) => {
@@ -43,6 +44,21 @@ export const addCarNumber = (number) => {
   };
 };
 
+export const addContextImage = (file) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const dataFromImg = readGeoDataFromImage(file);
+
+    dataFromImg.then(resp => {
+      console.log(resp);
+      // dispatch add time
+      // google function find address and dispatch address action
+      // resize image
+    }).catch(error => {
+      console.log(error);
+    });
+  };
+};
+
 export const createNewReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const user = getState().firebase.profile;
@@ -55,21 +71,20 @@ export const createNewReport = () => {
     };
 
     dispatch({ type: 'form/CRETE_NEW_REPORT', user: userData });
-
     const firestore = getFirestore();
     const form = getState().form.formData;
+    const id = '13-dd1-22'; // to do generate uid
 
-    firestore.collection('reports').add(form).then(resp => {
-      const newReportId = resp.id;
+    firestore.collection('reports').doc(id).set({ ...form, id: id }).then(resp => {
       const userUid = getState().firebase.auth.uid;
-      dispatch({ type: 'form/ADD_FORMID', id: newReportId });
+      dispatch({ type: 'form/ADD_FORMID', id: id });
 
       firestore.collection('users').doc(userUid).update({
-        draftId: newReportId,
-        reports: firestore.FieldValue.arrayUnion(newReportId)
+        draftId: id,
+        reports: firestore.FieldValue.arrayUnion(id)
       }).then(() => {
         console.log("User successfully updated!");
-        navigate(`/app/report/${newReportId}`);
+        navigate(`/app/report/${id}`);
 
       }).catch((error) => {
         console.error("Error updating user: ", error);
@@ -88,8 +103,8 @@ export const getFormData = (formId) => {
     firestore.collection('reports').doc(formId).get().then(doc => {
       dispatch({ type: 'form/UPDATE_FORMDATA', formData: doc.data() });
     });
-  }
-}
+  };
+};
 
 export const submitReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
