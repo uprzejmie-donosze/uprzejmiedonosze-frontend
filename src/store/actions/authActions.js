@@ -1,4 +1,5 @@
 import { navigate } from '@reach/router';
+import { getUsersCollectionLength } from '../helpers/collectionHelpers';
 
 export const signInUser = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -10,10 +11,11 @@ export const signInUser = () => {
 
     firebase.auth().signInWithPopup(authProvider).then((resp) => {
       const userFromCollection = firestore.collection('users').doc(resp.user.uid).get();
+      const collectionLength = getUsersCollectionLength(firestore);
 
       userFromCollection.then((doc) => {
         if (!doc.data()) {
-          firestore.collection('users').doc(resp.user.uid.a).set({
+          firestore.collection('users').doc(resp.user.uid).set({
             name: resp.user.displayName,
             email: resp.user.email,
             photoURL: resp.user.photoURL,
@@ -23,7 +25,7 @@ export const signInUser = () => {
             IDnumber: null,
             reports: [],
             msisdn: null,
-            number: resp.user.phoneNumber,
+            number: collectionLength + 1,
           });
         }
       }).then(() => {
