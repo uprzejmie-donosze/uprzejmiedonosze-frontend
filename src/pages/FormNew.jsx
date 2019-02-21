@@ -20,8 +20,14 @@ import {
 class FormNew extends Component {
   autocompleteRef = React.createRef();
 
+  state = {
+    geocoder: null
+  }
+
   handleScriptLoad = () => {
     const { completeLocation } = this.props;
+
+    this.setState({ geocoder: new google.maps.Geocoder });
 
     const autocomplete = new google.maps.places.Autocomplete(
       this.autocompleteRef.current,
@@ -54,6 +60,8 @@ class FormNew extends Component {
   }
 
   render() {
+    const { form } = this.props;
+
     if (!this.props.auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
     return (
@@ -71,7 +79,7 @@ class FormNew extends Component {
 
           <p style={{padding: '1rem 0'}}>
             <label htmlFor="contextImage">Add image</label>
-            <input id="contextImage" type="file" accept="image/jpeg" onChange={(e) => this.props.addContextImage(e.target.files[0])}/>
+            <input id="contextImage" type="file" accept="image/jpeg" onChange={(e) => this.props.addContextImage(e.target.files[0], this.state.geocoder)}/>
           </p>
 
           <p style={{padding: '1rem 0'}}>
@@ -81,7 +89,7 @@ class FormNew extends Component {
 
           <p style={{padding: '1rem 0'}}>
             <label htmlFor="formAddress">Address of the incident</label>
-            <input type="address" id="formAddress" ref={this.autocompleteRef}/>
+            <input type="address" id="formAddress" ref={this.autocompleteRef} value={form.address.address} onChange={() => console.log('change')}/>
           </p>
 
           <p style={{padding: '1rem 0'}}>
@@ -173,7 +181,7 @@ const mapDispatchToProps = (dispatch) => {
     createNewReport: () => dispatch(createNewReport()),
     submitReport: () => dispatch(submitReport()),
     getFormData: (reportId) => dispatch(getFormData(reportId)),
-    addContextImage: (file) => dispatch(addContextImage(file))
+    addContextImage: (file, map) => dispatch(addContextImage(file, map))
   };
 };
 

@@ -1,5 +1,5 @@
 import { navigate } from '@reach/router';
-import { readGeoDataFromImage } from '../helpers/formHelpers';
+import { readGeoDataFromImage, processFilePromise } from '../helpers/formHelpers';
 
 export const autocompleteLocation = (place) => {
   return (dispatch) => {
@@ -44,15 +44,45 @@ export const addCarNumber = (number) => {
   };
 };
 
-export const addContextImage = (file) => {
+export const addContextImage = (file, geocoder) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const userEmail = getState().firebase.auth.email;
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`${userEmail}/${file.name}`);
+
     const dataFromImg = readGeoDataFromImage(file);
+    const formatedImage = processFilePromise(file);
+
+    formatedImage.then(resp => {
+      const uploadImgTask = imageRef.putString(resp, 'data_url');
+
+      uploadImgTask.on('state_changed', (snapshot) => {
+        // do something with progress
+      }, (error) => {
+        // Handle unsuccessful uploads
+      }, () => {
+        uploadImgTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          dispatch({ type: 'form/ADD_CONTEXTIMAGE', contextImage: downloadURL });
+        });
+      });
+    });
 
     dataFromImg.then(resp => {
-      console.log(resp);
-      // dispatch add time
-      // google function find address and dispatch address action
-      // resize image
+      geocoder.geocode({ 'location': { lat: resp.lat, lng: resp.lng }}, (results, status) => {
+        if (status === 'OK' && results[0]) {
+          const autocompleteData = {
+            address: results[0].formatted_address.replace(', Polska', ''),
+            city: '',
+            voivodeship: '',
+            latlng: `${resp.lat}, ${resp.lng}}`
+          };
+
+          dispatch({ type: 'form/AUTOCOMPLETE_LOCATION', autocompleteData });
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
     }).catch(error => {
       console.log(error);
     });
@@ -71,9 +101,10 @@ export const createNewReport = () => {
     };
 
     dispatch({ type: 'form/CRETE_NEW_REPORT', user: userData });
+
     const firestore = getFirestore();
     const form = getState().form.formData;
-    const id = '13-dd1-22'; // to do generate uid
+    const id = '13-dd1-22--s'; // to do generate uid
 
     firestore.collection('reports').doc(id).set({ ...form, id: id }).then(resp => {
       const userUid = getState().firebase.auth.uid;

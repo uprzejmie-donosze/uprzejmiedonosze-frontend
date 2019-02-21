@@ -46,6 +46,7 @@ class FormConfirm extends Component {
           <p>{form.user.name}</p>
           <p>{form.user.email}</p>
           <p>{form.user.address}</p>
+          <img src={form.contextImage}/>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
