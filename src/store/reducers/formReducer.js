@@ -1,4 +1,5 @@
 import { formStatus } from '../../consts/formConsts';
+import { FORM_ERRORS } from '../../consts/formConsts';
 
 const initialState = {
   formData: {
@@ -50,52 +51,66 @@ const formReducer = (state, action) => {
       };
 
       case "form/ADD_CARNUMBER":
-      return {
-        ...state,
-        formData: { ...state.formData, carInfo: { ...state.carInfo, plateId: action.carNumber } }
-      };
+        const formErrors = state.formErrors.filter(error => error !== FORM_ERRORS.carNumber.type);
+
+        return {
+          ...state,
+          formData: { ...state.formData, carInfo: { ...state.carInfo, plateId: action.carNumber }},
+          formErrors: [ ...formErrors ]
+        };
 
       case "form/ADD_COMMENT":
-      return {
-        ...state,
-        formData: { ...state.formData, comment: action.comment }
-      };
+        const errors = state.formErrors.filter(error => error !== FORM_ERRORS.comment.type);
+
+        return {
+          ...state,
+          formData: { ...state.formData, comment: action.comment },
+          formErrors: [ ...errors ]
+        };
 
       case "form/ADD_CATEGORY":
-      return {
-        ...state,
-        formData: { ...state.formData, category: action.category }
-      };
+        return {
+          ...state,
+          formData: { ...state.formData, category: action.category }
+        };
 
       case "form/ADD_USER":
-      return {
-        ...state,
-        formData: { ...state.formData, user: action.user }
-      };
+        return {
+          ...state,
+          formData: { ...state.formData, user: action.user }
+        };
 
       case "form/ADD_FORMID":
-      return {
-        ...state,
-        formData: { ...state.formData, id: action.id }
-      };
+        return {
+          ...state,
+          formData: { ...state.formData, id: action.id }
+        };
 
       case "form/UPDATE_FORMDATA":
-      return {
-        ...state,
-        formData: { ...state.formData, ...action.formData }
-      };
+        return {
+          ...state,
+          formData: { ...state.formData, ...action.formData }
+        };
 
       case "form/CRETE_NEW_REPORT":
-      return {
-        ...state,
-        formData: {
-          ...state.formData,
-          user: action.user,
-          date: new Date(),
-          status: formStatus.draft,
-          number: '1/2/a' // TO DO
-        }
-      };
+        return {
+          ...state,
+          formData: {
+            ...state.formData,
+            user: action.user,
+            date: new Date(),
+            status: formStatus.draft,
+            number: '1/2/a' // TO DO
+          }
+        };
+
+      case "form/HANDLE_FORM_ERROR":
+        const error = state.formErrors.find(error => error === action.errorType);
+        if (!error) return { ...state, formErrors: [ ...state.formErrors, action.errorType ]};
+        return { ...state };
+
+      case "form/CLEAR_FORM_DATA":
+        return { ...initialState };
 
     default:
     return state || initialState;

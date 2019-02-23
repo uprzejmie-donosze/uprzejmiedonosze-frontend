@@ -1,5 +1,6 @@
 import { navigate } from '@reach/router';
-import { readGeoDataFromImage, processFilePromise } from '../helpers/formHelpers';
+import { readGeoDataFromImage, processFilePromise, formValidation } from '../helpers/formHelpers';
+import { FORM_ERRORS } from '../../consts/formConsts';
 
 export const autocompleteLocation = (place) => {
   return (dispatch) => {
@@ -16,10 +17,10 @@ export const autocompleteLocation = (place) => {
 
 export const addComment = (text) => {
   return (dispatch) => {
-    if (text) { // text validation
+    if (text.length >= 20) { // text validation
       dispatch({ type: 'form/ADD_COMMENT', comment: text });
     } else {
-      // dispatch error
+      dispatch({ type: 'form/HANDLE_FORM_ERROR', errorType: FORM_ERRORS.comment.type });
     };
   };
 };
@@ -36,10 +37,10 @@ export const addCrimeType = (type) => {
 
 export const addCarNumber = (number) => {
   return (dispatch) => {
-    if (number) { // valid number
+    if (number.length > 3) { // better validation required
       dispatch({ type: 'form/ADD_CARNUMBER', carNumber: number });
     } else {
-      // dispatch error
+      dispatch({ type: 'form/HANDLE_FORM_ERROR', errorType: FORM_ERRORS.carNumber.type });
     };
   };
 };
@@ -91,39 +92,40 @@ export const addContextImage = (file, geocoder) => {
 
 export const createNewReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const user = getState().firebase.profile;
+    const errors = getState().form.formErrors;
+    const isFormValid = formValidation(getState().form);
 
-    const userData = {
-      name: user.name,
-      email: user.email,
-      msisdn: user.msisdn,
-      address: user.address
-    };
+    console.log('is form valid:', errors.length === 0 && isFormValid);
 
-    dispatch({ type: 'form/CRETE_NEW_REPORT', user: userData });
-
-    const firestore = getFirestore();
-    const form = getState().form.formData;
-    const id = '13-dd1-22--s'; // to do generate uid
-
-    firestore.collection('reports').doc(id).set({ ...form, id: id }).then(resp => {
-      const userUid = getState().firebase.auth.uid;
-      dispatch({ type: 'form/ADD_FORMID', id: id });
-
-      firestore.collection('users').doc(userUid).update({
-        draftId: id,
-        reports: firestore.FieldValue.arrayUnion(id)
-      }).then(() => {
-        console.log("User successfully updated!");
-        navigate(`/app/report/${id}`);
-
-      }).catch((error) => {
-        console.error("Error updating user: ", error);
+    if (errors.length === 0 && isFormValid) {
+      const user = getState().firebase.profile;
+      const userData = { name: user.name, email: user.email, msisdn: user.msisdn, address: user.address };
+  
+      dispatch({ type: 'form/CRETE_NEW_REPORT', user: userData });
+  
+      const firestore = getFirestore();
+      const form = getState().form.formData;
+      const id = '13-dd1-22--s'; // to do generate uid
+  
+      firestore.collection('reports').doc(id).set({ ...form, id: id }).then(resp => {
+        const userUid = getState().firebase.auth.uid;
+        dispatch({ type: 'form/ADD_FORMID', id: id });
+  
+        firestore.collection('users').doc(userUid).update({
+          draftId: id,
+          reports: firestore.FieldValue.arrayUnion(id)
+        }).then(() => {
+          console.log("User successfully updated!");
+          navigate(`/app/report/${id}`);
+  
+        }).catch((error) => {
+          console.error("Error updating user: ", error);
+        });
+  
+      }).catch(error => {
+        console.log(error);
       });
-
-    }).catch(error => {
-      console.log(error);
-    });
+    }
   };
 };
 
@@ -159,3 +161,19 @@ export const submitReport = () => {
     // });
   };
 };
+
+export const resetFormData = () => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    const userUid = getState().firebase.auth.uid;
+    const firestore = getFirestore();
+
+    firestore.collection('users').doc(userUid).update({
+      draftId: null,
+    }).then(() => {
+      dispatch({ type: 'form/form/CLEAR_FORM_DATA' });
+
+    }).catch((error) => {
+      console.error("Error updating user: ", error);
+    });
+  }
+}

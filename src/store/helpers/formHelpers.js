@@ -1,5 +1,3 @@
-import { throwError } from "rxjs";
-
 export const readGeoDataFromImage = (file) => {
   return new Promise((resolve, reject) => {
     EXIF.getData(file, function() {
@@ -34,7 +32,7 @@ export const readFileAsync = (file) => {
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
-}
+};
 
 export const processFilePromise = async (file) => {
   try {
@@ -86,4 +84,41 @@ export const processFilePromise = async (file) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const formValidation = (form) => {
+  const data = flattenObject(form.formData);
+  const category = data.category;
+
+  if (category !== 0 && category !== null) {
+    delete data['comment']
+  }
+
+  for (let key in data) {
+    if (data[key] === null || data[key] === "") {
+      return false;
+    }
+  }
+
+  return false;
 }
+
+var flattenObject = function(ob) {
+  var toReturn = {};
+  
+  for (var i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+    
+    if ((typeof ob[i]) == 'object' && ob[i] !== null) {
+      var flatObject = flattenObject(ob[i]);
+      for (var x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+        
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
