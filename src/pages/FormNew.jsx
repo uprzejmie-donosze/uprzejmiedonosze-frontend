@@ -8,6 +8,8 @@ import { FORM_ERRORS } from '../consts/formConsts';
 import { Container } from '../styles/styledComponents';
 import googleMapsConfig from '../config/googleMapsConfig';
 
+import * as F from './../components/form/FormComponents/styles';
+
 import {
  autocompleteLocation,
   addComment,
@@ -69,6 +71,7 @@ class FormNew extends Component {
     return (
       <Container>
         <FormProgressbar />
+
         {this.props.profile.draftId && (
           <p style={{padding: '1rem', border: '1px solid #f1dd2e', background: '#f3e03b5e'}}>
             <span>Wygląda na to, że masz niedokończony wniosek. Jeśli chcesz rorpocząć nowy wniosek, wyczyć dane</span>
@@ -78,42 +81,58 @@ class FormNew extends Component {
 
         <h1>Nowe zgłoszenie</h1>
 
-        <div>
-          <h4>Dane zgłoszenia</h4>
+        <F.Area>
+          <F.Title>Dane zgłoszenia</F.Title>
 
-          <ImageField
-            id='contextImage'
-            text='Dodaj zdjęcie prezentujące kontekst zdarzenia'
-            placeholder={ImagePlaceholder}
-            onChange={(file) => addContextImage(file, this.state.geocoder)}
-            image={form.contextImage} errorMessage={null}
-          />
+          <F.FlexRow>
+            <F.FlexItem>
+              <ImageField
+                id='contextImage'
+                text='Dodaj zdjęcie prezentujące kontekst zdarzenia'
+                placeholder={ImagePlaceholder}
+                onChange={(file) => addContextImage(file, this.state.geocoder)}
+                hasError={this.findErrorByType(FORM_ERRORS.contextImageUpload.type)}
+                errorMessage={FORM_ERRORS.contextImageUpload.message}
+                image={form.contextImage}
+              />
+            </F.FlexItem>
 
-          <ImageField
-            id='carImage'
-            text='Dodaj zdjęcie, na którym widoczna jest tablica rejestracyjna'
-            placeholder={ImagePlaceholder}
-            onChange={(file) => addContextImage(file, this.state.geocoder)}
-            image={form.carImage} errorMessage={null}
-          />
+            <F.FlexItem>
+              <ImageField
+                id='carImage'
+                text='Dodaj zdjęcie, na którym widoczna jest tablica rejestracyjna'
+                placeholder={ImagePlaceholder}
+                onChange={(file) => addContextImage(file, this.state.geocoder)}
+                hasError={this.findErrorByType(FORM_ERRORS.carImageUpload.type)}
+                errorMessage={FORM_ERRORS.contextImageUpload.message}
+                image={form.carImage}
+              />
+            </F.FlexItem>
+          </F.FlexRow>
 
-          <AddressField
-            id='reportAddressField'
-            text='Podaj adres zdarzenia'
-            placeholder='np. Storrady-Świętosławy 1b 71-602, 71-602 Szczecin'
-            value={form.address.address} places={this.state.places}
-            errorMessage={null}
-          />
+          <F.FlexRow>
+            <F.FlexItem>
+              <AddressField
+                id='reportAddressField'
+                text='Podaj adres zdarzenia'
+                placeholder='np. Storrady-Świętosławy 1b 71-602, 71-602 Szczecin'
+                value={form.address.address} places={this.state.places}
+                errorMessage={null}
+              />
+            </F.FlexItem>
 
-          <TextField
-            id='reportCarPlaceIdField'
-            text='Podaj numery rejestracyjne pojazdu'
-            placeholder='np. CD1234JT'
-            onChange={(value) => this.props.addCarNumber(value)}
-            hasError={this.findErrorByType(FORM_ERRORS.carNumber.type)}
-            errorMessage={FORM_ERRORS.carNumber.message}
-            value={form.carInfo.plateId}
-          />
+            <F.FlexItem>
+              <TextField
+                id='reportCarPlaceIdField'
+                text='Podaj numery rejestracyjne pojazdu'
+                placeholder='np. CD1234JT'
+                onChange={(value) => this.props.addCarNumber(value)}
+                hasError={this.findErrorByType(FORM_ERRORS.carNumber.type)}
+                errorMessage={FORM_ERRORS.carNumber.message}
+                value={form.carInfo.plateId}
+              />
+            </F.FlexItem>
+          </F.FlexRow>
 
           <TextAreaField
             id='reportCommentField'
@@ -124,12 +143,12 @@ class FormNew extends Component {
             errorMessage={FORM_ERRORS.comment.message}
             value={form.addComment}
           />
-        </div>
+        </F.Area>
 
-        <div>
+        <F.Area>
           <h4>Rodzaj wykroczenia</h4>
           <RatioInputList value={form.category} onChange={this.props.addCrimeType} />
-        </div>
+        </F.Area>
 
         <FormNavigation />
 

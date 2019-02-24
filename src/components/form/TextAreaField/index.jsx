@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import * as F from '../FormComponents/styles';
+
 class TextAreaField extends Component {
   state = { hasError: false }
 
@@ -19,10 +21,10 @@ class TextAreaField extends Component {
     const { errorMessage, hasError, text, placeholder, value, id, onChange } = this.props;
 
     return (
-      <div style={{padding: '1rem 0'}}>
-        <label htmlFor={id}>{text}</label>
+      <F.Field style={{padding: '1rem 0'}}>
+        <F.Label htmlFor={id}>{text}</F.Label>
 
-        <textarea
+        <F.TextArea
           type="text"
           id={id}
           defaultValue={this.props.value}
@@ -30,8 +32,8 @@ class TextAreaField extends Component {
           onBlur={() => this.handleValidation()}
         />
 
-        {this.state.hasError && <span>{errorMessage}</span>}
-      </div>
+        {this.state.hasError && <F.ErrorMessage>{errorMessage}</F.ErrorMessage>}
+      </F.Field>
     );
   };
 };

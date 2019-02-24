@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import googleMapsConfig from '../../../config/googleMapsConfig';
 
+import * as F from '../FormComponents/styles';
+
 class AddressField extends Component {
   autocompleteRef = React.createRef();
 
@@ -14,18 +16,18 @@ class AddressField extends Component {
     const { errorMessage, text, placeholder, value, id } = this.props;
 
     return (
-      <div style={{padding: '1rem 0'}}>
-        <label htmlFor={id}>{text}</label>
+      <F.Field style={{padding: '1rem 0'}}>
+        <F.Label htmlFor={id}>{text}</F.Label>
 
-        <input
+        <F.Input
           type="text"
           id={id}
           defaultValue={this.props.value}
           ref={this.autocompleteRef}
         />
 
-        {errorMessage && <span>{errorMessage}</span>}
-      </div>
+        {errorMessage && <F.ErrorMessage>{errorMessage}</F.ErrorMessage>}
+      </F.Field>
     );
   };
 };
