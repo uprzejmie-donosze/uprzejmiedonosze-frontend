@@ -1,3 +1,5 @@
+import { FORM_ERRORS } from '../../consts/formConsts';
+
 export const readGeoDataFromImage = (file) => {
   return new Promise((resolve, reject) => {
     EXIF.getData(file, function() {
@@ -89,19 +91,28 @@ export const processFilePromise = async (file) => {
 export const formValidation = (form) => {
   const data = flattenObject(form.formData);
   const category = data.category;
+  let isFormValid = false;
+  let errorList = [];
 
-  if (category !== 0 && category !== null) {
-    delete data['comment']
-  }
+  if (category !== 0 && category !== null) delete data['comment'];
 
   for (let key in data) {
     if (data[key] === null || data[key] === "") {
-      return false;
+      isFormValid = false;
+
+      for (let i in FORM_ERRORS) {
+        if (FORM_ERRORS[i].key === key) {
+          errorList.push(FORM_ERRORS[i].type);
+        }
+      }
     }
   }
 
-  return false;
-}
+  return {
+    isFormValid: isFormValid,
+    errorList: errorList
+  };
+};
 
 var flattenObject = function(ob) {
   var toReturn = {};

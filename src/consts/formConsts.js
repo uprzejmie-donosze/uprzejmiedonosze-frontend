@@ -44,14 +44,17 @@ export const RATIO_DATA = [
 
 export const FORM_ERRORS = {
   carNumber: {
+    key: 'carInfo.plateId',
     type: 'carNumberError',
     message: 'Numer rejestracyjny jest nieprawidłowy'
   },
   comment: {
+    key: 'comment',
     type: 'commentError',
     message: 'Komentarz jest zbyt krótki (min. 20 znaków)'
   },
   address: {
+    key: 'address.latlng',
     type: 'addressMessage',
     message: 'Nieprawidłowy adres, wybierz adres z listy'
   },
@@ -60,6 +63,7 @@ export const FORM_ERRORS = {
     message: 'Żadna z kategorii wykroczenia nie została zaznaczona'
   },
   contextImageUpload: {
+    key: 'contextImage',
     type: 'contextImageUploadError',
     message: 'Nie udało się zapisać zdjęcia'
   },
@@ -68,6 +72,7 @@ export const FORM_ERRORS = {
     message: 'Nie udało się pobrać lokalizacji ze zdjęcia'
   },
   carImageUpload: {
+    key: 'carImage',
     type: 'carImageUploadError',
     message: 'Nie udało się zapisać zdjęcia'
   },

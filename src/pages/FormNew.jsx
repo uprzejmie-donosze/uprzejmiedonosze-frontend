@@ -50,10 +50,6 @@ class FormNew extends Component {
     });
   }
 
-  componentDidMount() {
-    // console.log(this.props.profile.draftId);
-  }
-
   componentDidUpdate(prevProps) {
     const { profile } = this.props;
 
@@ -150,7 +146,7 @@ FormNew.propTypes = {
   }),
   form: PropTypes.shape({
     id: PropTypes.string,
-    category: PropTypes.string,
+    category: PropTypes.number,
     carInfo: PropTypes.shape({
       plateId: PropTypes.string
     })
@@ -165,7 +161,8 @@ FormNew.propTypes = {
   addCarNumber: PropTypes.func,
   getFormData: PropTypes.func,
   addContextImage: PropTypes.func,
-  formErrors: PropTypes.array
+  formErrors: PropTypes.array,
+  resetFormData: PropTypes.func
 };
 
 const mapStateToProps = (state) => {

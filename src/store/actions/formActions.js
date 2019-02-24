@@ -93,35 +93,38 @@ export const addContextImage = (file, geocoder) => {
 export const createNewReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const errors = getState().form.formErrors;
-    const isFormValid = formValidation(getState().form);
+    const validationResult = formValidation(getState().form);
 
-    console.log('is form valid:', errors.length === 0 && isFormValid);
+    if (validationResult.errorList.length > 0) {
+      dispatch({ type: 'form/HANDLE_FORM_ERRORORS', errors: validationResult.errorList });
 
-    if (errors.length === 0 && isFormValid) {
+      return false;
+    }
+
+    if (errors.length === 0 && validationResult.isFormValid) {
       const user = getState().firebase.profile;
       const userData = { name: user.name, email: user.email, msisdn: user.msisdn, address: user.address };
-  
+
       dispatch({ type: 'form/CRETE_NEW_REPORT', user: userData });
-  
+
       const firestore = getFirestore();
       const form = getState().form.formData;
       const id = '13-dd1-22--s'; // to do generate uid
-  
+
       firestore.collection('reports').doc(id).set({ ...form, id: id }).then(resp => {
         const userUid = getState().firebase.auth.uid;
         dispatch({ type: 'form/ADD_FORMID', id: id });
-  
+
         firestore.collection('users').doc(userUid).update({
           draftId: id,
           reports: firestore.FieldValue.arrayUnion(id)
         }).then(() => {
-          console.log("User successfully updated!");
           navigate(`/app/report/${id}`);
-  
+
         }).catch((error) => {
           console.error("Error updating user: ", error);
         });
-  
+
       }).catch(error => {
         console.log(error);
       });
@@ -143,7 +146,6 @@ export const submitReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const report = firestore.collection('reports').doc("Kinga Sieminiak");
-    console.log(report);
 
     // return db.runTransaction(function(transaction) {
     //   return transaction.get(report).then(function(sfDoc) {
@@ -175,5 +177,5 @@ export const resetFormData = () => {
     }).catch((error) => {
       console.error("Error updating user: ", error);
     });
-  }
-}
+  };
+};

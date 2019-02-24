@@ -9,6 +9,12 @@ class TextAreaField extends Component {
     this.setState({ hasError: hasError });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.hasError !== prevProps.hasError) {
+      this.setState({ hasError: this.props.hasError });
+    }
+  }
+
   render() {
     const { errorMessage, hasError, text, placeholder, value, id, onChange } = this.props;
 

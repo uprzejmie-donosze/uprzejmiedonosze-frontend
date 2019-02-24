@@ -39,7 +39,7 @@ RatioInputList.defaultProps = {
 };
 
 RatioInputList.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.number,
   errorMessage: PropTypes.string,
   onChange: PropTypes.func,
 };
