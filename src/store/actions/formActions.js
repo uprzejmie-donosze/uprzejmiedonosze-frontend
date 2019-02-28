@@ -119,7 +119,7 @@ export const addContextImage = (file, geocoder) => {
         }
       });
     }).catch(error => {
-      console.log(error);
+      alert(error); // TO DO
     });
   };
 };

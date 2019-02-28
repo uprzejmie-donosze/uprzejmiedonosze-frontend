@@ -21,14 +21,20 @@ export const readGeoDataFromImage = (file) => {
         resolve({
           lat: lat,
           lng: lon,
-          dateTime: dateTime || null
+          dateTime: dateTime || null,
         });
+      } else if (file) {
+        readDateTimeFromFilename(file);
       } else {
-        reject('error');
+        reject('Nie udało się pobrać adresu ze zdjęcia');
       }
     });
   });
 };
+
+export const readDateTimeFromFilename = (file) => {
+  console.log(file);
+}
 
 export const readFileAsync = (file) => {
   return new Promise((resolve, reject) => {
