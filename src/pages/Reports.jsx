@@ -24,7 +24,7 @@ const Reports = ({ auth, profile }) => {
     <Container>
      <section>
         <h1>Your reports</h1>
-        {profile.reports && profile.reports.lenght ? renderReportsList(profile.reports) : renderEmptyReports()}
+        {profile.reports && profile.reports.length ? renderReportsList(profile.reports) : renderEmptyReports()}
      </section>
     </Container>
   );

@@ -1,85 +1,235 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from '@reach/router';
+import { Redirect, Link, navigate } from '@reach/router';
+import Script from 'react-load-script';
 
+import { FORM_ERRORS } from '../consts/formConsts';
 import { Container } from '../styles/styledComponents';
+import googleMapsConfig from '../config/googleMapsConfig';
 
-const FormNew = ({ auth }) => {
-  if (!auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
+import * as F from './../components/form/FormComponents/styles';
 
-  return (
-    <Container>
-      <div>
-        <span style={{color: '#34dd7eff'}}>New report &gt; </span>
-        <span style={{color: 'lightgray'}}>Confirm &gt; </span>
-        <span style={{color: 'lightgray'}}>Confirmation</span>
-      </div>
+import {
+ autocompleteLocation,
+  addComment,
+  addCrimeType,
+  addCarNumber,
+  getFormData,
+  addContextImage,
+  resetFormData,
+  addCarImage,
+  addAddress,
+  validAddress
+} from '../store/actions/formActions';
 
-      <h1>New Report</h1>
+import ImagePlaceholder from '../assets/icons/icon.png';
+import ImageField from '../components/form/ImageField';
+import AddressField from '../components/form/AddressField';
+import TextField from '../components/form/TextField';
+import TextAreaField from '../components/form/TextAreaField';
+import RatioInputList from '../components/form/RatioInputList';
+import FormNavigation from '../components/form/FormNavigation';
+import FormProgressbar from '../components/form/FormProgressbar';
 
-      <div>
-        <h4>Report information</h4>
+class FormNew extends Component {
+  state = {
+    geocoder: null,
+    places: null,
+  }
 
-        <p style={{padding: '1rem 0'}}>
-          <label htmlFor="contextImage">Add image</label>
-          <input id="contextImage" type="file" accept="image/jpeg" />
-        </p>
+  handleScriptLoad = () => {
+    const { completeLocation } = this.props;
 
-        <p style={{padding: '1rem 0'}}>
-          <label htmlFor="carImage">Add image 2</label>
-          <input id="carImage" type="file" accept="image/jpeg" />
-        </p>
+    const bounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(48.638092, 13.399244),
+      new google.maps.LatLng(54.634647, 24.729369)
+    );
 
-        <p style={{padding: '1rem 0'}}>
-          <label>Address of the incident</label>
-          <input type="address" />
-        </p>
+    this.setState({
+      geocoder: new google.maps.Geocoder,
+      places: (ref) => {
+        const autocomplete = new google.maps.places.Autocomplete( ref, { ...googleMapsConfig.options, bounds }, );
+        autocomplete.addListener('place_changed', () => completeLocation(autocomplete.getPlace()));
+        return autocomplete;
+      },
+    });
+  }
 
-        <p style={{padding: '1rem 0'}}>
-          <label>Car numbers</label>
-          <input type="text" />
-        </p>
+  componentDidUpdate(prevProps) {
+    const { profile } = this.props;
 
-        <p style={{padding: '1rem 0'}}>
-          <label>Comments</label>
-          <input type="text" />
-        </p>
-      </div>
+    if (profile.name !== prevProps.profile.name && profile.draftId !== undefined && profile.draftId) {
+      this.props.getFormData(profile.draftId);
+    }
+  }
 
-      <div>
-        <h4>Kind of crime</h4>
+  findErrorByType(type) {
+    return this.props.formErrors.find(error => error === type) !== undefined;
+  }
 
-        <p>
-          <label>Crime 1</label>
-          <input type="radio" />
-        </p>
+  render() {
+    const { form, addContextImage, addCarImage, formLoaders } = this.props;
+    if (!this.props.auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
-        <p>
-          <label>Crime 2</label>
-          <input type="radio" />
-        </p>
+    return (
+      <Container>
+        <FormProgressbar />
 
-      </div>
+        {this.props.profile.draftId && (
+          <p style={{padding: '1rem', border: '1px solid #f1dd2e', background: '#f3e03b5e'}}>
+            <span>Wygląda na to, że masz niedokończony wniosek. Jeśli chcesz rorpocząć nowy wniosek, wyczyć dane</span>
+            <button onClick={this.props.resetFormData}>wyczyść wniosek</button>
+          </p>
+        )}
 
-      <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
-        <Link style={{background: 'white'}} to="/app">back home</Link>
-        <Link style={{background: 'white'}} to="/app/report/create">next</Link>
-      </div>
-    </Container>
-  );
+        <h1>Nowe zgłoszenie</h1>
+
+        <F.Area>
+          <F.Title>Dane zgłoszenia</F.Title>
+
+          <F.FlexRow>
+            <F.FlexItem>
+              <ImageField
+                id='contextImage'
+                text='Dodaj zdjęcie prezentujące kontekst zdarzenia'
+                placeholder={ImagePlaceholder}
+                onChange={(file) => addContextImage(file, this.state.geocoder)}
+                hasError={this.findErrorByType(FORM_ERRORS.contextImageUpload.type)}
+                errorMessage={FORM_ERRORS.contextImageUpload.message}
+                image={form.contextImage}
+                isLoading={formLoaders.isContexImageLoading}
+              />
+            </F.FlexItem>
+
+            <F.FlexItem>
+              <ImageField
+                id='carImage'
+                text='Dodaj zdjęcie, na którym widoczna jest tablica rejestracyjna'
+                placeholder={ImagePlaceholder}
+                onChange={(file) => addCarImage(file)}
+                hasError={this.findErrorByType(FORM_ERRORS.carImageUpload.type)}
+                errorMessage={FORM_ERRORS.contextImageUpload.message}
+                image={form.carImage}
+                isLoading={formLoaders.isCarImageLoading}
+              />
+            </F.FlexItem>
+          </F.FlexRow>
+
+          {form.carInfo.plateImage && <img src={form.carInfo.plateImage} />}
+
+          <F.FlexRow>
+            <F.FlexItem>
+              <AddressField
+                id='reportAddressField'
+                text='Podaj adres zdarzenia'
+                placeholder='np. Storrady-Świętosławy 1b 71-602, 71-602 Szczecin'
+                value={form.address.address} places={this.state.places}
+                errorMessage={FORM_ERRORS.address.message}
+                hasError={this.findErrorByType(FORM_ERRORS.address.type)}
+                onChange={(address) => this.props.addAddress(address)}
+                validAddress={this.props.validAddress}
+              />
+            </F.FlexItem>
+
+            <F.FlexItem>
+              <TextField
+                id='reportCarPlaceIdField'
+                text='Podaj numery rejestracyjne pojazdu'
+                placeholder='np. CD1234JT'
+                onChange={(value) => this.props.addCarNumber(value)}
+                hasError={this.findErrorByType(FORM_ERRORS.carNumber.type)}
+                errorMessage={FORM_ERRORS.carNumber.message}
+                value={form.carInfo.plateId || form.carInfo.plateIdFormImage}
+              />
+            </F.FlexItem>
+          </F.FlexRow>
+
+          <TextAreaField
+            id='reportCommentField'
+            text='Dodaj komentarz (*komentarz wymagany dla kategorii wykroczenia "pozostałe").'
+            placeholder='Np. szczegóły, dotyczące lokalizacji zdarzenia'
+            onChange={(value) => this.props.addComment(value)}
+            hasError={this.findErrorByType(FORM_ERRORS.comment.type) || this.findErrorByType(FORM_ERRORS.commentToCategory.type)}
+            errorMessage={FORM_ERRORS.comment.message}
+            value={form.addComment}
+          />
+        </F.Area>
+
+        <F.Area>
+          <h4>Rodzaj wykroczenia</h4>
+          <RatioInputList value={form.category} onChange={this.props.addCrimeType} />
+        </F.Area>
+
+        <FormNavigation />
+
+        <Script url={googleMapsConfig.url} onLoad={this.handleScriptLoad} />
+        <Script url='https://cdn.jsdelivr.net/npm/exif-js' />
+      </Container>
+    );
+  }
 };
 
 FormNew.propTypes = {
   auth: PropTypes.shape({
     uid: PropTypes.string
   }),
+  form: PropTypes.shape({
+    id: PropTypes.string,
+    category: PropTypes.number,
+    carInfo: PropTypes.shape({
+      plateId: PropTypes.string
+    })
+  }),
+  profile: PropTypes.shape({
+    name: PropTypes.string,
+    draftId: PropTypes.string
+  }),
+  formLoaders: PropTypes.shape({
+    isContexImageLoading: PropTypes.bool,
+    isCarImageLoading: PropTypes.bool,
+    isFormSaving: PropTypes.bool
+  }),
+  completeLocation: PropTypes.func,
+  addComment: PropTypes.func,
+  addCrimeType: PropTypes.func,
+  addCarNumber: PropTypes.func,
+  getFormData: PropTypes.func,
+  addContextImage: PropTypes.func,
+  addCarImage: PropTypes.func,
+  formErrors: PropTypes.array,
+  resetFormData: PropTypes.func,
+  addAddress: PropTypes.func,
+  validAddress: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
+    form: state.form.formData,
+    profile: state.firebase.profile,
+    formErrors: state.form.formErrors,
+    formLoaders: {
+      isContexImageLoading: state.form.isContexImageLoading,
+      isCarImageLoading: state.form.isCarImageLoading,
+      isFormSaving: state.form.isFormSaving
+    }
   };
 };
 
-export default connect(mapStateToProps)(FormNew);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    completeLocation: (place) => dispatch(autocompleteLocation(place)),
+    addComment: (text) => dispatch(addComment(text)),
+    addCrimeType: (type) => dispatch(addCrimeType(type)),
+    addCarNumber: (number) => dispatch(addCarNumber(number)),
+    getFormData: (reportId) => dispatch(getFormData(reportId)),
+    addContextImage: (file, map) => dispatch(addContextImage(file, map)),
+    addCarImage: (file) => dispatch(addCarImage(file)),
+    resetFormData: () => dispatch(resetFormData()),
+    addAddress: (address) => dispatch(addAddress(address)),
+    validAddress: (address) => dispatch(validAddress(address)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormNew);

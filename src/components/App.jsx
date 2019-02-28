@@ -45,7 +45,7 @@ class App extends Component {
           <ReportPreview path='app/:reportId' />
 
           <FormNew path='app/report/new' />
-          <FormConfirm path='app/report/create' />
+          <FormConfirm path='app/report/:raportId' />
           <FormThankYou path='app/report/confirmation' />
 
           <NotFound default />

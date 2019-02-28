@@ -24,12 +24,6 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  label,
-  input {
-    display: block;
-    width: 100%;
-  }
-
   img {
     max-width: 100%;
   }
