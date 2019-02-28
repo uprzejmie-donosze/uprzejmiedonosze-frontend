@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import debounce from "lodash.debounce";
 
 import * as F from '../FormComponents/styles';
 
 class TextField extends Component {
-  state = { hasError: false }
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+    this.emitChangeDebounced = debounce(this.emitChange, 400);
+  }
+
+  handleChange = event => this.emitChangeDebounced(event.target.value);
+
+  emitChange = value => {
+    if (value !== "") {
+      this.props.onChange(value);
+    }
+  };
 
   handleValidation() {
     const { hasError } = this.props;
@@ -15,6 +28,10 @@ class TextField extends Component {
     if (this.props.hasError !== prevProps.hasError) {
       this.setState({ hasError: this.props.hasError });
     }
+  }
+
+  componentWillUnmount() {
+    this.emitChangeDebounced.cancel();
   }
 
   render() {
@@ -28,7 +45,7 @@ class TextField extends Component {
           type="text"
           id={id}
           defaultValue={this.props.value}
-          onChange={e => onChange(e.target.value)}
+          onChange={this.handleChange}
           onBlur={() => this.handleValidation()}
         />
 

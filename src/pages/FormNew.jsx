@@ -17,7 +17,10 @@ import {
   addCarNumber,
   getFormData,
   addContextImage,
-  resetFormData
+  resetFormData,
+  addCarImage,
+  addAddress,
+  validAddress
 } from '../store/actions/formActions';
 
 import ImagePlaceholder from '../assets/icons/icon.png';
@@ -48,7 +51,8 @@ class FormNew extends Component {
       places: (ref) => {
         const autocomplete = new google.maps.places.Autocomplete( ref, { ...googleMapsConfig.options, bounds }, );
         autocomplete.addListener('place_changed', () => completeLocation(autocomplete.getPlace()));
-      }
+        return autocomplete;
+      },
     });
   }
 
@@ -65,7 +69,7 @@ class FormNew extends Component {
   }
 
   render() {
-    const { form, addContextImage } = this.props;
+    const { form, addContextImage, addCarImage, formLoaders } = this.props;
     if (!this.props.auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
     return (
@@ -94,6 +98,7 @@ class FormNew extends Component {
                 hasError={this.findErrorByType(FORM_ERRORS.contextImageUpload.type)}
                 errorMessage={FORM_ERRORS.contextImageUpload.message}
                 image={form.contextImage}
+                isLoading={formLoaders.isContexImageLoading}
               />
             </F.FlexItem>
 
@@ -102,13 +107,16 @@ class FormNew extends Component {
                 id='carImage'
                 text='Dodaj zdjęcie, na którym widoczna jest tablica rejestracyjna'
                 placeholder={ImagePlaceholder}
-                onChange={(file) => addContextImage(file, this.state.geocoder)}
+                onChange={(file) => addCarImage(file)}
                 hasError={this.findErrorByType(FORM_ERRORS.carImageUpload.type)}
                 errorMessage={FORM_ERRORS.contextImageUpload.message}
                 image={form.carImage}
+                isLoading={formLoaders.isCarImageLoading}
               />
             </F.FlexItem>
           </F.FlexRow>
+
+          {form.carInfo.plateImage && <img src={form.carInfo.plateImage} />}
 
           <F.FlexRow>
             <F.FlexItem>
@@ -117,7 +125,10 @@ class FormNew extends Component {
                 text='Podaj adres zdarzenia'
                 placeholder='np. Storrady-Świętosławy 1b 71-602, 71-602 Szczecin'
                 value={form.address.address} places={this.state.places}
-                errorMessage={null}
+                errorMessage={FORM_ERRORS.address.message}
+                hasError={this.findErrorByType(FORM_ERRORS.address.type)}
+                onChange={(address) => this.props.addAddress(address)}
+                validAddress={this.props.validAddress}
               />
             </F.FlexItem>
 
@@ -129,7 +140,7 @@ class FormNew extends Component {
                 onChange={(value) => this.props.addCarNumber(value)}
                 hasError={this.findErrorByType(FORM_ERRORS.carNumber.type)}
                 errorMessage={FORM_ERRORS.carNumber.message}
-                value={form.carInfo.plateId}
+                value={form.carInfo.plateId || form.carInfo.plateIdFormImage}
               />
             </F.FlexItem>
           </F.FlexRow>
@@ -139,7 +150,7 @@ class FormNew extends Component {
             text='Dodaj komentarz (*komentarz wymagany dla kategorii wykroczenia "pozostałe").'
             placeholder='Np. szczegóły, dotyczące lokalizacji zdarzenia'
             onChange={(value) => this.props.addComment(value)}
-            hasError={this.findErrorByType(FORM_ERRORS.comment.type)}
+            hasError={this.findErrorByType(FORM_ERRORS.comment.type) || this.findErrorByType(FORM_ERRORS.commentToCategory.type)}
             errorMessage={FORM_ERRORS.comment.message}
             value={form.addComment}
           />
@@ -174,14 +185,22 @@ FormNew.propTypes = {
     name: PropTypes.string,
     draftId: PropTypes.string
   }),
+  formLoaders: PropTypes.shape({
+    isContexImageLoading: PropTypes.bool,
+    isCarImageLoading: PropTypes.bool,
+    isFormSaving: PropTypes.bool
+  }),
   completeLocation: PropTypes.func,
   addComment: PropTypes.func,
   addCrimeType: PropTypes.func,
   addCarNumber: PropTypes.func,
   getFormData: PropTypes.func,
   addContextImage: PropTypes.func,
+  addCarImage: PropTypes.func,
   formErrors: PropTypes.array,
-  resetFormData: PropTypes.func
+  resetFormData: PropTypes.func,
+  addAddress: PropTypes.func,
+  validAddress: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
@@ -189,7 +208,12 @@ const mapStateToProps = (state) => {
     auth: state.firebase.auth,
     form: state.form.formData,
     profile: state.firebase.profile,
-    formErrors: state.form.formErrors
+    formErrors: state.form.formErrors,
+    formLoaders: {
+      isContexImageLoading: state.form.isContexImageLoading,
+      isCarImageLoading: state.form.isCarImageLoading,
+      isFormSaving: state.form.isFormSaving
+    }
   };
 };
 
@@ -201,7 +225,10 @@ const mapDispatchToProps = (dispatch) => {
     addCarNumber: (number) => dispatch(addCarNumber(number)),
     getFormData: (reportId) => dispatch(getFormData(reportId)),
     addContextImage: (file, map) => dispatch(addContextImage(file, map)),
-    resetFormData: () => dispatch(resetFormData())
+    addCarImage: (file) => dispatch(addCarImage(file)),
+    resetFormData: () => dispatch(resetFormData()),
+    addAddress: (address) => dispatch(addAddress(address)),
+    validAddress: (address) => dispatch(validAddress(address)),
   };
 };
 

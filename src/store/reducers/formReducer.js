@@ -1,37 +1,17 @@
 import { formStatus } from '../../consts/formConsts';
-import { FORM_ERRORS } from '../../consts/formConsts';
+import { FROM_STRUCTURE, FORM_ERRORS } from '../../consts/formConsts';
 
-const filterErrorArray = (formErrors, errorType) => {
+const filterErrors = (formErrors, errorType) => {
   return formErrors.filter(error => error !== errorType);
 };
 
 const initialState = {
-  formData: {
-    date: null,
-    id: null,
-    number: null,
-    status: null,
-    contextImage: null,
-    carImage: null,
-    category: 7,
-    comment: null,
-    carInfo: {
-      plateId: null,
-      plateIdFormImage: null,
-      brand: null,
-      plateImage: null,
-      recydywa: 0
-    },
-    address: {
-      address: '',
-      city: '',
-      voivodeship: '',
-      latlng: null
-    },
-    user: null,
-  },
+  formData: FROM_STRUCTURE,
   formErrors: [],
-  isFormComplete: false
+  isFormComplete: false,
+  isContexImageLoading: false,
+  isCarImageLoading: false,
+  isFormSaving: false
 };
 
 const formReducer = (state, action) => {
@@ -39,25 +19,33 @@ const formReducer = (state, action) => {
 
   switch (action.type) {
     case "form/ADD_CONTEXTIMAGE":
-      errors = filterErrorArray(state.formErrors, FORM_ERRORS.contextImageUpload.type);
+      errors = filterErrors(state.formErrors, FORM_ERRORS.contextImageUpload.type);
 
       return {
         ...state,
         formData: { ...state.formData, contextImage: action.contextImage },
-        formErrors: [ ...errors ]
+        formErrors: [ ...errors ],
+        isContexImageLoading: false,
       };
 
+    case "form/CONTEXTIMAGE_LOADING":
+      return { ...state, isContexImageLoading: true, };
+
     case "form/ADD_CARIMAGE":
-      errors = filterErrorArray(state.formErrors, FORM_ERRORS.carImageUpload.type);
+      errors = filterErrors(state.formErrors, FORM_ERRORS.carImageUpload.type);
 
       return {
         ...state,
         formData: { ...state.formData, carImage: action.carImage },
-        formErrors: [ ...errors ]
+        formErrors: [ ...errors ],
+        isCarImageLoading: false,
       };
 
+    case "form/CARIMAGE_LOADING":
+      return { ...state, isCarImageLoading: true };
+
     case "form/AUTOCOMPLETE_LOCATION":
-      errors = filterErrorArray(state.formErrors, FORM_ERRORS.address.type);
+      errors = filterErrors(state.formErrors, FORM_ERRORS.address.type);
 
       return {
         ...state,
@@ -66,16 +54,25 @@ const formReducer = (state, action) => {
       };
 
       case "form/ADD_CARNUMBER":
-        errors = filterErrorArray(state.formErrors, FORM_ERRORS.carNumber.type);
+        errors = filterErrors(state.formErrors, FORM_ERRORS.carNumber.type);
 
         return {
           ...state,
-          formData: { ...state.formData, carInfo: { ...state.carInfo, plateId: action.carNumber }},
+          formData: { ...state.formData, carInfo: { ...state.formData.carInfo, plateId: action.carNumber }},
+          formErrors: [ ...errors ]
+        };
+
+      case "form/ADD_CARDATA":
+        errors = filterErrors(state.formErrors, FORM_ERRORS.carNumber.type);
+
+        return {
+          ...state,
+          formData: { ...state.formData, carInfo: { ...action.carInfo }},
           formErrors: [ ...errors ]
         };
 
       case "form/ADD_COMMENT":
-        errors = filterErrorArray(state.formErrors, FORM_ERRORS.comment.type);
+        errors = filterErrors(state.formErrors, FORM_ERRORS.comment.type);
 
         return {
           ...state,
@@ -84,7 +81,16 @@ const formReducer = (state, action) => {
         };
 
       case "form/ADD_CATEGORY":
-        return { ...state, formData: { ...state.formData, category: action.category } };
+        if ( action.category == 0) {
+          errors = state.formErrors;
+        } else {
+          errors = filterErrors(state.formErrors, FORM_ERRORS.commentToCategory.type);
+        }
+
+        return { ...state, formData: { ...state.formData, category: action.category }, formErrors: [ ...errors ] };
+
+      case "form/ADD_DATE":
+        return { ...state, formData: { ...state.formData, date: action.date } };
 
       case "form/ADD_USER":
         return { ...state, formData: { ...state.formData, user: action.user } };
@@ -98,25 +104,36 @@ const formReducer = (state, action) => {
       case "form/CRETE_NEW_REPORT":
         return {
           ...state,
-          formData: {
-            ...state.formData,
-            user: action.user,
-            date: new Date(),
-            status: formStatus.draft,
-            number: '1/2/a' // TO DO
-          }
+          formData: { ...state.formData, user: action.user, number: action.number, id: action.id }
         };
 
       case "form/HANDLE_FORM_ERROR":
         const error = state.formErrors.find(error => error === action.errorType);
-        if (!error) return { ...state, formErrors: [ ...state.formErrors, action.errorType ]};
+
+        if (!error) {
+          return {
+            ...state,
+            formErrors: [ ...state.formErrors, action.errorType ],
+            isContexImageLoading: false,
+            isCarImageLoading: false,
+            isFormSaving: false
+          };
+        }
+
         return { ...state };
 
       case "form/HANDLE_FORM_ERRORORS":
-        return state.formErrors.length === 0 ? { ...state, formErrors: [...action.errors]} : { ...state };
+        return { ...state, formErrors: [...action.errors]};
 
       case "form/CLEAR_FORM_DATA":
-        return { ...initialState };
+        return {
+          formData: FROM_STRUCTURE,
+          formErrors: [],
+          isFormComplete: false,
+          isContexImageLoading: false,
+          isCarImageLoading: false,
+          isFormSaving: false
+        };
 
     default:
     return state || initialState;

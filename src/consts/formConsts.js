@@ -6,38 +6,43 @@ export const formStatus = {
 
 export const RATIO_DATA = [
   {
-    id: 7,
+    id: '7',
     text: 'Niezastosowanie się do znaków',
     image: '',
   },
   {
-    id: 8,
+    id: '8',
     text: 'Parkowanie z dala od krawędzi jezdni',
     image: '',
   },
   {
-    id: 10,
+    id: '10',
     text: 'Parkowanie za barierkami',
     image: '',
   },
   {
-    id: 4,
+    id: '4',
     text: 'Zastawienie chodnika (mniej niż 1.5m)',
     image: '',
   },
   {
-    id: 2,
+    id: '2',
     text: 'Mniej niż 15m od przystanku',
     image: '',
   },
   {
-    id: 3,
+    id: '3',
     text: 'Mniej niż 10m od skrzyżowania',
     image: '',
   },
   {
-    id: 5,
+    id: '5',
     text: 'Mniej niż 10m od przejścia dla pieszych',
+    image: '',
+  },
+  {
+    id: 0,
+    text: 'Pozostałe',
     image: '',
   }
 ];
@@ -53,14 +58,15 @@ export const FORM_ERRORS = {
     type: 'commentError',
     message: 'Komentarz jest zbyt krótki (min. 20 znaków)'
   },
+  commentToCategory: {
+    key: 'category',
+    type: 'commentRequired',
+    message: 'Komentarz jest zbyt krótki (min. 20 znaków'
+  },
   address: {
     key: 'address.latlng',
     type: 'addressMessage',
     message: 'Nieprawidłowy adres, wybierz adres z listy'
-  },
-  category: {
-    type: 'categoryError',
-    message: 'Żadna z kategorii wykroczenia nie została zaznaczona'
   },
   contextImageUpload: {
     key: 'contextImage',
@@ -80,4 +86,30 @@ export const FORM_ERRORS = {
     type: 'carImageAutocompleteError',
     message: 'Nie udało się pobrać numerów rejestracyjnych ze zdjęcia'
   }
+};
+
+export const FROM_STRUCTURE = {
+  date: null,
+  id: null,
+  number: null,
+  status: formStatus.draft,
+  contextImage: null,
+  carImage: null,
+  category: 7,
+  comment: null,
+  carInfo: {
+    plateId: null,
+    plateIdFormImage: null,
+    brand: null,
+    plateImage: null,
+    recydywa: 0
+  },
+  address: {
+    address: '',
+    city: '',
+    voivodeship: 'default',
+    country: 'Polska',
+    latlng: null
+  },
+  user: null,
 };

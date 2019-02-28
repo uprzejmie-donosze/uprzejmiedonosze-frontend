@@ -54,7 +54,7 @@ class RatioInputList extends Component {
 };
 
 RatioInputList.defaultProps = {
-  value: 1
+  value: '1'
 };
 
 RatioInputList.propTypes = {

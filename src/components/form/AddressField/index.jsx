@@ -9,11 +9,14 @@ class AddressField extends Component {
 
   componentDidUpdate(prevProps) {
     const { places } = this.props;
-    if (places !== prevProps.places) places(this.autocompleteRef.current);
+
+    if (places !== prevProps.places) {
+      places(this.autocompleteRef.current);
+    }
   };
 
   render() {
-    const { errorMessage, text, placeholder, value, id } = this.props;
+    const { errorMessage, hasError, text, placeholder, value, id, onChange } = this.props;
 
     return (
       <F.Field style={{padding: '1rem 0'}}>
@@ -22,11 +25,12 @@ class AddressField extends Component {
         <F.Input
           type="text"
           id={id}
-          defaultValue={this.props.value}
+          value={value}
           ref={this.autocompleteRef}
+          onChange={() => onChange(this.autocompleteRef.current.value)}
         />
 
-        {errorMessage && <F.ErrorMessage>{errorMessage}</F.ErrorMessage>}
+        {hasError && <F.ErrorMessage>{errorMessage}</F.ErrorMessage>}
       </F.Field>
     );
   };
@@ -43,6 +47,8 @@ AddressField.propTypes = {
   value: PropTypes.string,
   places: PropTypes.func,
   errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default AddressField;

@@ -19,14 +19,13 @@ class ImageField extends Component {
   }
 
   render() {
-    const { onChange, image, hasError, errorMessage, text, placeholder, id } = this.props;
-    const imgSrc = image ? image : placeholder;
+    const { onChange, image, hasError, errorMessage, text, placeholder, id, isLoading } = this.props;
 
     return (
       <F.Field>
         <F.Label>{text}</F.Label>
         <S.ImageField.Label htmlFor={id}>
-          <S.ImageField.Icon version="1.1" id="Capa_1" viewBox="0 0 419.2 419.2">
+          {!image && (<S.ImageField.Icon version="1.1" id="Capa_1" viewBox="0 0 419.2 419.2">
             <g fill="currentColor">
               <circle cx="158" cy="144.4" r="28.8" />
               <path d="M394.4,250.4c-13.6-12.8-30.8-21.2-49.6-23.6V80.4c0-15.6-6.4-29.6-16.4-40C318,30,304,24,288.4,24h-232
@@ -46,7 +45,9 @@ class ImageField extends Component {
                 c-1.2,0-2.4,0.4-3.6,0.8c-1.2,0.4-2.4,1.2-3.6,2.4l-24.8,24.8c-4,4-4,10.8,0,15.2c4,4,10.8,4,15.2,0l6.4-6.4v44
                 c0,6,4.8,10.8,10.8,10.8s10.8-4.8,10.8-10.8v-44l6.4,6.4c4,4,10.8,4,15.2,0c4-4,4-10.8,0-15.2L341.6,267.6z"/>
             </g>
-          </S.ImageField.Icon>
+          </S.ImageField.Icon>)}
+          {image && <S.ImageField.Image src={image} />}
+          {isLoading && <S.ImageField.Loader />}
         </S.ImageField.Label>
 
         <S.ImageField.Input
@@ -54,6 +55,7 @@ class ImageField extends Component {
           type="file"
           accept="image/jpeg"
           onChange={(e) => onChange(e.target.files[0])}
+          disabled={isLoading}
         />
 
         {this.state.hasError && <F.ErrorMessage>{errorMessage}</F.ErrorMessage>}
@@ -74,7 +76,8 @@ ImageField.propTypes = {
   onChange: PropTypes.func,
   image: PropTypes.string,
   errorMessage: PropTypes.string,
-  hasError: PropTypes.bool
+  hasError: PropTypes.bool,
+  isLoading: PropTypes.bool
 };
 
 export default ImageField;

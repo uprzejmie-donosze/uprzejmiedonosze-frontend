@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link, navigate } from '@reach/router';
+import Moment from 'react-moment';
+import moment from 'moment';
 
 import { Container } from '../styles/styledComponents';
 
@@ -16,11 +18,11 @@ class FormConfirm extends Component {
     if (this.props.auth.uid) {
       this.props.getFormData(this.props.raportId);
     }
-  }
 
+    moment.locale('pl');
+  }
   render() {
     const { form, auth } = this.props;
-
     if (!auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
     const renderContent = () => (
@@ -36,7 +38,17 @@ class FormConfirm extends Component {
 
         <div>
           <h4>Zgłoszenie wykroczenia</h4>
-          <p>{`W dniu ${form.date} roku o godzinie ${form.date} byłam świadkiem pozostawienia samochodu o nr rejestracyjnym ${form.carInfo.plateId} pod adresem ${form.address.address}.`}</p>
+          <p>
+            <span>W dniu </span>
+            <strong><Moment format="DD MMMM YYYY">{form.date}</Moment></strong>
+            <span> roku o godzinie </span>
+            <strong><Moment format='HH:mm'>{form.date}</Moment></strong>
+            <span> byłam świadkiem pozostawienia samochodu o nr rejestracyjnym </span>
+            <strong><span>{form.carInfo.plateId || form.carInfo.plateIdFormImage}</span></strong>
+            <span> pod adresem </span>
+            <strong><span>{form.address.address}</span></strong>
+          </p>
+
           <p>Zdjęcia wykonałam samodzielnie.</p>
           <p>Nie byłam świadkiem samego momentu parkowania, oraz nie wiem jak długo pozostawał pojazd pozostawał na tym miejscu.</p>
           <p>{form.comment}</p>
@@ -47,6 +59,8 @@ class FormConfirm extends Component {
           <p>{form.user.email}</p>
           <p>{form.user.address}</p>
           <img src={form.contextImage}/>
+          <img src={form.carImage}/>
+          <img src={form.carInfo.plateImage}/>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
@@ -58,7 +72,7 @@ class FormConfirm extends Component {
 
     return (
       <Container>
-        {form.user ? renderContent() : <p>waiting for content</p>}
+        {form.user && form.date ? renderContent() : <p>waiting for content</p>}
       </Container>
     );
   }
