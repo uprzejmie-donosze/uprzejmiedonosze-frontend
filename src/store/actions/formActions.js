@@ -168,8 +168,14 @@ export const addCarImage = (file) => {
               });
             });
           });
+        } else {
+          alert('OpenAlpr no results');
         }
+      }).catch(error => {
+        alert('OpenAlpr error');
       });
+    }).catch(error => {
+      alert('Prosess file error');
     });
   };
 };
