@@ -68,6 +68,11 @@ export const FORM_ERRORS = {
     type: 'addressMessage',
     message: 'Nieprawidłowy adres, wybierz adres z listy'
   },
+  date: {
+    key: 'date',
+    type: 'dateError',
+    message: 'Nieprawidłowa data'
+  },
   contextImageUpload: {
     key: 'contextImage',
     type: 'contextImageUploadError',

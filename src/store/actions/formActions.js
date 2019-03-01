@@ -276,3 +276,13 @@ export const resetFormData = () => {
     });
   };
 };
+
+export const addDateTime = (dateTime) => {
+  return (dispatch) => {
+    if (dateTime) {
+      dispatch({ type: 'form/ADD_DATE', date: dateTime });
+    } else {
+      dispatch({ type: 'form/HANDLE_FORM_ERROR', errorType: FORM_ERRORS.date.type });
+    }
+  };
+}

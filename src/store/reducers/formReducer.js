@@ -90,7 +90,13 @@ const formReducer = (state, action) => {
         return { ...state, formData: { ...state.formData, category: action.category }, formErrors: [ ...errors ] };
 
       case "form/ADD_DATE":
-        return { ...state, formData: { ...state.formData, date: action.date } };
+        errors = filterErrors(state.formErrors, FORM_ERRORS.date.type);
+
+        return {
+          ...state,
+          formData: { ...state.formData, date: action.date },
+          formErrors: [ ...errors ]
+        };
 
       case "form/ADD_USER":
         return { ...state, formData: { ...state.formData, user: action.user } };

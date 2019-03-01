@@ -127,7 +127,6 @@ export const formValidation = (form) => {
   delete data['address.voivodeship'];
   delete data['address.city'];
   delete data['carInfo.brand'];
-  delete data['date'];
   delete data['user'];
   delete data['id'];
   delete data['number'];

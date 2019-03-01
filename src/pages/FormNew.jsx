@@ -20,13 +20,15 @@ import {
   resetFormData,
   addCarImage,
   addAddress,
-  validAddress
+  validAddress,
+  addDateTime,
 } from '../store/actions/formActions';
 
 import ImagePlaceholder from '../assets/icons/icon.png';
 import ImageField from '../components/form/ImageField';
 import AddressField from '../components/form/AddressField';
 import TextField from '../components/form/TextField';
+import DateTimeField from '../components/form/DateTimeField';
 import TextAreaField from '../components/form/TextAreaField';
 import RatioInputList from '../components/form/RatioInputList';
 import FormNavigation from '../components/form/FormNavigation';
@@ -56,16 +58,20 @@ class FormNew extends Component {
     });
   }
 
+  findErrorByType(type) {
+    return this.props.formErrors.find(error => error === type) !== undefined;
+  }
+
+  componentDidMount() {
+    this.isIOSdevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+
   componentDidUpdate(prevProps) {
     const { profile } = this.props;
 
     if (profile.name !== prevProps.profile.name && profile.draftId !== undefined && profile.draftId) {
       this.props.getFormData(profile.draftId);
     }
-  }
-
-  findErrorByType(type) {
-    return this.props.formErrors.find(error => error === type) !== undefined;
   }
 
   render() {
@@ -145,6 +151,18 @@ class FormNew extends Component {
             </F.FlexItem>
           </F.FlexRow>
 
+          {this.isIOSdevice && (
+            <DateTimeField
+              id='dateTimeReportField'
+              text='Podaj datę i godzinę zdarzenia'
+              placeholder='12/12/2018 16:00'
+              onChange={(value) => this.props.addDateTime(value)}
+              hasError={this.findErrorByType(FORM_ERRORS.date.type)}
+              errorMessage={FORM_ERRORS.date.message}
+              value={form.date}
+            />
+          )}
+
           <TextAreaField
             id='reportCommentField'
             text='Dodaj komentarz (*komentarz wymagany dla kategorii wykroczenia "pozostałe").'
@@ -194,6 +212,7 @@ FormNew.propTypes = {
   addComment: PropTypes.func,
   addCrimeType: PropTypes.func,
   addCarNumber: PropTypes.func,
+  addDateTime: PropTypes.func,
   getFormData: PropTypes.func,
   addContextImage: PropTypes.func,
   addCarImage: PropTypes.func,
@@ -229,6 +248,7 @@ const mapDispatchToProps = (dispatch) => {
     resetFormData: () => dispatch(resetFormData()),
     addAddress: (address) => dispatch(addAddress(address)),
     validAddress: (address) => dispatch(validAddress(address)),
+    addDateTime: (dateTime) => dispatch(addDateTime(dateTime)),
   };
 };
 
