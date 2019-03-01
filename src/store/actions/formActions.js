@@ -5,6 +5,7 @@ import sortBy from 'lodash.sortby';
 import {
   readGeoDataFromImage,
   processFilePromise,
+  loadImagePromise,
   formValidation,
   cropImage,
   coodsArrayToCanvasData
@@ -86,7 +87,7 @@ export const addContextImage = (file, geocoder) => {
     const imageRef = storageRef.child(`${userEmail}/${file.name}`);
 
     const dataFromImg = readGeoDataFromImage(file);
-    const formatedImage = processFilePromise(file);
+    const formatedImage = loadImagePromise(file);
 
     formatedImage.then(resp => {
       const uploadImgTask = imageRef.putString(resp, 'data_url');
@@ -100,6 +101,8 @@ export const addContextImage = (file, geocoder) => {
           dispatch({ type: 'form/ADD_CONTEXTIMAGE', contextImage: downloadURL });
         });
       });
+    }).catch(error => {
+      alert(error) // TO DO
     });
 
     dataFromImg.then(resp => {
@@ -136,7 +139,7 @@ export const addCarImage = (file) => {
     const imageRef = storageRef.child(`${userEmail}/${file.name}`);
     const plateRef = storageRef.child(`${userEmail}/platePreview-${file.name}`);
 
-    const formatedImage = processFilePromise(file);
+    const formatedImage = loadImagePromise(file);
 
     formatedImage.then(resp => {
       const alprData = createAlprData(resp);

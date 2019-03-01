@@ -10,12 +10,28 @@ import { colors } from '../styles/variables';
 const Home = ({ auth, profile }) => {
   if (!auth.uid) return <Redirect from="/app" to='login' noThrow />;
 
+  const renderEmptyState = () => (
+    <section>
+      <h4>Nie masz jeszcze żadnych wniosków :(</h4>
+      <p>Dowiedz się więcej o tym jak złoyć wniosek lub rozpocznij już teraz</p>
+
+      <Link to='/fqa'></Link>
+      <Link to='app/report/new'></Link>
+    </section>
+  );
+
+  const renderStatistics = (profile) => (
+    <section>
+      <h4>{`${profile.sex === 'female' ? 'Stworzyłaś' : 'Stworzyłeś'} już ${profile.reports.length} wniosków`}</h4>
+      <p>Zobacz swoje statystyki</p>
+    </section>
+  );
+
   return (
     <Container>
       <h1>{`Cześć ${profile.name}!`}</h1>
 
-      <h4>Your statistics</h4>
-      {profile.reports && <p>Nomber of reports <span>{profile.reports.length}</span></p>}
+      {profile.reports && profile.reports.length ? renderStatistics(profile) : renderEmptyState()}
 
       <RoundedLink to='/app/report/new'>
         <Icon width="20px" height="20px" viewBox="0 0 92 92">
@@ -34,7 +50,8 @@ Home.propTypes = {
     uid: PropTypes.string
   }),
   profile: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
+    sex: PropTypes.string,
   })
 };
 

@@ -1,4 +1,5 @@
 import { FORM_ERRORS } from '../../consts/formConsts';
+import loadImage from 'blueimp-load-image';
 
 export const readGeoDataFromImage = (file) => {
   return new Promise((resolve, reject) => {
@@ -35,6 +36,22 @@ export const readGeoDataFromImage = (file) => {
 export const readDateTimeFromFilename = (file) => {
   console.log(file);
 }
+
+export const loadImagePromise = (file) => {
+  const canvasConfig = {
+    maxWidth: 1200,
+    maxHeight: 1200,
+    orientation: true,
+    canvas: true
+  };
+
+  return new Promise((resolve, reject) => {
+    loadImage(file, function(img) {
+      const result = img.toDataURL('image/jpeg', 0.9);
+      result ? resolve(result) : reject('Nie udało się załadować zdjęcia');
+    }, canvasConfig);
+  });
+};
 
 export const readFileAsync = (file) => {
   return new Promise((resolve, reject) => {
