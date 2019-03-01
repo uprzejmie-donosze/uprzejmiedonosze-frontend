@@ -35,7 +35,7 @@ export const readGeoDataFromImage = (file) => {
 
 export const readDateTimeFromFilename = (file) => {
   console.log(file);
-}
+};
 
 export const loadImagePromise = (file) => {
   const canvasConfig = {

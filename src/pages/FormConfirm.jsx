@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import { Container } from '../styles/styledComponents';
 
-import { getFormData } from '../store/actions/formActions';
+import { getFormData, submitReport } from '../store/actions/formActions';
 
 class FormConfirm extends Component {
   goBack = () => {
@@ -21,6 +21,7 @@ class FormConfirm extends Component {
 
     moment.locale('pl');
   }
+
   render() {
     const { form, auth } = this.props;
     if (!auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
@@ -65,7 +66,7 @@ class FormConfirm extends Component {
 
         <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
           <button style={{background: 'white'}} onClick={() => this.goBack()}>back</button>
-          <Link style={{background: 'white'}} to="/app/report/confirmation">confirm</Link>
+          <button style={{background: 'white'}} onClick={() => this.props.submitForm()}>confirm</button>
         </div>
       </div>
     );
@@ -83,6 +84,7 @@ FormConfirm.propTypes = {
     uid: PropTypes.string
   }),
   getFormData: PropTypes.func,
+  submitForm: PropTypes.func,
   raportId: PropTypes.string,
   form: PropTypes.shape({
     id: PropTypes.string,
@@ -98,7 +100,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFormData: (reportId) => dispatch(getFormData(reportId))
+    getFormData: (reportId) => dispatch(getFormData(reportId)),
+    submitForm: () => dispatch(submitReport())
   };
 };
 

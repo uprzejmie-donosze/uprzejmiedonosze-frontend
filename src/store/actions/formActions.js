@@ -102,7 +102,7 @@ export const addContextImage = (file, geocoder) => {
         });
       });
     }).catch(error => {
-      alert(error) // TO DO
+      alert(error); // TO DO
     });
 
     dataFromImg.then(resp => {
@@ -191,7 +191,6 @@ export const createNewReport = () => {
 
     if (validationResult.errorList.length > 0) {
       dispatch({ type: 'form/HANDLE_FORM_ERRORORS', errors: validationResult.errorList });
-
       return false;
     }
 
@@ -199,6 +198,8 @@ export const createNewReport = () => {
       const user = getState().firebase.profile;
       const userData = { name: user.name, email: user.email, msisdn: user.msisdn, address: user.address };
       const id = uuidv1();
+      const userId = getState().firebase.auth.uid;
+
       const number = `UD/${user.number}/${user.reports.length + 1}`;
 
       dispatch({ type: 'form/CRETE_NEW_REPORT', user: userData, id: id, number: number });
@@ -207,7 +208,7 @@ export const createNewReport = () => {
       const form = getState().form.formData;
       console.log('data done');
 
-      firestore.collection('reports').doc(id).set({ ...form }).then(resp => {
+      firestore.collection('reports').doc(id).set({ ...form, userId: userId }).then(resp => {
         const userUid = getState().firebase.auth.uid;
         console.log('reports');
 
@@ -238,25 +239,46 @@ export const getFormData = (formId) => {
   };
 };
 
+export const updateReport = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    const form = getState().form.formData;
+
+    firestore.collection('reports').doc(form.id).update(form)
+    .then(() => {
+      console.log('form updated');
+      navigate(`/app/report/${form.id}`);
+    })
+    .catch((error) => {
+      alert('Report not updated!'); // TO DO
+    });
+  };
+};
+
 export const submitReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    const report = firestore.collection('reports').doc("Kinga Sieminiak");
+    const form = getState().form.formData;
 
-    // return db.runTransaction(function(transaction) {
-    //   return transaction.get(report).then(function(sfDoc) {
-    //     if (!sfDoc.exists) {
-    //       throw "Document does not exist!";
-    //     }
-
-    //     var newPopulation = sfDoc.data().population + 1;
-    //     transaction.update(sfDocRef, { population: newPopulation });
-    //   });
-    // }).then(function() {
-    //     console.log("Transaction successfully committed!");
-    // }).catch(function(error) {
-    //     console.log("Transaction failed: ", error);
-    // });
+    firestore.collection('reports').doc(form.id).update({ status: 'save' })
+    .then(() => {
+      const userUid = getState().firebase.auth.uid;
+      const firestore = getFirestore();
+  
+      firestore.collection('users').doc(userUid).update({
+        draftId: null,
+      }).then(() => {
+        console.log('clear');
+        dispatch({ type: 'form/CLEAR_FORM_DATA' });
+  
+      }).catch((error) => {
+        console.error("Error updating user: ", error);
+      });
+    })
+    .then(() => navigate('/app'))
+    .catch((error) => {
+      alert('Report not saved'); // TO DO
+    });
   };
 };
 
@@ -285,4 +307,4 @@ export const addDateTime = (dateTime) => {
       dispatch({ type: 'form/HANDLE_FORM_ERROR', errorType: FORM_ERRORS.date.type });
     }
   };
-}
+};
