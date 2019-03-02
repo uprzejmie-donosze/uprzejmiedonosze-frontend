@@ -52,19 +52,19 @@ class SignedInLinks extends Component {
 
           <S.SignInMenu.Body>
             <S.SignInMenu.Menu>
-              <RouteLink action={closeNav} to='/app'>Home</RouteLink>
-              <RouteLink action={closeNav} to='/app/report/new'>New report</RouteLink>
-              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}`}>Your Profile</RouteLink>
-              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}/reports`}>Your Reports</RouteLink>
+              <RouteLink action={closeNav} to='/app'>Strona głowna</RouteLink>
+              <RouteLink action={closeNav} to='/app/report/new'>Nowe zgłoszenie</RouteLink>
+              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}`}>Profil</RouteLink>
+              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}/reports`}>Zgłoszenia</RouteLink>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Menu>
-              <RouteLink action={closeNav} to='/regulations'>Regulations</RouteLink>
+              <RouteLink action={closeNav} to='/regulations'>Regulamin</RouteLink>
               <RouteLink action={closeNav} to='/faq'>FAQ</RouteLink>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Footer>
-              <button onClick={this.props.signOut}>logout</button>
+              <button onClick={this.props.signOut}>Wyloguj się</button>
             </S.SignInMenu.Footer>
           </S.SignInMenu.Body>
         </S.SignInMenu>

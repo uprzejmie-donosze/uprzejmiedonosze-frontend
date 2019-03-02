@@ -90,8 +90,8 @@ class FormNew extends Component {
 
           {profile.draftId && (
             <p style={{padding: '1rem', border: '1px solid #f1dd2e', background: '#f3e03b5e'}}>
-              <span>Wygląda na to, że masz niedokończony wniosek. Jeśli chcesz rorpocząć nowy wniosek, wyczyć dane</span>
-              <button onClick={this.props.resetFormData}>wyczyść wniosek</button>
+              <span>Wygląda na to, że masz niedokończone zgłoszenie. Jeśli chcesz rozpocząć nowe zgłoszenie, wyczyć dane</span>
+              <button onClick={this.props.resetFormData}>wyczyść dane</button>
             </p>
           )}
 
@@ -187,7 +187,7 @@ class FormNew extends Component {
 
           <FormNavigation
             backTo='/app'
-            text='Zapisz wniosek'
+            text='Zapisz'
             action={profile.draftId ? this.props.updateReport : this.props.createNewReport}
           />
 
