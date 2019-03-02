@@ -5,8 +5,9 @@ import { Redirect, Link, navigate } from '@reach/router';
 import Script from 'react-load-script';
 
 import { FORM_ERRORS } from '../consts/formConsts';
-import { Container } from '../styles/styledComponents';
+import { Container, Layout } from '../styles/styledComponents';
 import googleMapsConfig from '../config/googleMapsConfig';
+import Navbar from '../components/layout/Navbar/Navbar';
 
 import * as F from './../components/form/FormComponents/styles';
 
@@ -22,6 +23,8 @@ import {
   addAddress,
   validAddress,
   addDateTime,
+  createNewReport,
+  updateReport
 } from '../store/actions/formActions';
 
 import ImagePlaceholder from '../assets/icons/icon.png';
@@ -75,115 +78,123 @@ class FormNew extends Component {
   }
 
   render() {
-    const { form, addContextImage, addCarImage, formLoaders } = this.props;
+    const { form, addContextImage, addCarImage, formLoaders, profile } = this.props;
     if (!this.props.auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
 
     return (
-      <Container>
-        <FormProgressbar />
+      <Layout>
+        <Navbar />
 
-        {this.props.profile.draftId && (
-          <p style={{padding: '1rem', border: '1px solid #f1dd2e', background: '#f3e03b5e'}}>
-            <span>Wygląda na to, że masz niedokończony wniosek. Jeśli chcesz rorpocząć nowy wniosek, wyczyć dane</span>
-            <button onClick={this.props.resetFormData}>wyczyść wniosek</button>
-          </p>
-        )}
+        <Container>
+          <FormProgressbar />
 
-        <h1>Nowe zgłoszenie</h1>
-
-        <F.Area>
-          <F.Title>Dane zgłoszenia</F.Title>
-
-          <F.FlexRow>
-            <F.FlexItem>
-              <ImageField
-                id='contextImage'
-                text='Dodaj zdjęcie prezentujące kontekst zdarzenia'
-                placeholder={ImagePlaceholder}
-                onChange={(file) => addContextImage(file, this.state.geocoder)}
-                hasError={this.findErrorByType(FORM_ERRORS.contextImageUpload.type)}
-                errorMessage={FORM_ERRORS.contextImageUpload.message}
-                image={form.contextImage}
-                isLoading={formLoaders.isContexImageLoading}
-              />
-            </F.FlexItem>
-
-            <F.FlexItem>
-              <ImageField
-                id='carImage'
-                text='Dodaj zdjęcie, na którym widoczna jest tablica rejestracyjna'
-                placeholder={ImagePlaceholder}
-                onChange={(file) => addCarImage(file)}
-                hasError={this.findErrorByType(FORM_ERRORS.carImageUpload.type)}
-                errorMessage={FORM_ERRORS.contextImageUpload.message}
-                image={form.carImage}
-                isLoading={formLoaders.isCarImageLoading}
-              />
-            </F.FlexItem>
-          </F.FlexRow>
-
-          {form.carInfo.plateImage && <img src={form.carInfo.plateImage} />}
-
-          <F.FlexRow>
-            <F.FlexItem>
-              <AddressField
-                id='reportAddressField'
-                text='Podaj adres zdarzenia'
-                placeholder='np. Storrady-Świętosławy 1b 71-602, 71-602 Szczecin'
-                value={form.address.address} places={this.state.places}
-                errorMessage={FORM_ERRORS.address.message}
-                hasError={this.findErrorByType(FORM_ERRORS.address.type)}
-                onChange={(address) => this.props.addAddress(address)}
-                validAddress={this.props.validAddress}
-              />
-            </F.FlexItem>
-
-            <F.FlexItem>
-              <TextField
-                id='reportCarPlaceIdField'
-                text='Podaj numery rejestracyjne pojazdu'
-                placeholder='np. CD1234JT'
-                onChange={(value) => this.props.addCarNumber(value)}
-                hasError={this.findErrorByType(FORM_ERRORS.carNumber.type)}
-                errorMessage={FORM_ERRORS.carNumber.message}
-                value={form.carInfo.plateId || form.carInfo.plateIdFormImage}
-              />
-            </F.FlexItem>
-          </F.FlexRow>
-
-          {this.isIOSdevice && (
-            <DateTimeField
-              id='dateTimeReportField'
-              text='Podaj datę i godzinę zdarzenia'
-              placeholder='12/12/2018 16:00'
-              onChange={(value) => this.props.addDateTime(value)}
-              hasError={this.findErrorByType(FORM_ERRORS.date.type)}
-              errorMessage={FORM_ERRORS.date.message}
-              value={form.date}
-            />
+          {profile.draftId && (
+            <p style={{padding: '1rem', border: '1px solid #f1dd2e', background: '#f3e03b5e'}}>
+              <span>Wygląda na to, że masz niedokończony wniosek. Jeśli chcesz rorpocząć nowy wniosek, wyczyć dane</span>
+              <button onClick={this.props.resetFormData}>wyczyść wniosek</button>
+            </p>
           )}
 
-          <TextAreaField
-            id='reportCommentField'
-            text='Dodaj komentarz (*komentarz wymagany dla kategorii wykroczenia "pozostałe").'
-            placeholder='Np. szczegóły, dotyczące lokalizacji zdarzenia'
-            onChange={(value) => this.props.addComment(value)}
-            hasError={this.findErrorByType(FORM_ERRORS.comment.type) || this.findErrorByType(FORM_ERRORS.commentToCategory.type)}
-            errorMessage={FORM_ERRORS.comment.message}
-            value={form.addComment}
+          <h1>Nowe zgłoszenie</h1>
+
+          <F.Area>
+            <F.Title>Dane zgłoszenia</F.Title>
+
+            <F.FlexRow>
+              <F.FlexItem>
+                <ImageField
+                  id='contextImage'
+                  text='Dodaj zdjęcie prezentujące kontekst zdarzenia'
+                  placeholder={ImagePlaceholder}
+                  onChange={(file) => addContextImage(file, this.state.geocoder)}
+                  hasError={this.findErrorByType(FORM_ERRORS.contextImageUpload.type)}
+                  errorMessage={FORM_ERRORS.contextImageUpload.message}
+                  image={form.contextImage}
+                  isLoading={formLoaders.isContexImageLoading}
+                />
+              </F.FlexItem>
+
+              <F.FlexItem>
+                <ImageField
+                  id='carImage'
+                  text='Dodaj zdjęcie, na którym widoczna jest tablica rejestracyjna'
+                  placeholder={ImagePlaceholder}
+                  onChange={(file) => addCarImage(file)}
+                  hasError={this.findErrorByType(FORM_ERRORS.carImageUpload.type)}
+                  errorMessage={FORM_ERRORS.contextImageUpload.message}
+                  image={form.carImage}
+                  isLoading={formLoaders.isCarImageLoading}
+                />
+              </F.FlexItem>
+            </F.FlexRow>
+
+            {form.carInfo.plateImage && <img src={form.carInfo.plateImage} />}
+
+            <F.FlexRow>
+              <F.FlexItem>
+                <AddressField
+                  id='reportAddressField'
+                  text='Podaj adres zdarzenia'
+                  placeholder='np. Storrady-Świętosławy 1b 71-602, 71-602 Szczecin'
+                  value={form.address.address} places={this.state.places}
+                  errorMessage={FORM_ERRORS.address.message}
+                  hasError={this.findErrorByType(FORM_ERRORS.address.type)}
+                  onChange={(address) => this.props.addAddress(address)}
+                  validAddress={this.props.validAddress}
+                />
+              </F.FlexItem>
+
+              <F.FlexItem>
+                <TextField
+                  id='reportCarPlaceIdField'
+                  text='Podaj numery rejestracyjne pojazdu'
+                  placeholder='np. CD1234JT'
+                  onChange={(value) => this.props.addCarNumber(value)}
+                  hasError={this.findErrorByType(FORM_ERRORS.carNumber.type)}
+                  errorMessage={FORM_ERRORS.carNumber.message}
+                  value={form.carInfo.plateId || form.carInfo.plateIdFormImage}
+                />
+              </F.FlexItem>
+            </F.FlexRow>
+
+            {this.isIOSdevice && (
+              <DateTimeField
+                id='dateTimeReportField'
+                text='Podaj datę i godzinę zdarzenia'
+                placeholder='12/12/2018 16:00'
+                onChange={(value) => this.props.addDateTime(value)}
+                hasError={this.findErrorByType(FORM_ERRORS.date.type)}
+                errorMessage={FORM_ERRORS.date.message}
+                value={form.date}
+              />
+            )}
+
+            <TextAreaField
+              id='reportCommentField'
+              text='Dodaj komentarz (*komentarz wymagany dla kategorii wykroczenia "pozostałe").'
+              placeholder='Np. szczegóły, dotyczące lokalizacji zdarzenia'
+              onChange={(value) => this.props.addComment(value)}
+              hasError={this.findErrorByType(FORM_ERRORS.comment.type) || this.findErrorByType(FORM_ERRORS.commentToCategory.type)}
+              errorMessage={FORM_ERRORS.comment.message}
+              value={form.addComment}
+            />
+          </F.Area>
+
+          <F.Area>
+            <h4>Rodzaj wykroczenia</h4>
+            <RatioInputList value={form.category} onChange={this.props.addCrimeType} />
+          </F.Area>
+
+          <FormNavigation
+            backTo='/app'
+            text='Zapisz wniosek'
+            action={profile.draftId ? this.props.updateReport : this.props.createNewReport}
           />
-        </F.Area>
 
-        <F.Area>
-          <h4>Rodzaj wykroczenia</h4>
-          <RatioInputList value={form.category} onChange={this.props.addCrimeType} />
-        </F.Area>
-
-        <FormNavigation />
-
-        <Script url={googleMapsConfig.url} onLoad={this.handleScriptLoad} />
-        <Script url='https://cdn.jsdelivr.net/npm/exif-js' />
-      </Container>
+          <Script url={googleMapsConfig.url} onLoad={this.handleScriptLoad} />
+          <Script url='https://cdn.jsdelivr.net/npm/exif-js' />
+        </Container>
+      </Layout>
     );
   }
 };
@@ -249,6 +260,8 @@ const mapDispatchToProps = (dispatch) => {
     addAddress: (address) => dispatch(addAddress(address)),
     validAddress: (address) => dispatch(validAddress(address)),
     addDateTime: (dateTime) => dispatch(addDateTime(dateTime)),
+    createNewReport: () => dispatch(createNewReport()),
+    updateReport: () => dispatch(updateReport()),
   };
 };
 

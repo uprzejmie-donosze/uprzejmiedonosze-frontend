@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link, Redirect } from '@reach/router';
 
-import { Container } from '../styles/styledComponents';
+import { Container, Layout } from '../styles/styledComponents';
 import { colors } from '../styles/variables';
+import Navbar from '../components/layout/Navbar/Navbar';
 
 const Home = ({ auth, profile }) => {
   if (!auth.uid) return <Redirect from="/app" to='login' noThrow />;
@@ -22,26 +23,30 @@ const Home = ({ auth, profile }) => {
 
   const renderStatistics = (profile) => (
     <section>
-      <h4>{`${profile.sex === 'female' ? 'Stworzyłaś' : 'Stworzyłeś'} już ${profile.reports.length} wniosków`}</h4>
+      <h4>{`${profile.sex === 'female' ? 'Stworzyłaś' : 'Stworzyłeś'} już ${profile.reports.length} wnioski`}</h4>
       <p>Zobacz swoje statystyki</p>
     </section>
   );
 
   return (
-    <Container>
-      <h1>{`Cześć ${profile.name}!`}</h1>
+    <Layout>
+      <Navbar />
 
-      {profile.reports && profile.reports.length ? renderStatistics(profile) : renderEmptyState()}
+      <Container>
+        <h1>{`Cześć ${profile.name}!`}</h1>
 
-      <RoundedLink to='/app/report/new'>
-        <Icon width="20px" height="20px" viewBox="0 0 92 92">
-          <path fill="currentColor" id="XMLID_1259_" d="M86.1,9.2L79,1.9C78.4,1.3,77.6,1,76.8,1h0c-0.8,0-1.6,0.3-2.1,0.9L32.8,44.4c-0.3,0.3-0.5,0.6-0.7,1
-            l-4.7,11.9c-0.4,1.1-0.2,2.4,0.7,3.2c0.6,0.6,1.3,0.9,2.1,0.9c0.4,0,0.7-0.1,1.1-0.2l11.8-4.7c0.4-0.2,0.7-0.4,1-0.7l41.9-42.5
-            C87.3,12.2,87.3,10.3,86.1,9.2z M40.4,51.2l-4.8,1.9l1.9-4.9L76.8,8.3l3,3L40.4,51.2z M71,47.6V88c0,2.2-2,4-4.2,4H10
-            c-2.2,0-4-1.8-4-4V11.8C6,9.6,7.8,8,10,8h41.6c2.2,0,4,1.8,4,4s-1.8,4-4,4H14v68h49V47.6c0-2.2,1.8-4,4-4S71,45.4,71,47.6z"/>
-        </Icon>
-      </RoundedLink>
-    </Container>
+        {profile.reports && profile.reports.length ? renderStatistics(profile) : renderEmptyState()}
+
+        <RoundedLink to='/app/report/new'>
+          <Icon width="20px" height="20px" viewBox="0 0 92 92">
+            <path fill="currentColor" id="XMLID_1259_" d="M86.1,9.2L79,1.9C78.4,1.3,77.6,1,76.8,1h0c-0.8,0-1.6,0.3-2.1,0.9L32.8,44.4c-0.3,0.3-0.5,0.6-0.7,1
+              l-4.7,11.9c-0.4,1.1-0.2,2.4,0.7,3.2c0.6,0.6,1.3,0.9,2.1,0.9c0.4,0,0.7-0.1,1.1-0.2l11.8-4.7c0.4-0.2,0.7-0.4,1-0.7l41.9-42.5
+              C87.3,12.2,87.3,10.3,86.1,9.2z M40.4,51.2l-4.8,1.9l1.9-4.9L76.8,8.3l3,3L40.4,51.2z M71,47.6V88c0,2.2-2,4-4.2,4H10
+              c-2.2,0-4-1.8-4-4V11.8C6,9.6,7.8,8,10,8h41.6c2.2,0,4,1.8,4,4s-1.8,4-4,4H14v68h49V47.6c0-2.2,1.8-4,4-4S71,45.4,71,47.6z"/>
+          </Icon>
+        </RoundedLink>
+      </Container>
+    </Layout>
   );
 };
 

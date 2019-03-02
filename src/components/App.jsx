@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Router } from "@reach/router";
-import Navbar from './layout/Navbar/Navbar';
+
 import GlobalStyle from '../styles/globalStyles';
+import mediaMin, { breakpoints } from '../styles/mediaQueries';
+import { navWidth } from '../styles/variables';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -31,7 +33,6 @@ class App extends Component {
     return (
       <AppContainer>
         <GlobalStyle />
-        <Navbar />
 
         <Router>
           <Landing path='/' />
@@ -41,7 +42,7 @@ class App extends Component {
           <UserProfile path='app/user/:userId' />
           <Register path='app/:user/:userId/register' />
 
-          <Reports path='app/user/:userId/reports'/>
+          <Reports path='/app/user/:userId/reports'/>
           <ReportPreview path='app/:reportId' />
 
           <FormNew path='app/report/new' />

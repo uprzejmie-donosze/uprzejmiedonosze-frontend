@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { Link, Redirect } from '@reach/router';
 import { getReports } from '../store/actions/reportActions';
 
-import { Container } from '../styles/styledComponents';
+import { Container, Layout } from '../styles/styledComponents';
+import Navbar from '../components/layout/Navbar/Navbar';
 
 class Reports extends Component {
 
@@ -38,12 +39,16 @@ class Reports extends Component {
     };
 
     return (
-      <Container>
-       <section>
-          <h1>Your reports</h1>
-          {profile.reports && profile.reports.length ? renderReportsList(this.props.reports) : renderEmptyReports()}
-       </section>
-      </Container>
+      <Layout>
+        <Navbar />
+
+        <Container>
+        <section>
+            <h1>Your reports</h1>
+            {profile.reports && profile.reports.length ? renderReportsList(this.props.reports) : renderEmptyReports()}
+        </section>
+        </Container>
+      </Layout>
     );
   }
 };

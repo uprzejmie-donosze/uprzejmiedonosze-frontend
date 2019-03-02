@@ -7,6 +7,19 @@ import { signOutUser } from '../../../store/actions/authActions';
 import { openNavbar, closeNavbar } from '../../../store/actions/appActions';
 
 import * as S from './styles';
+
+
+const RouteLink = ({ action, to, children }) => {
+  return (
+    <S.SignInMenu.Item>
+      <S.SignInMenu.Link onClick={() => action()} to={to} getProps={({ isCurrent }) => {
+        return { style: { background: isCurrent ? "rgba(0, 0, 0, .1)" : "transparent" } };
+      }}>
+        {children}
+      </S.SignInMenu.Link>
+    </S.SignInMenu.Item>
+  );
+}
 class SignedInLinks extends Component {
   toggleMenu = () => {
     this.props.isNavOpened ? this.props.closeNav() : this.props.openNav();
@@ -14,6 +27,7 @@ class SignedInLinks extends Component {
 
   render() {
     const { name, photoURL } = this.props.profile;
+    const { closeNav } = this.props;
 
     return (
       <Fragment>
@@ -38,15 +52,15 @@ class SignedInLinks extends Component {
 
           <S.SignInMenu.Body>
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='app'>Home</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='app/report/new'>New report</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to={`app/user/${this.props.user.uid}`}>Your Profile</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to={`app/user/${this.props.user.uid}/reports`}>Your Reports</Link></S.SignInMenu.Item>
+              <RouteLink action={closeNav} to='/app'>Home</RouteLink>
+              <RouteLink action={closeNav} to='/app/report/new'>New report</RouteLink>
+              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}`}>Your Profile</RouteLink>
+              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}/reports`}>Your Reports</RouteLink>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='/regulations'>Regulations</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='/faq'>FAQ</Link></S.SignInMenu.Item>
+              <RouteLink action={closeNav} to='/regulations'>Regulations</RouteLink>
+              <RouteLink action={closeNav} to='/faq'>FAQ</RouteLink>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Footer>

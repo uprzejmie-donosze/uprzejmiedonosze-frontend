@@ -6,3 +6,5 @@ export const colors = {
   white: '#FFF',
   error: '#ff4e42',
 };
+
+export const navWidth = '250px';

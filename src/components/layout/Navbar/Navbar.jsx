@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -16,7 +15,7 @@ const Navbar = (props) => {
   return (
     <S.Navbar>
       <S.Navbar.Container>
-        <Link to='/'>Uprzejmie Donoszę</Link>
+        <S.Navbar.Logo to='/'>Uprzejmie Donoszę</S.Navbar.Logo>
         {links}
       </S.Navbar.Container>
     </S.Navbar>

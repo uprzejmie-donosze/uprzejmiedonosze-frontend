@@ -5,23 +5,28 @@ import { Redirect } from '@reach/router';
 
 import { signInUser } from '../store/actions/authActions';
 import { Container } from '../styles/styledComponents';
+import { Navbar } from '../components/layout/Navbar/styles';
 
 class Login extends Component {
   render() {
     if (this.props.auth.uid) return <Redirect from="login" to='app' noThrow />;
 
     return (
-      <Container>
-        <h1>Zaloguj się</h1>
-        <button onClick={() => this.props.signIn()} disabled={this.props.waitingForAuth}>
-          zaloguj się przez Google
-        </button>
+      <div>
+        <Navbar />
 
-        <p>
-          <span>Nie masz konta Google? Możesz je założyć </span>
-          <a href="https://support.google.com/mail/answer/56256?hl=pl" target="_blank" rel="noopener noreferrer">tutaj</a>
-        </p>
-      </Container>
+        <Container>
+          <h1>Zaloguj się</h1>
+          <button onClick={() => this.props.signIn()} disabled={this.props.waitingForAuth}>
+            zaloguj się przez Google
+          </button>
+
+          <p>
+            <span>Nie masz konta Google? Możesz je założyć </span>
+            <a href="https://support.google.com/mail/answer/56256?hl=pl" target="_blank" rel="noopener noreferrer">tutaj</a>
+          </p>
+        </Container>
+      </div>
     );
   }
 };

@@ -5,15 +5,13 @@ import { Redirect, Link, navigate } from '@reach/router';
 import Moment from 'react-moment';
 import moment from 'moment';
 
-import { Container } from '../styles/styledComponents';
+import { Container, Layout } from '../styles/styledComponents';
 
 import { getFormData, submitReport } from '../store/actions/formActions';
+import Navbar from '../components/layout/Navbar/Navbar';
+import FormNavigation from '../components/form/FormNavigation';
 
 class FormConfirm extends Component {
-  goBack = () => {
-    navigate('/app/report/new');
-  };
-
   componentDidMount() {
     if (this.props.auth.uid) {
       this.props.getFormData(this.props.raportId);
@@ -64,17 +62,22 @@ class FormConfirm extends Component {
           <img src={form.carInfo.plateImage}/>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
-          <button style={{background: 'white'}} onClick={() => this.goBack()}>back</button>
-          <button style={{background: 'white'}} onClick={() => this.props.submitForm()}>confirm</button>
-        </div>
+        <FormNavigation
+          backTo='app/report/new'
+          text='Potwierdź'
+          action={this.props.submitForm}
+        />
       </div>
     );
 
     return (
-      <Container>
-        {form.user && form.date ? renderContent() : <p>waiting for content</p>}
-      </Container>
+      <Layout>
+        <Navbar />
+
+        <Container>
+          {form.user && form.date ? renderContent() : <p>waiting for content</p>}
+        </Container>
+      </Layout>
     );
   }
 };
