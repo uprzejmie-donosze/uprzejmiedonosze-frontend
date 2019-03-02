@@ -6,6 +6,15 @@ import PropTypes from 'prop-types';
 import { signOutUser } from '../../../store/actions/authActions';
 import { openNavbar, closeNavbar } from '../../../store/actions/appActions';
 
+import {
+  AdminIcon,
+  BoardIcon,
+  BulbIcon,
+  SalesIcon,
+  SheduleIcon,
+  SpreadSheetsIcon
+} from '../../Icons';
+
 import * as S from './styles';
 
 
@@ -52,10 +61,10 @@ class SignedInLinks extends Component {
 
           <S.SignInMenu.Body>
             <S.SignInMenu.Menu>
-              <RouteLink action={closeNav} to='/app'>Strona głowna</RouteLink>
-              <RouteLink action={closeNav} to='/app/report/new'>Nowe zgłoszenie</RouteLink>
-              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}`}>Profil</RouteLink>
-              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}/reports`}>Zgłoszenia</RouteLink>
+              <RouteLink action={closeNav} to='/app'><BoardIcon /><span>Strona głowna</span></RouteLink>
+              <RouteLink action={closeNav} to='/app/report/new'><SheduleIcon /><span>Nowe zgłoszenie</span></RouteLink>
+              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}`}><AdminIcon /><span>Profil</span></RouteLink>
+              <RouteLink action={closeNav} to={`/app/user/${this.props.user.uid}/reports`}><SpreadSheetsIcon /><span>Zgłoszenia</span></RouteLink>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Menu>

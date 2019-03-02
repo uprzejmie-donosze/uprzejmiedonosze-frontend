@@ -107,16 +107,21 @@ SignInMenu.Item = styled.li`
 `;
 
 SignInMenu.Link = styled(Link)`
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 1rem;
-  font-size: .85rem;
+  font-size: .8rem;
   font-weight: 600;
   text-decoration: none;
   color: ${colors.text};
-  letter-spacing: .3px;
+  letter-spacing: .5px;
   border-bottom-right-radius: 30px;
   border-top-right-radius: 30px;
+
+  > span {
+    padding-left: .5rem;
+  }
 
   ${mediaMin(breakpoints.lg)} {
     padding: .7rem 2rem;
