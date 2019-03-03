@@ -106,7 +106,7 @@ export const addContextImage = (file, geocoder) => {
     });
 
     dataFromImg.then(resp => {
-      geocoder.geocode({ 'location': { lat: 51.12618255611111, lng: 16.97220420833333 }}, (results, status) => {
+      geocoder.geocode({ 'location': { lat: resp.lat, lng: resp.lng }}, (results, status) => {
         if (status === 'OK' && results[0]) {
           const autocompleteData = {
             address: results[0].formatted_address.replace(', Polska', '').replace(/\d\d-\d\d\d\s/, ''),
