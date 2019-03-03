@@ -8,7 +8,7 @@ import moment from 'moment';
 import { Container, Layout } from '../styles/styledComponents';
 
 import { getFormData, submitReport } from '../store/actions/formActions';
-import Navbar from '../components/layout/Navbar/Navbar';
+import Navbar from '../components/Navbar';
 import FormNavigation from '../components/form/FormNavigation';
 
 class FormConfirm extends Component {

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link, Redirect } from '@reach/router';
 
 import { Container, Layout } from '../styles/styledComponents';
-import Navbar from '../components/layout/Navbar/Navbar';
+import Navbar from '../components/Navbar';
 
 const UserProfile = ({ auth, profile }) => {
   if (!auth.uid) return <Redirect from="/user/:userId" to='login' noThrow />;

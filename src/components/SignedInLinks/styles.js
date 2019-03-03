@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Link } from '@reach/router';
-import { colors, navWidth } from '../../../styles/variables';
-import mediaMin, { breakpoints } from '../../../styles/mediaQueries';
+import { colors, navWidth } from '../../styles/variables';
+import mediaMin, { breakpoints } from '../../styles/mediaQueries';
 
 export const SignInMenu = styled.div`
   position: fixed;

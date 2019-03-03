@@ -5,7 +5,7 @@ import mediaMin, { breakpoints } from './mediaQueries';
 export const Container = styled.div`
   width: 100%;
   color: ${colors.text};
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   margin-bottom: 80px;
   padding: 1rem;

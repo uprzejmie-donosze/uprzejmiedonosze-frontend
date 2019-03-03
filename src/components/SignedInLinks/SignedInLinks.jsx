@@ -3,8 +3,8 @@ import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { signOutUser } from '../../../store/actions/authActions';
-import { openNavbar, closeNavbar } from '../../../store/actions/appActions';
+import { signOutUser } from '../../store/actions/authActions';
+import { openNavbar, closeNavbar } from '../../store/actions/appActions';
 
 import {
   AdminIcon,
@@ -13,7 +13,7 @@ import {
   SalesIcon,
   SheduleIcon,
   SpreadSheetsIcon
-} from '../../Icons';
+} from '../Icons';
 
 import * as S from './styles';
 

@@ -6,7 +6,7 @@ import { Link, Redirect } from '@reach/router';
 import { getReports } from '../store/actions/reportActions';
 
 import { Container, Layout } from '../styles/styledComponents';
-import Navbar from '../components/layout/Navbar/Navbar';
+import Navbar from '../components/Navbar';
 
 class Reports extends Component {
 

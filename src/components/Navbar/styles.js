@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from '@reach/router';
 
-import { colors } from '../../../styles/variables';
-import mediaMin, { breakpoints } from '../../../styles/mediaQueries';
+import { colors } from '../../styles/variables';
+import mediaMin, { breakpoints } from '../../styles/mediaQueries';
 
 export const Navbar = styled.nav`
   width: 100%;
