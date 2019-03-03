@@ -106,12 +106,13 @@ export const addContextImage = (file, geocoder) => {
     });
 
     dataFromImg.then(resp => {
-      geocoder.geocode({ 'location': { lat: resp.lat, lng: resp.lng }}, (results, status) => {
+      geocoder.geocode({ 'location': { lat: 51.12618255611111, lng: 16.97220420833333 }}, (results, status) => {
         if (status === 'OK' && results[0]) {
           const autocompleteData = {
-            address: results[0].formatted_address.replace(', Polska', ''),
-            city: '',
-            voivodeship: '',
+            address: results[0].formatted_address.replace(', Polska', '').replace(/\d\d-\d\d\d\s/, ''),
+            city: results[0].address_components.filter(e => e.types.indexOf('locality') == 0)[0].long_name,
+            voivodeship: results[0].address_components.filter(e => e.types.indexOf('administrative_area_level_1') == 0)[0].long_name.replace('Województwo ', ''),
+            country: results[0].address_components.filter(e => e.types.indexOf('country') == 0)[0].long_name,
             latlng: `${resp.lat}, ${resp.lng}}`
           };
 
