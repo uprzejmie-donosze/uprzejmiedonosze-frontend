@@ -188,7 +188,7 @@ export const createNewReport = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const errors = getState().form.formErrors;
     const validationResult = formValidation(getState().form);
-    console.log(validationResult);
+    console.log(validationResult); // eslint-disable-line no-console
 
     if (validationResult.errorList.length > 0) {
       dispatch({ type: 'form/HANDLE_FORM_ERRORORS', errors: validationResult.errorList });
@@ -218,7 +218,7 @@ export const createNewReport = () => {
           navigate(`/app/report/${id}`);
 
         }).catch((error) => {
-          console.error("Error updating user: ", error);
+          console.error("Error updating user: ", error); // eslint-disable-line no-console
         });
       }).catch(error => {
         alert(error); // TO DO

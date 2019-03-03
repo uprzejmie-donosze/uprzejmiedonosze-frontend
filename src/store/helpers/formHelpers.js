@@ -105,7 +105,7 @@ export const processFilePromise = async (file) => {
     });
 
   } catch (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line no-console
   }
 };
 
@@ -125,7 +125,7 @@ export const formValidation = (form) => {
   delete data['id'];
   delete data['number'];
 
-  console.log(data);
+  console.log(data); // eslint-disable-line no-console
 
   for (let key in data) {
     if (data[key] === null || data[key] === "") {
