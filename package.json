@@ -13,6 +13,11 @@
     "lint": "esw src --color",
     "test": "jest"
   },
+  "engines": {
+    "npm": "5.6.0",
+    "node": "8.10.0",
+    "yarn": "1.12.3"
+  },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
     "@reach/router": "^1.2.1",
