@@ -24,17 +24,11 @@ export const readGeoDataFromImage = (file) => {
           lng: lon,
           dateTime: dateTime || null,
         });
-      } else if (file) {
-        readDateTimeFromFilename(file);
       } else {
         reject('Nie udało się pobrać adresu ze zdjęcia');
       }
     });
   });
-};
-
-export const readDateTimeFromFilename = (file) => {
-  console.log(file);
 };
 
 export const loadImagePromise = (file) => {

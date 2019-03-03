@@ -11,8 +11,8 @@ import {
   coodsArrayToCanvasData
 } from '../helpers/formHelpers';
 
-import openAlprConfig, { createAlprData } from '../../config/openAlprConfig';
 import { FORM_ERRORS } from '../../consts/formConsts';
+import openAlprConfig, { createAlprData } from '../../config/openAlprConfig';
 
 export const autocompleteLocation = (place) => {
   return (dispatch) => {
@@ -207,24 +207,21 @@ export const createNewReport = () => {
 
       const firestore = getFirestore();
       const form = getState().form.formData;
-      console.log('data done');
 
       firestore.collection('reports').doc(id).set({ ...form, userId: userId }).then(resp => {
         const userUid = getState().firebase.auth.uid;
-        console.log('reports');
 
         firestore.collection('users').doc(userUid).update({
           draftId: id,
           reports: firestore.FieldValue.arrayUnion(id)
         }).then(() => {
           navigate(`/app/report/${id}`);
-          console.log('done');
 
         }).catch((error) => {
           console.error("Error updating user: ", error);
         });
       }).catch(error => {
-        console.log(error);
+        alert(error); // TO DO
       });
     }
   };
@@ -247,7 +244,6 @@ export const updateReport = () => {
 
     firestore.collection('reports').doc(form.id).update(form)
     .then(() => {
-      console.log('form updated');
       navigate(`/app/report/${form.id}`);
     })
     .catch((error) => {
@@ -269,11 +265,10 @@ export const submitReport = () => {
       firestore.collection('users').doc(userUid).update({
         draftId: null,
       }).then(() => {
-        console.log('clear');
         dispatch({ type: 'form/CLEAR_FORM_DATA' });
   
       }).catch((error) => {
-        console.error("Error updating user: ", error);
+        allert(`Error updating user: ${error}`); // TO DO
       });
     })
     .then(() => navigate('/app'))
@@ -291,11 +286,10 @@ export const resetFormData = () => {
     firestore.collection('users').doc(userUid).update({
       draftId: null,
     }).then(() => {
-      console.log('clear');
       dispatch({ type: 'form/CLEAR_FORM_DATA' });
 
     }).catch((error) => {
-      console.error("Error updating user: ", error);
+      alert(`Error updating user: ${error}`); // TO DO
     });
   };
 };

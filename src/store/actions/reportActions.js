@@ -12,7 +12,7 @@ export const getReports = (uid) => {
       dispatch({ type: 'reports/GET', reports: reports });
     })
     .catch(function(error) {
-      console.log("Error getting documents: ", error); // error
+      alert(`Error ger reports: ${error}`); // TO DO
     });
   };
 };
@@ -24,11 +24,9 @@ export const updateStatus = (statusType, reportId) => {
     firestore.collection('reports').doc(reportId).update({ status: statusType })
     .then(() => {
       dispatch({ type: 'reports/UPDATE_STATUS', status: statusType, id: reportId });
-      console.log('ok');
     })
     .catch((error) => {
       alert('Status not updated'); // TO DO
-      console.log(error);
     });
   };
 };

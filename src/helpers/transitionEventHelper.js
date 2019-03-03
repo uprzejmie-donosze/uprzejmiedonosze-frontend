@@ -1,8 +1,4 @@
 function whichTransition() {
-  if (typeof window === 'undefined') {
-    return {};
-  }
-
   const el = document.createElement('fakeelement');
 
   const transitions = {
