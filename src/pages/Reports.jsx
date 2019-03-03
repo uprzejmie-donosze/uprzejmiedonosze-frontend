@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link, Redirect } from '@reach/router';
-import { getReports } from '../store/actions/reportActions';
+import { getReports, updateStatus } from '../store/actions/reportActions';
 
 import { Container, Layout } from '../styles/styledComponents';
 import Navbar from '../components/Navbar';
+import Filters from '../components/Filters';
+
+import Collapsible from '../components/Collapsible';
 
 class Reports extends Component {
 
@@ -28,13 +31,7 @@ class Reports extends Component {
 
     const renderReportsList = (reports) => {
       return reports.map((report, i) => {
-        return (
-          <div key={report.number} style={{background: 'white', borderRadius: '5px', padding: '1rem', marginBottom: '1rem', display: 'flex'}}>
-            <p style={{ padding: '0 1rem'}}>{report.number}</p>
-            <p style={{ padding: '0 1rem'}}>{report.address.address}</p>
-            <p style={{ padding: '0 1rem'}}>status: {report.status}</p>
-          </div>
-        );
+        return <Collapsible action={this.props.updateStatus} key={report.number} data={report}/>;
       });
     };
 
@@ -43,10 +40,12 @@ class Reports extends Component {
         <Navbar />
 
         <Container>
-        <section>
+          <section>
             <h1>Your reports</h1>
+            <Filters />
+
             {profile.reports && profile.reports.length ? renderReportsList(this.props.reports) : renderEmptyReports()}
-        </section>
+          </section>
         </Container>
       </Layout>
     );
@@ -62,20 +61,22 @@ Reports.propTypes = {
   }),
   reports: PropTypes.array,
   getReports: PropTypes.func,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  updateStatus: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    reports: state.reports.reports
+    reports: state.reports.filteredReports
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getReports: (uid) => dispatch(getReports(uid)),
+    updateStatus: (status, id) => dispatch(updateStatus(status, id)),
   };
 };
 

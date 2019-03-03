@@ -1,7 +1,11 @@
-export const formStatus = {
+export const FORM_STATUSES = {
   draft: 'draft',
   save: 'save',
-  ready: 'ready'
+  archived: 'archived',
+  sentEmail: 'sent-email',
+  visited: 'visited',
+  punished: 'punished',
+  ignored: 'ignored'
 };
 
 export const RATIO_DATA = [
@@ -97,7 +101,7 @@ export const FROM_STRUCTURE = {
   date: null,
   id: null,
   number: null,
-  status: formStatus.draft,
+  status: FORM_STATUSES.draft,
   contextImage: null,
   carImage: null,
   category: 7,
@@ -118,3 +122,4 @@ export const FROM_STRUCTURE = {
   },
   user: null,
 };
+

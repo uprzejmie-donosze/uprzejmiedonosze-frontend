@@ -20,6 +20,13 @@ const GlobalStyle = createGlobalStyle`
     touch-action: manipulation;
   }
 
+  button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    outline: none;
+  }
+
   * {
     box-sizing: border-box;
   }

@@ -1,5 +1,4 @@
-import { formStatus } from '../../consts/formConsts';
-import { FROM_STRUCTURE, FORM_ERRORS } from '../../consts/formConsts';
+import { FROM_STRUCTURE, FORM_ERRORS, FORM_STATUSES } from '../../consts/formConsts';
 
 const filterErrors = (formErrors, errorType) => {
   return formErrors.filter(error => error !== errorType);
