@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SvgIcon = (props) => {
   const {
@@ -22,6 +23,14 @@ const SvgIcon = (props) => {
       {children}
     </svg>
   );
-}
+};
+
+SvgIcon.propTypes = {
+  children: PropTypes.node,
+  classes: PropTypes.string,
+  nativeColor: PropTypes.string,
+  titleAccess: PropTypes.string,
+  viewBox: PropTypes.string
+};
 
 export default SvgIcon;

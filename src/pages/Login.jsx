@@ -5,7 +5,7 @@ import { Redirect } from '@reach/router';
 
 import { signInUser } from '../store/actions/authActions';
 import { Container } from '../styles/styledComponents';
-import { Navbar } from '../components/Navbar';
+import Navbar from '../components/Navbar';
 
 class Login extends Component {
   render() {

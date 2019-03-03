@@ -10,7 +10,7 @@ const RatioInput = ({ text, id, checked, action }) => (
       name="category"
       type="radio" value={id} id={id}
       checked={checked}
-      onChange={(e) => action(e.target.value)}
+      onChange={(e) => action(id)}
     />
 
   <S.RatioInput.Label htmlFor={id}>

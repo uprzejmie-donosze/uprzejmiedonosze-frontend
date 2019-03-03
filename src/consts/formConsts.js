@@ -6,37 +6,37 @@ export const formStatus = {
 
 export const RATIO_DATA = [
   {
-    id: '7',
+    id: 7,
     text: 'Niezastosowanie się do znaków',
     image: '',
   },
   {
-    id: '8',
+    id: 8,
     text: 'Parkowanie z dala od krawędzi jezdni',
     image: '',
   },
   {
-    id: '10',
+    id: 1,
     text: 'Parkowanie za barierkami',
     image: '',
   },
   {
-    id: '4',
+    id: 4,
     text: 'Zastawienie chodnika (mniej niż 1.5m)',
     image: '',
   },
   {
-    id: '2',
+    id: 2,
     text: 'Mniej niż 15m od przystanku',
     image: '',
   },
   {
-    id: '3',
+    id: 3,
     text: 'Mniej niż 10m od skrzyżowania',
     image: '',
   },
   {
-    id: '5',
+    id: 5,
     text: 'Mniej niż 10m od przejścia dla pieszych',
     image: '',
   },

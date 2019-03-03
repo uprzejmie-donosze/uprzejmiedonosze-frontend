@@ -5,18 +5,9 @@ import PropTypes from 'prop-types';
 
 import { signOutUser } from '../../store/actions/authActions';
 import { openNavbar, closeNavbar } from '../../store/actions/appActions';
-
-import {
-  AdminIcon,
-  BoardIcon,
-  BulbIcon,
-  SalesIcon,
-  SheduleIcon,
-  SpreadSheetsIcon
-} from '../Icons';
+import { AdminIcon, BoardIcon, SheduleIcon, SpreadSheetsIcon, Burger } from '../Icons';
 
 import * as S from './styles';
-
 
 const RouteLink = ({ action, to, children }) => {
   return (
@@ -28,7 +19,7 @@ const RouteLink = ({ action, to, children }) => {
       </S.SignInMenu.Link>
     </S.SignInMenu.Item>
   );
-}
+};
 class SignedInLinks extends Component {
   toggleMenu = () => {
     this.props.isNavOpened ? this.props.closeNav() : this.props.openNav();
@@ -40,22 +31,12 @@ class SignedInLinks extends Component {
 
     return (
       <Fragment>
-        <S.SignInMenu.Burger onClick={() => this.toggleMenu()}>
-          <svg width="20px" height="20px" viewBox="0 0 92 92">
-          <path fill="currentColor" id="XMLID_101_" d="M78,23.5H14c-3.6,0-6.5-2.9-6.5-6.5s2.9-6.5,6.5-6.5h64c3.6,0,6.5,2.9,6.5,6.5S81.6,23.5,78,23.5z M84.5,46
-            c0-3.6-2.9-6.5-6.5-6.5H14c-3.6,0-6.5,2.9-6.5,6.5s2.9,6.5,6.5,6.5h64C81.6,52.5,84.5,49.6,84.5,46z M84.5,75c0-3.6-2.9-6.5-6.5-6.5
-            H14c-3.6,0-6.5,2.9-6.5,6.5s2.9,6.5,6.5,6.5h64C81.6,81.5,84.5,78.6,84.5,75z"/>
-          </svg>
-        </S.SignInMenu.Burger>
-
+        <S.SignInMenu.Burger onClick={() => this.toggleMenu()}><Burger /></S.SignInMenu.Burger>
         <S.SignInMenu.Overlay onClick={() => this.toggleMenu()} isNavOpened={this.props.isNavOpened} />
 
         <S.SignInMenu isNavOpened={this.props.isNavOpened}>
           <S.SignInMenu.Header>
-            <S.SignInMenu.Avatar>
-              <S.SignInMenu.Photo src={photoURL} />
-            </S.SignInMenu.Avatar>
-
+            <S.SignInMenu.Avatar><S.SignInMenu.Photo src={photoURL} /></S.SignInMenu.Avatar>
             <S.SignInMenu.Title>{name}</S.SignInMenu.Title>
           </S.SignInMenu.Header>
 
@@ -89,6 +70,12 @@ SignedInLinks.defaultProps = {
   }
 };
 
+RouteLink.propTypes = {
+  action: PropTypes.func,
+  to: PropTypes.string,
+  children: PropTypes.node
+};
+
 SignedInLinks.propTypes = {
   signOut: PropTypes.func,
   profile: PropTypes.shape({
@@ -113,9 +100,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: {
-      uid: state.firebase.auth.uid
-    },
+    user: { uid: state.firebase.auth.uid },
     isNavOpened: state.app.isNavOpened
   };
 };

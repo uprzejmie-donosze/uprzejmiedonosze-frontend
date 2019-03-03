@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createNewReport, updateReport } from '../../../store/actions/formActions';
 
 import * as S from './styles';
-import * as A from '../../actions/styles';
+import * as A from '../../Actions/styles';
 
 class FormNavigation extends Component {
   render() {
@@ -25,8 +25,9 @@ FormNavigation.propTypes = {
   form: PropTypes.shape({
     id: PropTypes.string,
   }),
-  createNewReport: PropTypes.func,
-  updateReport: PropTypes.func
+  backTo: PropTypes.string,
+  text: PropTypes.string,
+  action: PropTypes.func
 };
 
 const mapStateToProps = (state) => {

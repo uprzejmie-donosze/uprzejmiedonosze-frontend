@@ -21,7 +21,6 @@ import {
   resetFormData,
   addCarImage,
   addAddress,
-  validAddress,
   addDateTime,
   createNewReport,
   updateReport
@@ -140,7 +139,6 @@ class FormNew extends Component {
                   errorMessage={FORM_ERRORS.address.message}
                   hasError={this.findErrorByType(FORM_ERRORS.address.type)}
                   onChange={(address) => this.props.addAddress(address)}
-                  validAddress={this.props.validAddress}
                 />
               </F.FlexItem>
 
@@ -230,7 +228,8 @@ FormNew.propTypes = {
   formErrors: PropTypes.array,
   resetFormData: PropTypes.func,
   addAddress: PropTypes.func,
-  validAddress: PropTypes.func
+  createNewReport: PropTypes.func,
+  updateReport: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -258,7 +257,6 @@ const mapDispatchToProps = (dispatch) => {
     addCarImage: (file) => dispatch(addCarImage(file)),
     resetFormData: () => dispatch(resetFormData()),
     addAddress: (address) => dispatch(addAddress(address)),
-    validAddress: (address) => dispatch(validAddress(address)),
     addDateTime: (dateTime) => dispatch(addDateTime(dateTime)),
     createNewReport: () => dispatch(createNewReport()),
     updateReport: () => dispatch(updateReport()),
