@@ -7,7 +7,6 @@ import Script from 'react-load-script';
 import { FORM_ERRORS } from '../consts/formConsts';
 import { Container, Layout } from '../styles/styledComponents';
 import googleMapsConfig from '../config/googleMapsConfig';
-import Navbar from '../components/Navbar';
 
 import * as F from './../components/form/FormComponents/styles';
 
@@ -82,8 +81,6 @@ class FormNew extends Component {
 
     return (
       <Layout>
-        <Navbar />
-
         <Container>
           <FormProgressbar />
 

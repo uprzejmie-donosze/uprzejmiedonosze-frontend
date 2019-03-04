@@ -5,7 +5,7 @@ import { Redirect } from '@reach/router';
 
 import { signInUser } from '../store/actions/authActions';
 import { Container } from '../styles/styledComponents';
-import Navbar from '../components/Navbar';
+import * as A from '../components/Actions/styles';
 
 class Login extends Component {
   render() {
@@ -13,13 +13,11 @@ class Login extends Component {
 
     return (
       <div>
-        <Navbar />
-
         <Container>
           <h1>Zaloguj się</h1>
-          <button onClick={() => this.props.signIn()} disabled={this.props.waitingForAuth}>
+          <A.ButtonFilled onClick={() => this.props.signIn()} disabled={this.props.waitingForAuth}>
             zaloguj się przez Google
-          </button>
+          </A.ButtonFilled>
 
           <p>
             <span>Nie masz konta Google? Możesz je założyć </span>

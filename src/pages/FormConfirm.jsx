@@ -8,7 +8,6 @@ import moment from 'moment';
 import { Container, Layout } from '../styles/styledComponents';
 
 import { getFormData, submitReport } from '../store/actions/formActions';
-import Navbar from '../components/Navbar';
 import FormNavigation from '../components/form/FormNavigation';
 
 class FormConfirm extends Component {
@@ -72,8 +71,6 @@ class FormConfirm extends Component {
 
     return (
       <Layout>
-        <Navbar />
-
         <Container>
           {form.user && form.date ? renderContent() : <p>waiting for content</p>}
         </Container>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -16,6 +16,7 @@ import FormConfirm from '../pages/FormConfirm';
 
 import FormNew from '../pages/FormNew';
 import { Container } from '../styles/styledComponents';
+import Navbar from '../components/Navbar';
 
 // logout links
 const Landing = () => <Container>landing</Container>;
@@ -34,23 +35,32 @@ class App extends Component {
       <AppContainer>
         <GlobalStyle />
 
-        <Router>
-          <Landing path='/' />
-          <Login path='login' />
+        {!this.props.auth.uid ? (
+          <Fragment>
+            <Navbar />
+            <Router>
+              <Landing path='/' />
+              <Login path='login' />
+              <NotFound default />
+            </Router>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Navbar />
+            <Router>
+              <Home path='app' />
+              <UserProfile path='app/user/:userId' />
+              <Register path='app/:user/:userId/register' />
+              <Reports path='/app/user/:userId/reports'/>
+              <ReportPreview path='app/:reportId' />
+              <FormNew path='app/report/new' />
+              <FormConfirm path='app/report/:raportId' />
+              <FormThankYou path='app/report/confirmation' />
 
-          <Home path='app' />
-          <UserProfile path='app/user/:userId' />
-          <Register path='app/:user/:userId/register' />
-
-          <Reports path='/app/user/:userId/reports'/>
-          <ReportPreview path='app/:reportId' />
-
-          <FormNew path='app/report/new' />
-          <FormConfirm path='app/report/:raportId' />
-          <FormThankYou path='app/report/confirmation' />
-
-          <NotFound default />
-        </Router>
+              <NotFound default />
+            </Router>
+          </Fragment>
+        )}
       </AppContainer>
     );
   };
@@ -60,4 +70,14 @@ const AppContainer = styled.div`
   width: 100%;
 `;
 
-export default App;
+App.propTypes = {
+  auth: PropTypes.string
+};
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(App);

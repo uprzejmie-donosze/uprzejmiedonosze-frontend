@@ -5,15 +5,12 @@ import styled from 'styled-components';
 import { Link, Redirect } from '@reach/router';
 
 import { Container, Layout } from '../styles/styledComponents';
-import Navbar from '../components/Navbar';
 
 const UserProfile = ({ auth, profile }) => {
   if (!auth.uid) return <Redirect from="/user/:userId" to='login' noThrow />;
 
   return (
     <Layout>
-      <Navbar />
-
       <Container>
         <section>
           <img src={profile.photoURL} style={{maxWidth: "200px" }}/>

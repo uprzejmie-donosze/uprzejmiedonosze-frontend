@@ -6,9 +6,7 @@ import { Link, Redirect } from '@reach/router';
 import { getReports, updateStatus } from '../store/actions/reportActions';
 
 import { Container, Layout } from '../styles/styledComponents';
-import Navbar from '../components/Navbar';
 import Filters from '../components/Filters';
-
 import Collapsible from '../components/Collapsible';
 
 class Reports extends Component {
@@ -37,8 +35,6 @@ class Reports extends Component {
 
     return (
       <Layout>
-        <Navbar />
-
         <Container>
           <section>
             <h1>Your reports</h1>
