@@ -1,28 +1,19 @@
+const ESLintPlugin = require('eslint-webpack-plugin')
+
 const config = {
   mode: 'development',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['eslint-loader']
-      },
-      {
-        test: /\.jsx$/,
-        exclude: /node_modules/,
-        use: ['eslint-loader']
-      }
-    ]
-  },
+  plugins: [new ESLintPlugin()],
   devServer: {
     historyApiFallback: true,
-    contentBase: './public',
+    static: {
+      directory: './public',
+    },
     proxy: {
-        '/api/*': {
-            target: process.env.PROXY || 'http://localhost:8080',
-            changeOrigin: true,
-            secure: true
-        }
+      '/api/*': {
+          target: process.env.PROXY || 'http://localhost:8080',
+          changeOrigin: true,
+          secure: true
+      }
     }
   }
 }

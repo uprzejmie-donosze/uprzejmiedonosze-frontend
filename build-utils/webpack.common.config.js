@@ -1,6 +1,5 @@
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -19,11 +18,11 @@ const config = {
   },
   module: {
     rules: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.js$/, use:[{loader: 'babel-loader'}], exclude: /node_modules/ },
+      { test: /\.jsx?$/, use:[{loader: 'babel-loader'}], exclude: /node_modules/ },
       {
         test: /\.(png|jpe?g|eot|svg|ttf|woff|woff2)/,
-        loader: 'file-loader?name=assets/[name].[ext]'
+        use: [{loader: 'file-loader?name=assets/[name].[ext]'}]
       },
     ]
   },

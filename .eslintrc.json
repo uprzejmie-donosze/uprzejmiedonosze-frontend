@@ -2,9 +2,9 @@
   "extends": [
     "plugin:react/recommended"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "globals": {
-    "Promise": 1
+    "Promise": "writable"
   },
   "plugins": [
     "react"

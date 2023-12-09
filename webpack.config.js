@@ -1,8 +1,10 @@
 const commonConfig = require('./build-utils/webpack.common.config');
-const webpackMerge = require('webpack-merge');
+const { merge } = require('webpack-merge')
 
 module.exports = (env) => {
-  const envConfig = require(`./build-utils/webpack.${env.env}.config.js`);
-
-  return webpackMerge(commonConfig, envConfig);
+  let envConfig = require(`./build-utils/webpack.prod.config.js`);
+  if (env.dev == true) {
+    envConfig = require(`./build-utils/webpack.dev.config.js`);
+  }
+  return merge(commonConfig, envConfig);
 }

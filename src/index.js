@@ -1,23 +1,38 @@
 import 'whatwg-fetch';
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
-import firebaseConfig from './config/firebaseConfig';
+import { withExtraArgument } from 'redux-thunk';
+import {  getFirestore, createFirestoreInstance } from 'redux-firestore';
+import {  getFirebase, ReactReduxFirebaseProvider } from 'react-redux-firebase';
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
 import App from './components/App';
 import rootReducer from './store/reducers/rootReducer';
+import { firebaseConfig } from './config/firebaseConfig';
+
+firebase.initializeApp(firebaseConfig);
+firebase.firestore();
 
 const store = createStore(rootReducer,
   compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reactReduxFirebase(firebaseConfig, { userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true }),
-    reduxFirestore(firebaseConfig)
+    applyMiddleware(withExtraArgument({ getFirebase, getFirestore })),
   )
 );
 
-store.firebaseAuthIsReady.then(() => {
-  render( <Provider store={store}><App /></Provider>, document.getElementById('app'));
-});
+createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider
+      firebase={firebase}
+      config={{ userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true }}
+      dispatch={store.dispatch}
+      createFirestoreInstance={createFirestoreInstance}
+    >
+      <App />
+    </ReactReduxFirebaseProvider>
+  </Provider>
+);

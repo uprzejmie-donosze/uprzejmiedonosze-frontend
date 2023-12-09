@@ -29,7 +29,7 @@ export const signInUser = () => {
         navigate('/app');
 
       }).catch(error => {
-        console.log(error);
+       // console.error(error);
       });
     }).catch((error) => {
       const errorCode = error.code; // TO DO dispatch error
