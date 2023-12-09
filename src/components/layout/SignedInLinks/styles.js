@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from '@reach/router';
 import { colors } from '../../../styles/variables';
 
 export const SignInMenu = styled.div`

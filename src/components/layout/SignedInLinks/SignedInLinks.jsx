@@ -17,7 +17,7 @@ class SignedInLinks extends Component {
 
     return (
       <Fragment>
-        <S.SignInMenu.Burger onClick={() => this.toggleMenu()}>
+        <S.SignInMenu.Burger onClick={this.toggleMenu}>
           <svg width="20px" height="20px" viewBox="0 0 92 92">
           <path fill="currentColor" id="XMLID_101_" d="M78,23.5H14c-3.6,0-6.5-2.9-6.5-6.5s2.9-6.5,6.5-6.5h64c3.6,0,6.5,2.9,6.5,6.5S81.6,23.5,78,23.5z M84.5,46
             c0-3.6-2.9-6.5-6.5-6.5H14c-3.6,0-6.5,2.9-6.5,6.5s2.9,6.5,6.5,6.5h64C81.6,52.5,84.5,49.6,84.5,46z M84.5,75c0-3.6-2.9-6.5-6.5-6.5
@@ -25,7 +25,7 @@ class SignedInLinks extends Component {
           </svg>
         </S.SignInMenu.Burger>
 
-        <S.SignInMenu.Overlay onClick={() => this.toggleMenu()} isNavOpened={this.props.isNavOpened} />
+        <S.SignInMenu.Overlay onClick={this.toggleMenu} isNavOpened={this.props.isNavOpened} />
 
         <S.SignInMenu isNavOpened={this.props.isNavOpened}>
           <S.SignInMenu.Header>
@@ -38,15 +38,15 @@ class SignedInLinks extends Component {
 
           <S.SignInMenu.Body>
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='app'>Home</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='app/report/new'>New report</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to={`app/user/${this.props.user.uid}`}>Your Profile</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to={`app/user/${this.props.user.uid}/reports`}>Your Reports</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={this.props.closeNav} to='app'>Home</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={this.props.closeNav} to='app/report/new'>New report</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={this.props.closeNav} to={`app/user/${this.props.user.uid}`}>Your Profile</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={this.props.closeNav} to={`app/user/${this.props.user.uid}/reports`}>Your Reports</Link></S.SignInMenu.Item>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Menu>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='/regulations'>Regulations</Link></S.SignInMenu.Item>
-              <S.SignInMenu.Item><Link onClick={() => this.props.closeNav()} to='/faq'>FAQ</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={this.props.closeNav} to='/regulations'>Regulations</Link></S.SignInMenu.Item>
+              <S.SignInMenu.Item><Link onClick={this.props.closeNav} to='/faq'>FAQ</Link></S.SignInMenu.Item>
             </S.SignInMenu.Menu>
 
             <S.SignInMenu.Footer>

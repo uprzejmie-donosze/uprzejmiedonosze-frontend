@@ -1,16 +1,22 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { signInUser } from '../../../store/actions/authActions';
+import React from 'react';
 import { Link } from '@reach/router';
+import * as S from './styles';
 
 const SignedOutLinks = () => {
   return (
-    <div>
-      <Link to="regulations">Regualtions</Link>
-      <Link to="faq">FAQ</Link>
-      <Link to="login">login</Link>
-    </div>
+    <S.SignOutLinks>
+      <S.SignOutLinks.Item>
+        <S.SignOutLinks.Link to="regulations">Regulamin</S.SignOutLinks.Link>
+      </S.SignOutLinks.Item>
+
+      <S.SignOutLinks.Item>
+        <S.SignOutLinks.Link to="faq">FAQ</S.SignOutLinks.Link>
+      </S.SignOutLinks.Item>
+
+      <S.SignOutLinks.Item>
+        <S.SignOutLinks.Link to="login">Zaloguj się</S.SignOutLinks.Link>
+      </S.SignOutLinks.Item>
+    </S.SignOutLinks>
   );
 };
 
