@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { Link, Redirect } from '@reach/router';
+import { Redirect } from '@reach/router';
 
 import { Container } from '../styles/styledComponents';
 

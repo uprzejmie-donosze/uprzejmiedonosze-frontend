@@ -9,7 +9,6 @@ import Login from '../pages/Login';
 import UserProfile from '../pages/UserProfile';
 import Reports from '../pages/Reports';
 import FormConfirm from '../pages/FormConfirm';
-
 import FormNew from '../pages/FormNew';
 import { Landing } from '../pages/Landing';
 import { Container } from '../styles/styledComponents';
@@ -17,6 +16,7 @@ import { Epuap } from '../pages/Epuap';
 import { Mandate } from '../pages/Mandate';
 import { Gallery } from '../pages/Gallery';
 import { PrivacyPolicy } from '../pages/PrivacyPolicy';
+import { FAQ } from '../pages/FAQ';
 
 // logout links
 const ReportPreview = () => <Container>Report preview</Container>; // note: different mode for unregistered user
