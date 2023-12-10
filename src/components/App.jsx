@@ -13,10 +13,10 @@ import Reports from '../pages/Reports';
 import FormConfirm from '../pages/FormConfirm';
 
 import FormNew from '../pages/FormNew';
+import { Landing } from '../pages/Landing';
 import { Container } from '../styles/styledComponents';
 
 // logout links
-const Landing = () => <Container>landing</Container>;
 const ReportPreview = () => <Container>Report preview</Container>; // note: different mode for unregistered user
 
 // login links
