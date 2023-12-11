@@ -1,21 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Redirect, Link } from '@reach/router';
 
-import { Container } from '../styles/styledComponents';
-
-const FormNew = ({ auth }) => {
-  if (!auth.uid) return <Redirect from="/report/new" to='login' noThrow />;
-
+function FormNew() {
   return (
-    <Container>
-      <div>
-        <span style={{color: '#34dd7eff'}}>New report &gt; </span>
-        <span style={{color: 'lightgray'}}>Confirm &gt; </span>
-        <span style={{color: 'lightgray'}}>Confirmation</span>
-      </div>
-
+    <section>
       <h1>New Report</h1>
 
       <div>
@@ -59,27 +46,9 @@ const FormNew = ({ auth }) => {
           <label>Crime 2</label>
           <input type="radio" />
         </p>
-
       </div>
-
-      <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
-        <Link style={{background: 'white'}} to="/app">back home</Link>
-        <Link style={{background: 'white'}} to="/app/report/create">next</Link>
-      </div>
-    </Container>
+    </section>
   );
 };
 
-FormNew.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  }),
-};
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-export default connect(mapStateToProps)(FormNew);
+export default FormNew;

@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from '@reach/router';
 import PropTypes from 'prop-types';
 
+import { handleSelectedLink } from './current';
+import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
+
 import * as S from './styles';
 
 function SignedOutLinks({ closeNav }){
@@ -9,35 +12,23 @@ function SignedOutLinks({ closeNav }){
     <>
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to="logowanie">Spróbuj</Link>
+          <Link onClick={closeNav} to="logowanie" getProps={handleSelectedLink}>
+            Spróbuj
+          </Link>
         </S.Menu.Item>
       </S.Menu.Menu>
 
-      <S.Menu.Menu>
-        <S.Menu.Item>
-          <Link onClick={closeNav} to="/">Strona główna</Link>
-        </S.Menu.Item>
+      <CommonLinks closeNav={closeNav} />
 
-        <S.Menu.Item>
-          <Link onClick={closeNav} to="galeria">Galeria</Link>
-        </S.Menu.Item>
+      <ExternalLinkFB />
 
-        <S.Menu.Item>
-          <Link onClick={closeNav} to="przepisy">Przepisy</Link>
-        </S.Menu.Item>
-
-        <S.Menu.Item>
-          <Link onClick={closeNav}  to="faq">FAQ</Link>
-        </S.Menu.Item>
-
-        <S.Menu.Item>
-          <Link onClick={closeNav} to="regualmin">Regulamin</Link>
-        </S.Menu.Item>
-      </S.Menu.Menu>
+      <ExternalLinkRPO />
 
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to="logowanie">Zaloguj się/zarejestruj się</Link>
+          <Link onClick={closeNav} to="logowanie" getProps={handleSelectedLink}>
+            Zaloguj/zarejestruj się
+          </Link>
         </S.Menu.Item>
       </S.Menu.Menu>
     </>

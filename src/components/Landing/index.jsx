@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container } from '../styles/styledComponents';
+import { Container } from '../../styles/styledComponents';
 
-export function Landing() {
+function Landing() {
   return (
     <Container>
       <section>
@@ -27,3 +27,5 @@ export function Landing() {
     </Container>
   )
 }
+
+export default Landing;
