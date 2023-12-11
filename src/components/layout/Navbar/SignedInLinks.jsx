@@ -4,39 +4,47 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { signOutUser } from '../../../store/actions/authActions';
+import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
+import { handleSelectedLink } from './current';
 
 import * as S from './styles';
 
-function SignedInLinks({ closeNav, userUID, signOut }) {
+function SignedInLinks({ closeNav, signOut, userID }) {
   return (
     <>
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to='app'>Home</Link>
-        </S.Menu.Item>
-
-        <S.Menu.Item>
-          <Link onClick={closeNav} to='app/report/new'>New report</Link>
-        </S.Menu.Item>
-
-        <S.Menu.Item>
-          <Link onClick={closeNav} to={`app/user/${userUID}`}>Your Profile</Link>
-        </S.Menu.Item>
-
-        <S.Menu.Item>
-          <Link onClick={closeNav} to={`app/user/${userUID}/reports`}>Your Reports</Link>
+          <Link onClick={closeNav} to="nowe-zgloszenie" getProps={handleSelectedLink}>
+            Nowe zgłoszenie
+          </Link>
         </S.Menu.Item>
       </S.Menu.Menu>
 
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to='/regulamin'>Regulations</Link>
-        </S.Menu.Item>
-
-        <S.Menu.Item>
-          <Link onClick={closeNav} to='/faq'>FAQ</Link>
+          <Link onClick={closeNav} to={`uzytkownik/zgloszenia`} getProps={handleSelectedLink}>
+            Moje zgłoszenia
+          </Link>
         </S.Menu.Item>
       </S.Menu.Menu>
+
+      <CommonLinks closeNav={closeNav} />
+
+      <S.Menu.Menu>
+        <S.Menu.Item>
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://patronite.pl/uprzejmiedonosze"
+          >
+            Zostań patronem
+          </a>
+        </S.Menu.Item>
+      </S.Menu.Menu>
+
+      <ExternalLinkFB />
+
+      <ExternalLinkRPO />
 
       <S.Menu.Footer>
         <button onClick={signOut}>logout</button>
@@ -45,13 +53,8 @@ function SignedInLinks({ closeNav, userUID, signOut }) {
   );
 };
 
-SignedInLinks.defaultProps = {
-  userUID: "",
-};
-
 SignedInLinks.propTypes = {
   signOut: PropTypes.func,
-  userUID: PropTypes.string,
   closeNav: PropTypes.func
 };
 
@@ -61,10 +64,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userUID: state.firebase.auth.uid,
-  };
-};
+const mapStateToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);

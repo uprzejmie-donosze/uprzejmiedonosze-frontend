@@ -6,8 +6,8 @@ import { Redirect } from '@reach/router';
 import { signInUser } from '../store/actions/authActions';
 import { Container } from '../styles/styledComponents';
 
-const Login = (props) => {
-  if (props.auth.uid) return <Redirect from="login" to='app' noThrow />;
+function Login(props) {
+  if (props.auth.uid) return <Redirect from="/login" to='/' noThrow />;
 
   return (
     <Container>
