@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Router } from "@reach/router";
 import Navbar from './layout/Navbar/Navbar';
@@ -6,58 +6,49 @@ import GlobalStyle from '../styles/globalStyles';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+
 import UserProfile from '../pages/UserProfile';
-import Reports from '../pages/Reports';
-import FormConfirm from '../pages/FormConfirm';
-import FormNew from '../pages/FormNew';
-import { Landing } from '../pages/Landing';
-import { Container } from '../styles/styledComponents';
+import UserReports from '../pages/UserReports';
+import UserRegistration from '../pages/UserRegistration';
+import User from '../pages/User';
+
+import Report from '../pages/Report';
 import { Epuap } from '../pages/Epuap';
 import { Mandate } from '../pages/Mandate';
 import { Gallery } from '../pages/Gallery';
 import { PrivacyPolicy } from '../pages/PrivacyPolicy';
 import { FAQ } from '../pages/FAQ';
 
-// logout links
-const ReportPreview = () => <Container>Report preview</Container>; // note: different mode for unregistered user
+import { Container } from '../styles/styledComponents';
 
-// login links
-const FormThankYou = () => <div>Thank you</div>;
-const Register = () => <div>Register Page</div>;
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 
-class App extends Component {
-  render() {
-    return (
-      <AppContainer>
-        <GlobalStyle />
-        <Navbar />
+function App() {
+  return (
+    <AppContainer>
+      <GlobalStyle />
+      <Navbar />
 
-        <Router>
-          <Landing path='/' />
-          <Login path='logowanie' />
-          <Epuap path='epuap' />
-          <FAQ path='faq' />
-          <Gallery path='galeria' />
-          <Mandate path='mandat' />
-          <PrivacyPolicy path='polityka-prywatnosci' />
+      <Router>
+        <Home path='/' />
+        <NotFound default />
+        <Login path='logowanie' />
+        <Epuap path='epuap' />
+        <FAQ path='faq' />
+        <Gallery path='galeria' />
+        <Mandate path='mandat' />
+        <PrivacyPolicy path='polityka-prywatnosci' />
 
-          <NotFound default />
+        <Report path="nowe-zgloszenie" />
 
-          <Home path='app' />
-          <UserProfile path='app/user/:userId' />
-          <Register path='app/:user/:userId/register' />
-
-          <Reports path='app/user/:userId/reports'/>
-          <ReportPreview path='app/:reportId' />
-
-          <FormNew path='app/report/new' />
-          <FormConfirm path='app/report/create' />
-          <FormThankYou path='app/report/confirmation' />
-        </Router>
-      </AppContainer>
-    );
-  };
+        <User path='uzytkownik'>
+          <UserProfile path="/" />
+          <UserRegistration path='rejestracja' />
+          <UserReports path='zgloszenia' />
+        </User>
+      </Router>
+    </AppContainer>
+  );
 };
 
 const AppContainer = styled.div`
