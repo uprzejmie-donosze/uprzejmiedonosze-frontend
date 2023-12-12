@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from '@reach/router';
 
 import FormNew from '../components/report/FormNew';
 import FormConfirm from '../components/report/FormConfirm';
 import { Container } from '../styles/styledComponents';
+import { withAuth } from '../config/auth';
 
 
 const STAGES = {
@@ -14,9 +12,7 @@ const STAGES = {
   success: "success"
 }
 
-function Report({ auth }) {
-  if (!auth.uid) return <Redirect from="/nowe-zgloszenie" to='/logowanie' noThrow />;
-
+function Report() {
   const [stage, setStage] = useState(STAGES.new);
 
   function handleNext() {
@@ -65,16 +61,4 @@ function Report({ auth }) {
   );
 };
 
-Report.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  })
-};
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-export default connect(mapStateToProps)(Report);
+export default withAuth(Report);

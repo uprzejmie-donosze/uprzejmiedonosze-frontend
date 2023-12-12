@@ -1,11 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from '@reach/router';
+import { withAuth } from '../config/auth';
 
-function UserRegistration({ auth }) {
-  if (!auth.uid) return <Redirect from="/uzytkownik/rejestracja" to='/logowanie' noThrow />;
-
+function UserRegistration() {
   return (
     <section>
       <h1>Rejestracja</h1>
@@ -13,16 +9,5 @@ function UserRegistration({ auth }) {
   );
 };
 
-UserRegistration.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  })
-};
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-export default connect(mapStateToProps)(UserRegistration);
+export default withAuth(UserRegistration);

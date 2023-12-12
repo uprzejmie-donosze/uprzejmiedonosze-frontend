@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from '@reach/router';
+import { withAuth } from '../config/auth';
 
-function UserProfile({ auth, profile }) {
-  if (!auth.uid) return <Redirect from="/uzytkownik" to='/logowanie' noThrow />;
-
+function UserProfile({ profile }) {
   return (
     <section>
       <img src={profile.photoURL} style={{maxWidth: "200px" }}/>
@@ -20,9 +18,6 @@ function UserProfile({ auth, profile }) {
 };
 
 UserProfile.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  }),
   profile: PropTypes.shape({
     name: PropTypes.string
   })
@@ -30,9 +25,8 @@ UserProfile.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
     profile: state.firebase.profile,
   };
 };
 
-export default connect(mapStateToProps)(UserProfile);
+export default connect(mapStateToProps)(withAuth(UserProfile));
