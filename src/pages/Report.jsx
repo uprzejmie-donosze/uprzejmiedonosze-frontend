@@ -5,7 +5,6 @@ import FormConfirm from '../components/report/FormConfirm';
 import { Container } from '../styles/styledComponents';
 import { withAuth } from '../config/auth';
 
-
 const STAGES = {
   new: "new",
   confirm: "confirm",
