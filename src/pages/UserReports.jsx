@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Redirect } from '@reach/router';
+import { Link } from '@reach/router';
+import { withAuth } from '../config/auth';
 
-function UserReports({ auth, profile }) {
-  if (!auth.uid) return <Redirect from="/uzytkownik/zgloszenia" to='/logowanie' noThrow />;
-
+function UserReports({ profile }) {
   function renderEmptyReports() {
     return (
       <div>
@@ -29,9 +28,6 @@ function UserReports({ auth, profile }) {
 };
 
 UserReports.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  }),
   profile: PropTypes.shape({
     name: PropTypes.string
   })
@@ -39,9 +35,8 @@ UserReports.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
     profile: state.firebase.profile,
   };
 };
 
-export default connect(mapStateToProps)(UserReports);
+export default connect(mapStateToProps)(withAuth(UserReports));

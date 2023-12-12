@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "@reach/router";
 
 import { Container } from "../styles/styledComponents";
+import { withAuth } from "../config/auth";
 
 export function User(props) {
   return (
@@ -20,4 +21,4 @@ export function User(props) {
 };
 
 
-export default User;
+export default withAuth(User);
