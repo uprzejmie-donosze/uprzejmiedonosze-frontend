@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { signOutUser } from '../../../store/actions/authActions';
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
-import { handleSelectedLink } from './current';
 
 import * as S from './styles';
 
@@ -14,7 +13,7 @@ function SignedInLinks({ closeNav, signOut, userID }) {
     <>
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to="nowe-zgloszenie" getProps={handleSelectedLink}>
+          <Link onClick={closeNav} to="nowe-zgloszenie">
             Nowe zgłoszenie
           </Link>
         </S.Menu.Item>
@@ -22,7 +21,7 @@ function SignedInLinks({ closeNav, signOut, userID }) {
 
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to={`uzytkownik/zgloszenia`} getProps={handleSelectedLink}>
+          <Link onClick={closeNav} to={`uzytkownik/zgloszenia`}>
             Moje zgłoszenia
           </Link>
         </S.Menu.Item>

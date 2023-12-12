@@ -7,11 +7,11 @@ import { Link } from '@reach/router';
 import { Container } from '../styles/styledComponents';
 import { colors } from '../styles/variables';
 import Landing from '../components/Landing';
+import { LinearLoader } from '../components/Loader';
 
 const Home = ({ auth, profile }) => {
-  if (!auth.uid) return (
-    <Landing />
-  );
+  if (!auth.isLoaded || !profile.isLoaded) return <LinearLoader />
+  if (!auth.uid) return <Landing />
 
   return (
     <Container>

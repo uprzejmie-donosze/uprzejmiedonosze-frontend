@@ -8,9 +8,9 @@ import SignedOutLinks from './SignedOutLinks';
 import * as S from './styles';
 import { closeNavbar, openNavbar } from '../../../store/actions/appActions';
 import { signOutUser } from '../../../store/actions/authActions';
+import { LinearLoader } from '../../Loader';
 
 function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
-
   function toggleMenu() {
     isNavOpened ? closeNav() : openNav();
   }
@@ -32,22 +32,27 @@ function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
         <S.Menu.Overlay onClick={toggleMenu} isNavOpened={isNavOpened} />
 
         <S.Menu isNavOpened={isNavOpened}>
-          {!!auth.uid && (
-            <S.Menu.Header>
-              <S.Menu.Avatar>
-                <S.Menu.Photo src={profile.photoURL} />
-              </S.Menu.Avatar>
+          {(!auth.isLoaded || !profile.isLoaded) ? (
+            <LinearLoader />
+          ) : (
+            <>
+            {!!auth.uid && (
+              <S.Menu.Header>
+                <S.Menu.Avatar>
+                  <S.Menu.Photo src={profile.photoURL} />
+                </S.Menu.Avatar>
 
-              <S.Menu.Title>{profile.name}</S.Menu.Title>
-            </S.Menu.Header>
-          )}
-          <S.Menu.Body>
-            {!!auth.uid ? (
-              <SignedInLinks closeNav={closeNav} />
-            ) : (
-              <SignedOutLinks closeNav={closeNav} />
+                <S.Menu.Title>{profile.name}</S.Menu.Title>
+              </S.Menu.Header>
             )}
-          </S.Menu.Body>
+            <S.Menu.Body>
+              {!!auth.uid ? (
+                <SignedInLinks closeNav={closeNav} />
+              ) : (
+                <SignedOutLinks closeNav={closeNav} />
+              )}
+            </S.Menu.Body>
+            </>)}
         </S.Menu>
       </S.Navbar.Container>
     </S.Navbar>
