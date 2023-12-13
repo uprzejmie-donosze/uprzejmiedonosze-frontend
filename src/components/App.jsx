@@ -19,6 +19,7 @@ import { FAQ } from '../pages/FAQ';
 
 import { Container } from '../styles/styledComponents';
 import { ROUTES } from '../config';
+import mediaMin, { breakpoints } from '../styles/mediaQueries';
 
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 

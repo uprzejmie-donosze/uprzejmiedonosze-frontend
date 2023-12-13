@@ -53,7 +53,7 @@ function Report() {
       {stage === STAGES.confirm && <FormConfirm />}
       {stage === STAGES.success && <div>success</div>}
 
-      <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "100%", left: '0', bottom: '0', padding: "1rem", background: "white"}}>
+      <div style={{ display: "flex", justifyContent: "space-between", position: "fixed", width: "calc(100% - 300px)", left: '300px', bottom: '0', padding: "1rem", background: "white"}}>
         <button style={{background: 'white'}} onClick={handlePrev}>back</button>
         <button style={{background: 'white'}} onClick={handleNext}>next</button>
       </div>

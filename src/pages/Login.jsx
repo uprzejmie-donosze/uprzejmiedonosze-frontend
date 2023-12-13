@@ -9,7 +9,7 @@ import { LinearLoader } from '../components/Loader';
 import { ROUTES } from './../config';
 
 function Login(props) {
-  if (!auth.isLoaded) return <LinearLoader />
+  if (!props.auth.isLoaded) return <LinearLoader />
   if (props.auth.uid) return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
   return (
