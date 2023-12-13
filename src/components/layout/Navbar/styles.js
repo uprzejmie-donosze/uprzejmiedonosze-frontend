@@ -37,6 +37,8 @@ Navbar.Logo = styled(Link)`
   color: inherit;
   text-decoration: unset;
   margin-right: 10px;
+  user-select: none;
+  font-weight: 600;
 
   &:visited: {
     color: inherit;
@@ -65,6 +67,7 @@ export const Menu = styled.div`
     transform: translateX(100%);
     width: ${SIDEBAR_WIDTH_LG};
     left: -${SIDEBAR_WIDTH_LG};
+    border-right: 2px solid white;
   }
 `;
 
@@ -92,7 +95,7 @@ Menu.Overlay = styled.div`
 Menu.Header = styled.div`
   display: flex;
   align-items: center;
-  background: ${colors.secondary};
+  background: ${colors.primary};
   padding: 0 1rem;
   height: ${NAVBAR_HEIGHT};
 
@@ -107,9 +110,10 @@ Menu.Avatar = styled.figure`
   width: 30px;
   height: 30px;
   margin: 0;
-  background-color: white;
+  background-color: ${colors.secondary};
   border-radius: 100%;
   overflow: hidden;
+  border: 2px solid ${colors.secondary};
 `;
 
 Menu.Photo = styled.img`
@@ -160,11 +164,19 @@ Menu.Item = styled.li`
   }
 
   & > a, a:visited {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     text-decoration: none;
     color: inherit;
     padding: 12px;
+  }
+
+  & svg {
+    width: .85rem;
+    height: .85rem;
+    vertical-align: middle;
   }
 
   & > a[aria-current] {

@@ -20,7 +20,9 @@ function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
   return (
     <S.Navbar>
       <S.Navbar.Container>
-        <S.Navbar.Logo to='/'>Uprzejmie Donoszę</S.Navbar.Logo>
+        <S.Navbar.Logo to={ROUTES.home}>
+          Uprzejmie Donoszę
+        </S.Navbar.Logo>
 
         <S.Menu.Burger onClick={toggleMenu}>
           <svg width="20px" height="20px" viewBox="0 0 92 92">
