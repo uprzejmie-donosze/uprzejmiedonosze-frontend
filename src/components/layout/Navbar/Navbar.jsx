@@ -9,6 +9,8 @@ import * as S from './styles';
 import { closeNavbar, openNavbar } from '../../../store/actions/appActions';
 import { signOutUser } from '../../../store/actions/authActions';
 import { LinearLoader } from '../../Loader';
+import { Link } from '@reach/router';
+import { ROUTES } from '../../../config';
 
 function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
   function toggleMenu() {
@@ -36,15 +38,23 @@ function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
             <LinearLoader />
           ) : (
             <>
-            {!!auth.uid && (
               <S.Menu.Header>
-                <S.Menu.Avatar>
-                  <S.Menu.Photo src={profile.photoURL} />
-                </S.Menu.Avatar>
+                {!!auth.uid ? (
+                  <>
+                    <S.Menu.Avatar>
+                      <S.Menu.Photo src={profile.photoURL} />
+                    </S.Menu.Avatar>
 
-                <S.Menu.Title>{profile.name}</S.Menu.Title>
+                    <S.Menu.Title to={ROUTES.user.main}>
+                      {profile.name}
+                    </S.Menu.Title>
+                  </>
+                ) : (
+                  <Link onClick={closeNav} to={ROUTES.login}>
+                    Zaloguj/zarejestruj się
+                  </Link>
+                )}
               </S.Menu.Header>
-            )}
             <S.Menu.Body>
               {!!auth.uid ? (
                 <SignedInLinks closeNav={closeNav} />

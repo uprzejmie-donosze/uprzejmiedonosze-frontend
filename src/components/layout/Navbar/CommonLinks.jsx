@@ -106,7 +106,7 @@ export function ExternalLinkRPO() {
           target="_blank"
           href={FB_RUL}
         >
-          Przejmie donoszę na FB
+          Uprzejmie Donoszę na FB
         </a>
       </S.Menu.Item>
     </S.Menu.Menu>
