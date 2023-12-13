@@ -1,23 +1,13 @@
 const initialState = {
-  uid: null,
-  isUserAutorized: false,
-  isUserRegistered: false
+  token: "",
 };
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN_USER":
+    case "TOKEN_USER":
       return {
         ...state,
-        uid: action.uid,
-        isUserAutorized: action.isUserAutorized
-      };
-
-    case "LOGOUT_USER":
-      return {
-        ...state,
-        uid: action.uid,
-        isUserAutorized: action.isUserAutorized
+        token: action.token,
       };
 
     default:
