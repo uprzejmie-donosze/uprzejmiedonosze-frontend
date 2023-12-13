@@ -1,7 +1,7 @@
 import { navigate } from '@reach/router';
 
 export function signInUser() {
-  return ({ getFirebase }) => {
+  return (dispatch, _, { getFirebase }) => {
     const firebase = getFirebase();
     const authProvider = new firebase.auth.GoogleAuthProvider();
 
@@ -12,7 +12,7 @@ export function signInUser() {
 };
 
 export function signOutUser() {
-  return ({getFirebase }) => {
+  return (dispatch, _, { getFirebase }) => {
     const firebase = getFirebase();
     firebase.auth().signOut().then(() => navigate('/'));
   };
