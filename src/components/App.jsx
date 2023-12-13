@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Router } from "@reach/router";
 import Navbar from './layout/Navbar/Navbar';
@@ -19,11 +19,15 @@ import { FAQ } from '../pages/FAQ';
 
 import { Container } from '../styles/styledComponents';
 import { ROUTES } from '../config';
-import mediaMin, { breakpoints } from '../styles/mediaQueries';
+import { useDispatch } from 'react-redux';
+import { getAuthToken } from '../store/actions/authActions';
 
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getAuthToken()), [])
+
   return (
     <AppContainer>
       <GlobalStyle />

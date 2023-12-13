@@ -18,8 +18,10 @@ import { firebaseConfig } from './config/firebaseConfig';
 firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(rootReducer,
-  compose(
+  composeEnhancers(
     applyMiddleware(withExtraArgument({ getFirebase, getFirestore })),
   )
 );
