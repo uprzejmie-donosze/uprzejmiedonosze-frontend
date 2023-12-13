@@ -8,7 +8,7 @@ import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
 
 import * as S from './styles';
 import { ROUTES } from '../../../config';
-import { ExternalLinkIcon, PlusIcon } from '../../Icons';
+import { ExternalLinkIcon, ListIcon, PlusIcon } from '../../Icons';
 
 function SignedInLinks({ closeNav, signOut }) {
   return (
@@ -24,7 +24,7 @@ function SignedInLinks({ closeNav, signOut }) {
       <S.Menu.Menu>
         <S.Menu.Item>
           <Link onClick={closeNav} to={ROUTES.userReports}>
-            Moje zgłoszenia
+            Moje zgłoszenia <ListIcon />
           </Link>
         </S.Menu.Item>
       </S.Menu.Menu>
