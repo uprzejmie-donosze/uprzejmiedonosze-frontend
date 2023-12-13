@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
 
 import * as S from './styles';
+import { ROUTES } from '../../../config';
 
 function SignedOutLinks({ closeNav }){
   return (
     <>
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to="logowanie">
+          <Link onClick={closeNav} to={ROUTES.login}>
             Spróbuj
           </Link>
         </S.Menu.Item>
@@ -25,7 +26,7 @@ function SignedOutLinks({ closeNav }){
 
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to="logowanie">
+          <Link onClick={closeNav} to={ROUTES.login}>
             Zaloguj/zarejestruj się
           </Link>
         </S.Menu.Item>

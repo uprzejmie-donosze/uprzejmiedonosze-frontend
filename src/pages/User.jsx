@@ -1,8 +1,7 @@
 import React from "react";
-
 import { Container } from "../styles/styledComponents";
-import { withAuth } from "../config/auth";
 import UserNav from "../components/UserNav";
+import { withAuth } from "../config";
 
 export function User(props) {
   return (
@@ -15,6 +14,5 @@ export function User(props) {
     </>
   );
 };
-
 
 export default withAuth(User);

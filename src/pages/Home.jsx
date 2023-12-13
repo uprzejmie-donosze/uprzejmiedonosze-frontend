@@ -8,8 +8,9 @@ import { Container } from '../styles/styledComponents';
 import { colors } from '../styles/variables';
 import Landing from '../components/Landing';
 import { LinearLoader } from '../components/Loader';
+import { ROUTES } from '../config';
 
-const Home = ({ auth, profile }) => {
+function Home({ auth, profile }){
   if (!auth.isLoaded || !profile.isLoaded) return <LinearLoader />
   if (!auth.uid) return <Landing />
 
@@ -17,10 +18,11 @@ const Home = ({ auth, profile }) => {
     <Container>
       <h1>{`Cześć ${profile.name}!`}</h1>
 
-      <h4>Your statistics</h4>
-      {profile.reports && <p>Nomber of reports <span>{profile.reports.length}</span></p>}
+      <h4>Twoje statystyki</h4>
 
-      <RoundedLink to='/report/new'>
+      {profile.reports && <p>Liczba raportów: <strong>{profile.reports.length}</strong></p>}
+
+      <RoundedLink to={ROUTES.newReport}>
         <Icon width="20px" height="20px" viewBox="0 0 92 92">
           <path fill="currentColor" id="XMLID_1259_" d="M86.1,9.2L79,1.9C78.4,1.3,77.6,1,76.8,1h0c-0.8,0-1.6,0.3-2.1,0.9L32.8,44.4c-0.3,0.3-0.5,0.6-0.7,1
             l-4.7,11.9c-0.4,1.1-0.2,2.4,0.7,3.2c0.6,0.6,1.3,0.9,2.1,0.9c0.4,0,0.7-0.1,1.1-0.2l11.8-4.7c0.4-0.2,0.7-0.4,1-0.7l41.9-42.5

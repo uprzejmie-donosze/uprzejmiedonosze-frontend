@@ -3,6 +3,7 @@ import { Link } from '@reach/router';
 import PropTypes from 'prop-types';
 
 import * as S from './styles';
+import { ROUTES } from './../../../config';
 
 const RPO_PETITION_URL = "https://www.change.org/p/r%C3%B3wne-prawa-dla-pieszych-i-kierowc%C3%B3w?utm_source=share_petition&utm_medium=custom_url&recruited_by_id=05293e40-f40b-11ed-99a9-b1468c19b3be"
 const FB_RUL = "https://www.facebook.com/uprzejmiedonosze.net"
@@ -11,55 +12,55 @@ function CommonLinks({ closeNav }){
   return (
     <S.Menu.Menu>
       <S.Menu.Item>
-        <Link onClick={closeNav} to="/">
+        <Link onClick={closeNav} to={ROUTES.home}>
           Strona główna
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="galeria">
+        <Link onClick={closeNav} to={ROUTES.gallery}>
           Galeria
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="przepisy">
+        <Link onClick={closeNav} to={ROUTES.regulations}>
           Przepisy
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="faq">
+        <Link onClick={closeNav} to={ROUTES.faq}>
           FAQ
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="regualmin">
+        <Link onClick={closeNav} to={ROUTES.websiteRegulations}>
           Regulamin
       </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="statystyki">
+        <Link onClick={closeNav} to={ROUTES.stats}>
           Statystyki
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="changelog">
+        <Link onClick={closeNav} to={ROUTES.changelog}>
           Historia zmian
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="aplikacja">
+        <Link onClick={closeNav} to={ROUTES.install}>
           Zainstaluj UD
         </Link>
       </S.Menu.Item>
 
       <S.Menu.Item>
-        <Link onClick={closeNav} to="projekt">
+        <Link onClick={closeNav} to={ROUTES.project}>
           O projekcie
         </Link>
       </S.Menu.Item>
@@ -67,8 +68,7 @@ function CommonLinks({ closeNav }){
       <S.Menu.Item>
         <Link
           onClick={closeNav}
-          to="dostep-do-informacji-publiczne"
-         
+          to={ROUTES.publicInfoAccess}
         >
           Dzwoń do SM jak szeryf
         </Link>

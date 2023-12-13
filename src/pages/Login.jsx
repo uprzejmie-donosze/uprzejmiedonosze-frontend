@@ -5,25 +5,34 @@ import { Redirect } from '@reach/router';
 
 import { signInUser } from '../store/actions/authActions';
 import { Container } from '../styles/styledComponents';
+import { LinearLoader } from '../components/Loader';
+import { ROUTES } from './../config';
 
 function Login(props) {
-  if (props.auth.uid) return <Redirect from="/login" to='/' noThrow />;
+  if (!auth.isLoaded) return <LinearLoader />
+  if (props.auth.uid) return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
   return (
     <Container>
       <h1>Zaloguj się</h1>
-      <button onClick={() => props.signIn()}>
+      <button onClick={props.signIn}>
         zaloguj się przez Google
       </button>
 
       <p>
-        <span>Nie masz konta Google? Mozesz je załozyć </span>
-        <a href="https://support.google.com/mail/answer/56256?hl=pl" target="_blank" rel="noopener noreferrer">tutaj</a>
+        Nie masz konta Google? Mozesz je załozyć&nbsp;
+
+        <a
+          href="https://support.google.com/mail/answer/56256?hl=pl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          tutaj
+        </a>.
       </p>
     </Container>
   );
 };
-
 
 Login.propTypes = {
   signIn: PropTypes.func,

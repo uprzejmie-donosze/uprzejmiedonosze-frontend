@@ -1,6 +1,6 @@
 import React from 'react';
-import { withAuth } from '../config/auth';
 import { useSelector } from 'react-redux';
+import { withAuth } from '../config';
 
 function UserProfile() {
   const profile = useSelector(state => state.firebase.profile);
