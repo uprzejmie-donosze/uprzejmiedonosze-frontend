@@ -1,5 +1,5 @@
 import React from 'react';
-import { withAuth } from '../config/auth';
+import { withAuth } from '../config';
 
 function UserRegistration() {
   return (
@@ -8,6 +8,5 @@ function UserRegistration() {
     </section>
   );
 };
-
 
 export default withAuth(UserRegistration);

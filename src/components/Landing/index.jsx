@@ -25,7 +25,7 @@ function Landing() {
 
       </section>
     </Container>
-  )
+  );
 }
 
 export default Landing;

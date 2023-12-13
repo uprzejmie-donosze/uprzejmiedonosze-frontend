@@ -7,13 +7,14 @@ import { signOutUser } from '../../../store/actions/authActions';
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
 
 import * as S from './styles';
+import { ROUTES } from '../../../config';
 
-function SignedInLinks({ closeNav, signOut, userID }) {
+function SignedInLinks({ closeNav, signOut }) {
   return (
     <>
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to="nowe-zgloszenie">
+          <Link onClick={closeNav} to={ROUTES.newReport}>
             Nowe zgłoszenie
           </Link>
         </S.Menu.Item>
@@ -21,7 +22,7 @@ function SignedInLinks({ closeNav, signOut, userID }) {
 
       <S.Menu.Menu>
         <S.Menu.Item>
-          <Link onClick={closeNav} to={`uzytkownik/zgloszenia`}>
+          <Link onClick={closeNav} to={ROUTES.userReports}>
             Moje zgłoszenia
           </Link>
         </S.Menu.Item>

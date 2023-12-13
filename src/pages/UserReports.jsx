@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import { withAuth } from '../config/auth';
+import { ROUTES, withAuth } from '../config';
 
 function UserReports() {
   return (
@@ -8,8 +8,8 @@ function UserReports() {
       <h1>Moje zgłoszenia</h1>
 
       <div>
-        <h4>Nie masz jeszcze żadnych zgłoszeń</h4>
-        <Link to="/nowe-zgloszenie">Pierwsze zgłoszenie</Link>
+        <h4>Nie masz jeszcze żadnych zgłoszeń.</h4>
+        <Link to={ROUTES.newReport}>Zrób pierwsze zgłoszenie!</Link>
       </div>
     </section>
   );

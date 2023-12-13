@@ -12,5 +12,4 @@ function FormConfirm() {
   );
 };
 
-
 export default FormConfirm;
