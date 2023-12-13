@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import * as S from './styles';
 import { ROUTES } from './../../../config';
+import { ExternalLinkIcon } from '../../Icons';
 
 const RPO_PETITION_URL = "https://www.change.org/p/r%C3%B3wne-prawa-dla-pieszych-i-kierowc%C3%B3w?utm_source=share_petition&utm_medium=custom_url&recruited_by_id=05293e40-f40b-11ed-99a9-b1468c19b3be"
 const FB_RUL = "https://www.facebook.com/uprzejmiedonosze.net"
@@ -90,7 +91,7 @@ export function ExternalLinkFB() {
           target="_blank"
           href={RPO_PETITION_URL}
         >
-          Podpisz wniosek do RPO
+          Podpisz wniosek do RPO <ExternalLinkIcon />
         </a>
       </S.Menu.Item>
     </S.Menu.Menu>
@@ -106,7 +107,7 @@ export function ExternalLinkRPO() {
           target="_blank"
           href={FB_RUL}
         >
-          Uprzejmie Donoszę na FB
+          Uprzejmie Donoszę na FB <ExternalLinkIcon />
         </a>
       </S.Menu.Item>
     </S.Menu.Menu>
