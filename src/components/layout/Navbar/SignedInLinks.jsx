@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 
 import { signOutUser } from '../../../store/actions/authActions';
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
+import { ExternalLinkIcon, ListIcon, PlusIcon } from '../../Icons';
 
 import * as S from './styles';
 import { ROUTES } from '../../../config';
-import { ExternalLinkIcon, ListIcon, PlusIcon } from '../../Icons';
+import { Button } from '../../../styles';
 
 function SignedInLinks({ closeNav, signOut }) {
   return (
@@ -48,7 +49,7 @@ function SignedInLinks({ closeNav, signOut }) {
       <ExternalLinkRPO />
 
       <S.Menu.Footer>
-        <button onClick={signOut}>logout</button>
+        <Button onClick={signOut}>logout</Button>
       </S.Menu.Footer>
     </>
   );

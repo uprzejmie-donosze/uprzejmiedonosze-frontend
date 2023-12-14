@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Redirect } from '@reach/router';
 
 import { signInUser } from '../store/actions/authActions';
-import { Container } from '../styles/styledComponents';
 import { LinearLoader } from '../components/Loader';
+import { Container } from '../styles';
 import { ROUTES } from './../config';
 
 function Login(props) {
-  if (!props.auth.isLoaded) return <LinearLoader />
+  if (!props.auth.isLoaded) return <Container><LinearLoader /></Container>
   if (props.auth.uid) return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
   return (

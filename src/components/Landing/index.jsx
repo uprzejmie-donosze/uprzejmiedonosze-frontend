@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '../../styles/styledComponents';
+import { Container } from '../../styles';
 
 function Landing() {
   return (

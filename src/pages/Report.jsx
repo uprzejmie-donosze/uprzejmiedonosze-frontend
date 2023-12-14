@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import FormNew from '../components/report/FormNew';
 import FormConfirm from '../components/report/FormConfirm';
-import { Container } from '../styles/styledComponents';
+
+import { Container, colors } from '../styles';
 import { withAuth } from '../config';
-import { colors } from '../styles/variables';
 
 const STAGES = {
   new: "new",
