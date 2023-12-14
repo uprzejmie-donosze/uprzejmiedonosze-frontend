@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { withAuth } from '../config';
 
-function UserProfile() {
+function UserProfilePage() {
   const auth = useSelector(state => state.firebase.auth);
 
   return (
@@ -20,4 +20,4 @@ function UserProfile() {
   );
 };
 
-export default withAuth(UserProfile);
+export const UserProfile = withAuth(UserProfilePage);

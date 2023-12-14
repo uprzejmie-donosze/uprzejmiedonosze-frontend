@@ -12,7 +12,7 @@ const STAGES = {
   success: "success"
 }
 
-function Report() {
+function ReportPage() {
   const [stage, setStage] = useState(STAGES.new);
 
   function handleNext() {
@@ -61,4 +61,4 @@ function Report() {
   );
 };
 
-export default withAuth(Report);
+export const Report = withAuth(ReportPage);

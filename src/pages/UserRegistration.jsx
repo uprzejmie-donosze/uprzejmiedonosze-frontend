@@ -1,7 +1,7 @@
 import React from 'react';
 import { withAuth } from '../config';
 
-function UserRegistration() {
+function UserRegistrationPage() {
   return (
     <section>
       <h1>Rejestracja</h1>
@@ -9,4 +9,4 @@ function UserRegistration() {
   );
 };
 
-export default withAuth(UserRegistration);
+export const UserRegistration = withAuth(UserRegistrationPage);

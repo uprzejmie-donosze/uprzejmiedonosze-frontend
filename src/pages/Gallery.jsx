@@ -6,3 +6,4 @@ export function Gallery() {
     <Container>Gallery page</Container>
   );
 };
+

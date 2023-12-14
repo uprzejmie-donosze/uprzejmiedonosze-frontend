@@ -8,7 +8,7 @@ import { LinearLoader } from '../components/Loader';
 import { Container } from '../styles';
 import { ROUTES } from './../config';
 
-function Login(props) {
+function LoginPage(props) {
   if (!props.auth.isLoaded) return <Container><LinearLoader /></Container>
   if (props.auth.uid) return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
@@ -34,7 +34,7 @@ function Login(props) {
   );
 };
 
-Login.propTypes = {
+LoginPage.propTypes = {
   signIn: PropTypes.func,
   auth: PropTypes.shape({
     uid: PropTypes.string
@@ -53,4 +53,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginPage);

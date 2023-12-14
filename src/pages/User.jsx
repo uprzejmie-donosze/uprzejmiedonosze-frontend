@@ -4,7 +4,7 @@ import UserNav from "../components/UserNav";
 import { Container } from "../styles";
 import { withAuth } from "../config";
 
-export function User(props) {
+export function UserPage(props) {
   return (
     <>
       <UserNav />
@@ -16,4 +16,4 @@ export function User(props) {
   );
 };
 
-export default withAuth(User);
+export const User = withAuth(UserPage);
