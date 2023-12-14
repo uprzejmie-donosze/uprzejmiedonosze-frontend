@@ -1,6 +1,7 @@
 import React from "react";
-import { Container } from "../styles/styledComponents";
 import UserNav from "../components/UserNav";
+
+import { Container } from "../styles";
 import { withAuth } from "../config";
 
 export function User(props) {

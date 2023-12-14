@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container } from "../../styles/styledComponents";
+import { Container } from "../../styles";
 import { ROUTES } from "../../config";
 import * as S from './styles';
 

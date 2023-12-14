@@ -114,6 +114,13 @@ Menu.Avatar = styled.figure`
   border-radius: 100%;
   overflow: hidden;
   border: 2px solid ${colors.secondary};
+
+  & > svg {
+    display: block;
+    width: 79%;
+    height: 100%;
+    margin: 0 auto;
+  }
 `;
 
 Menu.Photo = styled.img`

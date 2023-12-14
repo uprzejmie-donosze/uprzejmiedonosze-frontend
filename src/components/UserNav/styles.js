@@ -1,6 +1,6 @@
 import { Link } from "@reach/router";
 import styled from "styled-components";
-import { colors } from "../../styles/variables";
+import { colors } from "../../styles";
 
 export const Nav = styled.nav`
   border-bottom: 1px solid ${colors.border};

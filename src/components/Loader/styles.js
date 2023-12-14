@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { colors } from "../../styles/variables";
+import { colors } from "../../styles";
 
 const content_first = keyframes`
   0% {
@@ -25,11 +25,10 @@ const content_second = keyframes`
 
 export const LinearLoader = styled.div`
   overflow: hidden;
-  width: 90%;
+  width: 100%;
   height: 5px;
-  border-radius: 5px;
   background-color: ${colors.primary};
-  margin: 20px auto;
+  margin: 0 auto;
 `;
 
 LinearLoader.Content = styled.div`
