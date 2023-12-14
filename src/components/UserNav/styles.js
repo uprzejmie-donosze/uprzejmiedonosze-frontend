@@ -9,9 +9,6 @@ export const Nav = styled.nav`
 Nav.List = styled.ul`
   display: flex;
   flex-flow: nowrap;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 `;
 
 Nav.Item = styled.li`
@@ -20,8 +17,6 @@ Nav.Item = styled.li`
 `;
 
 Nav.Link = styled(Link)`
-  color: inherit;
-  text-decoration: none;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 600;
@@ -48,8 +43,4 @@ Nav.Link = styled(Link)`
     transition: transform .2s ease;
     transform: scale(0);
   };
-
-  &:hover {
-    opacity: .7;
-  }
 `;

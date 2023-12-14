@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   body, html {
     font-family: Helvetica, Arial, sans-serif;
     width: 100%;
@@ -8,11 +8,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #F0F0F0;
-  }
-
-  #___gatsby,
-  #___gatsby > div {
-    height: 100vh;
   }
 
   button,
@@ -33,6 +28,34 @@ const GlobalStyle = createGlobalStyle`
   img {
     max-width: 100%;
   }
-`;
 
-export default GlobalStyle;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      opacity: .8;
+    }
+
+    &:visited: {
+      color: inherit;
+    }
+  }
+
+  button {
+    &:hover { opacity: .8; }
+
+    &:active { transform: translateY(2px); }
+
+    &:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+  }
+`;

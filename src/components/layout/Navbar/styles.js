@@ -34,19 +34,9 @@ Navbar.Container = styled.div`
 `;
 
 Navbar.Logo = styled(Link)`
-  color: inherit;
-  text-decoration: unset;
   margin-right: 10px;
   user-select: none;
   font-weight: 600;
-
-  &:visited: {
-    color: inherit;
-  }
-
-  &:hover {
-    opacity: .7;
-  }
 `;
 
 export const Menu = styled.div`
@@ -98,11 +88,6 @@ Menu.Header = styled.div`
   background: ${colors.primary};
   padding: 0 1rem;
   height: ${NAVBAR_HEIGHT};
-
-  & > a {
-    color: inherit;
-    text-decoration: none;
-  }
 `;
 
 Menu.Avatar = styled.figure`
@@ -137,7 +122,6 @@ Menu.Title = styled(Link)`
   color: white;
   font-size: 14px;
   margin: 0 0 0 15px;
-  text-decoration: none;
 `;
 
 Menu.Body = styled.div`
@@ -150,9 +134,6 @@ Menu.Menu = styled.ul`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 
   & + & {
     border-top: 1px solid ${colors.background};
@@ -175,7 +156,6 @@ Menu.Item = styled.li`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    text-decoration: none;
     color: inherit;
     padding: 12px;
   }
