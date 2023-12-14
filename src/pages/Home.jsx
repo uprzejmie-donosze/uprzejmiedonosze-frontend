@@ -10,7 +10,7 @@ import { LinearLoader } from '../components/Loader';
 import { ROUTES } from '../config';
 import { Container, colors } from '../styles';
 
-function Home({ auth }){
+function HomePage({ auth }){
   if (!auth.isLoaded) return <Container><LinearLoader /></Container>;
   if (!auth.uid) return <Landing />
 
@@ -30,7 +30,7 @@ function Home({ auth }){
   );
 };
 
-Home.propTypes = {
+HomePage.propTypes = {
   auth: PropTypes.shape({
     uid: PropTypes.string
   })
@@ -59,4 +59,4 @@ const Icon = styled.svg`
   left: calc((100% - 20px) / 2);
 `;
 
-export default connect(mapStateToProps)(Home);
+export const Home = connect(mapStateToProps)(HomePage);

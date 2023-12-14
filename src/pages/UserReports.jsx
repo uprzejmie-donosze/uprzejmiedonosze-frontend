@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 import { ROUTES, withAuth } from '../config';
 
-function UserReports() {
+function UserReportsPage() {
   return (
     <section>
       <h1>Moje zgłoszenia</h1>
@@ -15,5 +15,5 @@ function UserReports() {
   );
 };
 
-export default withAuth(UserReports);
+export const UserReports = withAuth(UserReportsPage);
 
