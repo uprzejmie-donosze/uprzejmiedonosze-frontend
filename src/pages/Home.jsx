@@ -4,23 +4,19 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from '@reach/router';
 
-import { Container } from '../styles/styledComponents';
-import { colors } from '../styles/variables';
 import Landing from '../components/Landing';
 import { LinearLoader } from '../components/Loader';
-import { ROUTES } from '../config';
 
-function Home({ auth, profile }){
-  if (!auth.isLoaded || !profile.isLoaded) return <LinearLoader />
+import { ROUTES } from '../config';
+import { Container, colors } from '../styles';
+
+function Home({ auth }){
+  if (!auth.isLoaded) return <Container><LinearLoader /></Container>;
   if (!auth.uid) return <Landing />
 
   return (
     <Container>
-      <h1>{`Cześć ${profile.name}!`}</h1>
-
-      <h4>Twoje statystyki</h4>
-
-      {profile.reports && <p>Liczba raportów: <strong>{profile.reports.length}</strong></p>}
+      <h1>{`Cześć ${auth.displayName}!`}</h1>
 
       <RoundedLink to={ROUTES.newReport}>
         <Icon width="20px" height="20px" viewBox="0 0 92 92">
@@ -37,16 +33,12 @@ function Home({ auth, profile }){
 Home.propTypes = {
   auth: PropTypes.shape({
     uid: PropTypes.string
-  }),
-  profile: PropTypes.shape({
-    name: PropTypes.string
   })
 };
 
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile,
   };
 };
 

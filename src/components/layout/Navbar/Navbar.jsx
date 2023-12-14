@@ -5,14 +5,15 @@ import PropTypes from 'prop-types';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
-import * as S from './styles';
 import { closeNavbar, openNavbar } from '../../../store/actions/appActions';
 import { signOutUser } from '../../../store/actions/authActions';
 import { LinearLoader } from '../../Loader';
-import { Link } from '@reach/router';
-import { ROUTES } from '../../../config';
+import { UserIcon } from '../../Icons';
 
-function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
+import { ROUTES } from '../../../config';
+import * as S from './styles';
+
+function Navbar({ auth, isNavOpened, closeNav, openNav }) {
   function toggleMenu() {
     isNavOpened ? closeNav() : openNav();
   }
@@ -36,25 +37,23 @@ function Navbar({ auth, profile, isNavOpened, closeNav, openNav }) {
         <S.Menu.Overlay onClick={toggleMenu} isNavOpened={isNavOpened} />
 
         <S.Menu isNavOpened={isNavOpened}>
-          {(!auth.isLoaded || !profile.isLoaded) ? (
+          {(!auth.isLoaded) ? (
             <LinearLoader />
           ) : (
             <>
               <S.Menu.Header>
-                {!!auth.uid ? (
-                  <>
-                    <S.Menu.Avatar>
-                      <S.Menu.Photo src={profile.photoURL} />
-                    </S.Menu.Avatar>
+                <S.Menu.Avatar>
+                  {!!auth.photoURL ? <S.Menu.Photo src={auth.photoURL} /> : <UserIcon />}
+                </S.Menu.Avatar>
 
-                    <S.Menu.Title to={ROUTES.user.main}>
-                      {profile.name}
-                    </S.Menu.Title>
-                  </>
+                {!!auth.uid ? (
+                  <S.Menu.Title to={ROUTES.user.main}>
+                    {auth.displayName}
+                  </S.Menu.Title>
                 ) : (
-                  <Link onClick={closeNav} to={ROUTES.login}>
-                    Zaloguj/zarejestruj się
-                  </Link>
+                  <S.Menu.Title onClick={closeNav} to={ROUTES.login}>
+                    Zaloguj/ zarejestruj się
+                  </S.Menu.Title>
                 )}
               </S.Menu.Header>
             <S.Menu.Body>
@@ -75,20 +74,12 @@ Navbar.defaultProps = {
   auth: {
     uid: null,
     isUserAutorized: false
-  },
-  profile: {
-    name: "default name",
-    photoURL: ""
   }
 };
 
 Navbar.propTypes = {
   auth: PropTypes.shape({
     uid: PropTypes.string
-  }),
-  profile: PropTypes.shape({
-    name: PropTypes.string,
-    photoURL: PropTypes.string
   })
 };
 
@@ -103,7 +94,6 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile,
     isNavOpened: state.app.isNavOpened
   };
 };

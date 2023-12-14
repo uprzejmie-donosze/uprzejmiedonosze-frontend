@@ -3,17 +3,17 @@ import { useSelector } from 'react-redux';
 import { withAuth } from '../config';
 
 function UserProfile() {
-  const profile = useSelector(state => state.firebase.profile);
+  const auth = useSelector(state => state.firebase.auth);
 
   return (
     <section>
-      <h1>{profile.name}</h1>
+      <h1>{auth.displayName}</h1>
 
       <figure style={{display: 'flex', margin: 0 }}>
-        <img src={profile.photoURL} style={{maxWidth: "200px" }} />
+        <img src={auth.photoURL} style={{maxWidth: "200px" }} />
 
         <figcaption style={{ paddingLeft: "20px" }}>
-          <h3>{profile.email || 'No email added'}</h3>
+          <h3>{auth.email || 'No email added'}</h3>
         </figcaption>
       </figure>
     </section>

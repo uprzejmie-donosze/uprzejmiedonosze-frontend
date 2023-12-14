@@ -23,7 +23,6 @@
     "react-redux": "^9.0.2",
     "react-redux-firebase": "^3.11.0",
     "redux": "^5.0.0",
-    "redux-firestore": "^2.0.1",
     "redux-thunk": "^3.1.0",
     "styled-components": "^6.1.1",
     "whatwg-fetch": "^3.6.19"

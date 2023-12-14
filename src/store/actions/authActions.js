@@ -7,7 +7,7 @@ export function signInUser() {
 
     firebase.auth().signInWithPopup(authProvider)
     .then(() => navigate('/'))
-    .catch((error) => console.error(error));
+    .catch((error) => console.error("signInWithPopup", error));
   };
 };
 
