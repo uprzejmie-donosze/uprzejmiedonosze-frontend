@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Router } from "@reach/router";
 
 import * as Page from '../pages';
-import Navbar from './layout/Navbar/Navbar';
+import Navbar from './layout/Navbar';
 import { ROUTES } from '../config';
 import { GlobalStyle, Container } from '../styles';
 

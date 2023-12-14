@@ -37,13 +37,4 @@ export const Button = styled.button`
   cursor: pointer;
   color: ${colors.white};
   background-color: ${colors.primary};
-
-  &:hover { opacity: .8; }
-
-  &:active { transform: translateY(2px); }
-
-  &:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-  }
 `;
