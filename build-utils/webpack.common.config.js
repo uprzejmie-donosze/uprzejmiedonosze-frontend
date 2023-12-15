@@ -24,10 +24,15 @@ const config = {
         test: /\.(png|jpe?g|eot|svg|ttf|woff|woff2)/,
         use: [{loader: 'file-loader?name=assets/[name].[ext]'}]
       },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   plugins: [
     new webpack.ProgressPlugin(),
