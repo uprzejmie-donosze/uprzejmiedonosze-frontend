@@ -4,7 +4,11 @@ const webpack = require('webpack');
 const config = {
   mode: 'development',
   plugins: [
-    new ESLintPlugin(),
+    new ESLintPlugin({
+      failOnError: false,
+      emitError: true,
+      emitWarning: true,
+    }),
     new webpack.DefinePlugin({
       'process.env.API_HOST': JSON.stringify('http://localhost:8080')
     }),

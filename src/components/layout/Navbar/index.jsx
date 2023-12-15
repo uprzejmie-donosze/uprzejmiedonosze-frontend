@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
-import { closeNavbar, openNavbar } from '../../../store/actions/appActions';
-import { signOutUser } from '../../../store/actions/authActions';
+import { closeNavbar, openNavbar } from '../../../store/app';
 import { LinearLoader } from '../../Loader';
 import { UserIcon } from '../../Icons';
 
 import { ROUTES } from '../../../config';
 import * as S from './styles';
+import { signOutUser } from '../../../store/firebase';
 
 function Navbar({ auth, isNavOpened, closeNav, openNav }) {
   function toggleMenu() {

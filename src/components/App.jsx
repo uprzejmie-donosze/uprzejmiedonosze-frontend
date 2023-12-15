@@ -7,7 +7,7 @@ import * as Page from '../pages';
 import Navbar from './layout/Navbar';
 import { ROUTES } from '../config';
 import { GlobalStyle, Container } from '../styles';
-import { getUser } from '../store/actions/userActions';
+import { getUser } from '../store/user';
 
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 
