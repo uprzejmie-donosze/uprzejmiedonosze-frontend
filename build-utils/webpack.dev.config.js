@@ -1,8 +1,14 @@
-const ESLintPlugin = require('eslint-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin');
+const webpack = require('webpack');
 
 const config = {
   mode: 'development',
-  plugins: [new ESLintPlugin()],
+  plugins: [
+    new ESLintPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.API_HOST': JSON.stringify('http://localhost:8080')
+    }),
+  ],
   devServer: {
     historyApiFallback: true,
     static: {
