@@ -1,13 +1,13 @@
 import { HTTPClient } from "./httpClient";
 
 export class APIClient {
-  httpClient;
+  private httpClient: HTTPClient;
 
-  constructor(host) {
+  constructor(host: string) {
     this.httpClient = new HTTPClient(host);
   }
 
-  getUser(token) {
+  getUser(token: string) {
     // return this.httpClient.get("/user", token);
     return Promise.resolve({
       "data": {
@@ -30,7 +30,7 @@ export class APIClient {
     });
   }
 
-  updateUser(token) {
+  updateUser(token: string) {
     return this.httpClient.post("/user", token);
   }
 }
