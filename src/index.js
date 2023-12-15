@@ -2,26 +2,15 @@ import 'whatwg-fetch';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { withExtraArgument } from 'redux-thunk';
-import {  getFirebase, ReactReduxFirebaseProvider } from 'react-redux-firebase';
-
-import firebase from 'firebase/compat/app';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import 'firebase/compat/auth';
+import firebase from 'firebase/compat/app';
 
 import App from './components/App';
-import rootReducer from './store/reducers/rootReducer';
-import { firebaseConfig } from './config/firebaseConfig';
+import { store } from './store';
+import { firebaseConfig } from './config';
 
 firebase.initializeApp(firebaseConfig);
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(rootReducer,
-  composeEnhancers(
-    applyMiddleware(withExtraArgument({ getFirebase })),
-  )
-);
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>

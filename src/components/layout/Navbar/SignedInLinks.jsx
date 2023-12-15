@@ -3,13 +3,13 @@ import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { signOutUser } from '../../../store/actions/authActions';
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
 import { ExternalLinkIcon, ListIcon, PlusIcon } from '../../Icons';
 
 import * as S from './styles';
 import { ROUTES } from '../../../config';
 import { Button } from '../../../styles';
+import { signOutUser } from '../../../store/firebase';
 
 function SignedInLinks({ closeNav, signOut }) {
   return (
