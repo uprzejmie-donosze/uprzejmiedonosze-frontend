@@ -1,12 +1,12 @@
 
 export class HTTPClient {
-  host = "";
+  private host: string;
 
-  constructor(host) {
+  constructor(host: string) {
     this.host = host;
   }
 
-  static getHeaders(token) {
+  static getHeaders(token: string) {
     return new Headers({
       authorization: `Bearer ${token}`,
       accept: 'application/json',
@@ -14,11 +14,11 @@ export class HTTPClient {
     });
   }
 
-  static fetchToJson(res) {
+  static fetchToJson(res: Response): Promise<Response> {
     return res.headers.get('content-type') === 'application/json' ? res.json() : res.text();
   }
 
-  static handleResponse(response) {
+  static handleResponse(response: Response): Promise<Response>  {
     const jsonResponse = HTTPClient.fetchToJson(response);
     if (response.ok) {
       return jsonResponse;
@@ -32,6 +32,12 @@ export class HTTPClient {
     token,
     body,
     params,
+  }: {
+    method: string;
+    path: string;
+    token: string;
+    body?: {[key: string]: any};
+    params?: {[key: string]: string};
   }) {
     let url = `${this.host}${path}`;
     if (params) url += `?${new URLSearchParams(params).toString()}`;
@@ -45,19 +51,19 @@ export class HTTPClient {
     .catch(e => { throw new Error('Something went wrong'); }); // TODO: handle error
   }
 
-  get(path, token, params = {}) {
+  get(path: string, token: string, params: {[key: string]: string} = {}) {
     return this.makeRequest({ method: "GET", token, path, params });
   }
 
-  patch(path, token, body = {}) {
+  patch(path: string, token: string, body: {[key: string]: any} = {}) {
     return this.makeRequest({ method: "PATCH", token, path, body });
   }
 
-  post(path, token, body = {}) {
+  post(path: string, token: string, body: {[key: string]: any} = {}) {
     return this.makeRequest({ method: "POST", token, path, body });
   }
 
-  put(path, token, body = {}) {
+  put(path: string, token: string, body: {[key: string]: any} = {}) {
     return this.makeRequest({ method: "PUT", token, path, body });
   }
 }
