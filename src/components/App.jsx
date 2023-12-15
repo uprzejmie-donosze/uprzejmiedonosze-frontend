@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Router } from "@reach/router";
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as Page from '../pages';
 import Navbar from './layout/Navbar';
 import { ROUTES } from '../config';
 import { GlobalStyle, Container } from '../styles';
+import { getUser } from '../store/actions/userActions';
 
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 
 function App() {
+  const dispatch = useDispatch()
+  const isAuthLoaded = useSelector(state => state.firebase.auth.isLoaded);
+
+  useEffect(() => {
+    isAuthLoaded && dispatch(getUser());
+  }, [isAuthLoaded])
+
   return (
     <AppContainer>
       <GlobalStyle />
@@ -40,3 +49,4 @@ const AppContainer = styled.div`
 `;
 
 export default App;
+

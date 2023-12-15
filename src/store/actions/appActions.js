@@ -1,11 +1,13 @@
-export const openNavbar = () => {
-  return ( dispatch ) => {
-    dispatch({ type: 'OPEN_NAVBAR', isNavOpened: true });
+import { APP_ACTIONS } from "../actionTypes";
+
+export function openNavbar() {
+  return function(dispatch) {
+    dispatch({ type: APP_ACTIONS.openNav, isNavOpened: true });
   };
 };
 
-export const closeNavbar = () => {
-  return ( dispatch ) => {
-    dispatch({ type: 'CLOSE_NAVBAR', isNavOpened: false });
+export function closeNavbar() {
+  return function(dispatch) {
+    dispatch({ type: APP_ACTIONS.closeNav, isNavOpened: false });
   };
 };
