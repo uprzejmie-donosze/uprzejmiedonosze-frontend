@@ -6,4 +6,3 @@ export const firebaseConfig = {
   storageBucket: "uprzejmie-donosze-dev.appspot.com",
   messagingSenderId: "961138564803"
 };
-
