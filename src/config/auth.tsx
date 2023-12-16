@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect, useLocation } from "@reach/router";
-import { useSelector } from 'react-redux';
-import { LinearLoader } from '../components/Loader';
 
 import { Container } from '../styles';
+import { LinearLoader } from '../components/Loader';
 import { ROUTES } from './routes';
+import { useAppSelector } from '../store';
 
-export function withAuth(Component) {
-  function WithAuth(props) {
+export function withAuth(Component: React.ElementType) {
+  function WithAuth(props: any) {
     const location = useLocation();
-    const auth = useSelector((state) => state.firebase.auth);
-    const user = useSelector((state) => state.user);
+    const auth = useAppSelector(state => state.firebase.auth);
+    const user = useAppSelector(state => state.user);
 
     if (!auth.isLoaded || !user.isLoaded) return <Container><LinearLoader /></Container>;
 
