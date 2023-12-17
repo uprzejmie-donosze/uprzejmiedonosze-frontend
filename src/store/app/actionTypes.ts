@@ -1,4 +1,4 @@
 export const APP_ACTIONS = {
-  openNav: 'OPEN_NAVBAR',
-  closeNav: 'CLOSE_NAVBAR',
+  openNav: 'APP/OPEN_NAVBAR',
+  closeNav: 'APP/CLOSE_NAVBAR',
 };
