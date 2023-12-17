@@ -86,7 +86,7 @@ CommonLinks.propTypes = {
   closeNav: PropTypes.func
 };
 
-export function ExternalLinkFB() {
+export function ExternalLinkRPO() {
   return (
     <S.Menu.Menu>
       <S.Menu.Item>
@@ -102,7 +102,7 @@ export function ExternalLinkFB() {
   );
 }
 
-export function ExternalLinkRPO() {
+export function ExternalLinkFB() {
   return (
     <S.Menu.Menu>
       <S.Menu.Item>
