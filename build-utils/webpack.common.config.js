@@ -2,6 +2,7 @@ const commonPaths = require('./common-paths');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
@@ -36,7 +37,11 @@ const config = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
-    HtmlWebpackPluginConfig
+    HtmlWebpackPluginConfig,
+    new Dotenv({
+      path: './.env',
+      safe: true,
+    })
   ]
 }
 
