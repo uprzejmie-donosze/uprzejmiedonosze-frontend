@@ -15,16 +15,16 @@ export type UserState = {
 }
 
 export type ErrorAction = {
-  type: typeof USER_ACTIONS.fetch.error;
+  type: typeof USER_ACTIONS.error;
   error: Error;
 }
 
 export type LoadingAction = {
-  type: typeof USER_ACTIONS.fetch.loading;
+  type: typeof USER_ACTIONS.loading;
 }
 
 export type UserLoaded = {
-  type: typeof USER_ACTIONS.fetch.loaded;
+  type: typeof USER_ACTIONS.loaded;
   user: UserProfile;
 }
 
