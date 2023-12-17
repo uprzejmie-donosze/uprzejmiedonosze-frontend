@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from '@reach/router';
 
 import { LinearLoader } from '../components/Loader';
-import { Container } from '../styles';
+import { Button, Container } from '../styles';
 import { ROUTES } from '../config';
 import { signInUser } from '../store/firebase';
 import { useAppDispatch, useAppSelector } from '../store';
@@ -21,21 +21,10 @@ export function Login() {
   return (
     <Container>
       <h1>Zaloguj się</h1>
-      <button onClick={signIn}>
-        zaloguj się przez Google
-      </button>
 
-      <p>
-        Nie masz konta Google? Mozesz je załozyć&nbsp;
-
-        <a
-          href="https://support.google.com/mail/answer/56256?hl=pl"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          tutaj
-        </a>.
-      </p>
+      <Button onClick={signIn}>
+        Zaloguj się przez Google
+      </Button>
     </Container>
   );
 };
