@@ -14,7 +14,7 @@ export function userReducer(
   action: ActionType,
  ): UserState {
   switch (action.type) {
-    case USER_ACTIONS.fetch.loading:
+    case USER_ACTIONS.loading:
       return {
         ...state,
         loading: true,
@@ -22,7 +22,7 @@ export function userReducer(
         isLoaded: false,
         isRegistered: false,
       };
-    case USER_ACTIONS.fetch.error:
+    case USER_ACTIONS.error:
       return {
         ...state,
         loading: false,
@@ -30,7 +30,7 @@ export function userReducer(
         isLoaded: true,
         isRegistered: false,
       };
-    case USER_ACTIONS.fetch.loaded:
+    case USER_ACTIONS.loaded:
       return {
         ...state,
         profile: { ...(action as UserLoaded).user },
