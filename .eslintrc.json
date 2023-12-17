@@ -1,6 +1,7 @@
 {
   "extends": [
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
   ],
   "parser": "@babel/eslint-parser",
   "globals": {

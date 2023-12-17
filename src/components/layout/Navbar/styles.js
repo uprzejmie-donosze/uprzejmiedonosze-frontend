@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components';
-import { Link } from '@reach/router';
-import { colors } from '../../../styles/variables';
-import mediaMin, { breakpoints } from '../../../styles/mediaQueries';
-import { SIDEBAR_WIDTH_LG } from '../../../styles/styledComponents';
+import styled, { css } from "styled-components";
+import { Link } from "@reach/router";
+import { colors } from "../../../styles/variables";
+import mediaMin, { breakpoints } from "../../../styles/mediaQueries";
+import { SIDEBAR_WIDTH_LG } from "../../../styles/styledComponents";
 
-const NAVBAR_HEIGHT = '60px';
+const NAVBAR_HEIGHT = "60px";
 
 export const Navbar = styled.nav`
   display: flex;
@@ -47,11 +47,13 @@ export const Menu = styled.div`
   width: 80%;
   height: 100%;
   background-color: white;
-  transition: transform .3s;
+  transition: transform 0.3s;
 
-  ${props =>
-    props.isNavOpened && css`transform: translateX(100%);`
-  };
+  ${(props) =>
+    props.isNavOpened &&
+    css`
+      transform: translateX(100%);
+    `};
 
   ${mediaMin(breakpoints.lg)} {
     transform: translateX(100%);
@@ -68,13 +70,16 @@ Menu.Overlay = styled.div`
   z-index: 1;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 
-  ${props =>
-    props.isNavOpened && css`transform: translateX(100%); opacity: 1;`
-  };
+  ${(props) =>
+    props.isNavOpened &&
+    css`
+      transform: translateX(100%);
+      opacity: 1;
+    `};
 
   ${mediaMin(breakpoints.lg)} {
     display: none;
@@ -115,7 +120,7 @@ Menu.Photo = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 `;
 
 Menu.Title = styled(Link)`
@@ -142,16 +147,17 @@ Menu.Menu = styled.ul`
 
 Menu.Item = styled.li`
   width: 100%;
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: ${colors.text};
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 
   &:hover {
     background: ${colors.background};
     color: ${colors.primary};
   }
 
-  & > a, a:visited {
+  & > a,
+  a:visited {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -161,8 +167,8 @@ Menu.Item = styled.li`
   }
 
   & svg {
-    width: .85rem;
-    height: .85rem;
+    width: 0.85rem;
+    height: 0.85rem;
     vertical-align: middle;
   }
 
