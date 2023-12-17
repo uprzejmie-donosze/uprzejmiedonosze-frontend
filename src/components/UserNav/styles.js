@@ -38,9 +38,9 @@ Nav.Link = styled(Link)`
     height: 4px;
     border-radius: 10px;
     content: "";
-    borderRadius: 5px;
+    border-radius: 5px;
     background: ${colors.primary};
-    transition: transform .2s ease;
+    transition: transform 0.2s ease;
     transform: scale(0);
-  };
+  }
 `;
