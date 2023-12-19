@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 import * as S from './styles';
-import { ROUTES } from '../../../config';
-import { ExternalLinkIcon, HomeIcon } from '../../Icons';
+import { ROUTES } from '../../config';
+import { ExternalLinkIcon, HomeIcon } from '../Icons';
 
 const RPO_PETITION_URL = "https://prawapieszych.pl"
 const FB_URL = "https://www.facebook.com/uprzejmiedonosze.net"
@@ -15,72 +15,72 @@ type Props = {
 function CommonLinks({ closeNav }: Props){
   return (
     <>
-      <S.Menu.List>
-        <S.Menu.Item>
+      <S.List>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.home}>
             Strona główna <HomeIcon />
           </Link>
-        </S.Menu.Item>
-      </S.Menu.List>
+        </S.Item>
+      </S.List>
 
-      <S.Menu.List>
-        <S.Menu.Item>
+      <S.List>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.gallery}>
             ‣&nbsp;&nbsp;&nbsp;Galeria
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.regulations}>
             ‣&nbsp;&nbsp;&nbsp;Przepisy
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.faq}>
             ‣&nbsp;&nbsp;&nbsp;FAQ
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.websiteRegulations}>
             ‣&nbsp;&nbsp;&nbsp;Regulamin
         </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.stats}>
           ‣&nbsp;&nbsp;&nbsp;Statystyki
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.changelog}>
             ‣&nbsp;&nbsp;&nbsp;Historia zmian
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.install}>
             ‣&nbsp;&nbsp;&nbsp;Zainstaluj UD
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.project}>
             ‣&nbsp;&nbsp;&nbsp;O projekcie
           </Link>
-        </S.Menu.Item>
+        </S.Item>
 
-        <S.Menu.Item>
+        <S.Item>
           <Link
             onClick={closeNav}
             to={ROUTES.publicInfoAccess}
           >
             ‣&nbsp;&nbsp;&nbsp;Dzwoń do SM jak szeryf
           </Link>
-        </S.Menu.Item>
-      </S.Menu.List>
+        </S.Item>
+      </S.List>
     </>
   );
 };
@@ -88,8 +88,8 @@ function CommonLinks({ closeNav }: Props){
 
 export function ExternalLinkRPO() {
   return (
-    <S.Menu.List>
-      <S.Menu.Item>
+    <S.List>
+      <S.Item>
         <a
           rel="noopener noreferrer"
           target="_blank"
@@ -97,15 +97,15 @@ export function ExternalLinkRPO() {
         >
           Podpisz wniosek do RPO <ExternalLinkIcon />
         </a>
-      </S.Menu.Item>
-    </S.Menu.List>
+      </S.Item>
+    </S.List>
   );
 }
 
 export function ExternalLinkFB() {
   return (
-    <S.Menu.List>
-      <S.Menu.Item>
+    <S.List>
+      <S.Item>
         <a
           rel="noopener noreferrer"
           target="_blank"
@@ -113,8 +113,8 @@ export function ExternalLinkFB() {
         >
           Uprzejmie Donoszę na FB <ExternalLinkIcon />
         </a>
-      </S.Menu.Item>
-    </S.Menu.List>
+      </S.Item>
+    </S.List>
   );
 }
 

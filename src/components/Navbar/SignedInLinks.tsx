@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
-import { ExternalLinkIcon, ListIcon, PlusIcon } from '../../Icons';
-import { ROUTES } from '../../../config';
-import { Button } from '../../../styles';
-import { signOutUser } from '../../../store/firebase';
-import { useAppDispatch } from '../../../store';
+import { ExternalLinkIcon, ListIcon, PlusIcon } from '../Icons';
+import { ROUTES } from '../../config';
+import { Button } from '../../styles';
+import { signOutUser } from '../../store/firebase';
+import { useAppDispatch } from '../../store';
 import * as S from './styles';
 
 type Props = {
@@ -22,26 +22,26 @@ function SignedInLinks({ closeNav }: Props) {
 
   return (
     <>
-      <S.Menu.List>
-        <S.Menu.Item>
+      <S.List>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.newReport}>
             Nowe zgłoszenie <PlusIcon />
           </Link>
-        </S.Menu.Item>
-      </S.Menu.List>
+        </S.Item>
+      </S.List>
 
-      <S.Menu.List>
-        <S.Menu.Item>
+      <S.List>
+        <S.Item>
           <Link onClick={closeNav} to={ROUTES.userReports}>
             Moje zgłoszenia <ListIcon />
           </Link>
-        </S.Menu.Item>
-      </S.Menu.List>
+        </S.Item>
+      </S.List>
 
       <CommonLinks closeNav={closeNav} />
 
-      <S.Menu.List>
-        <S.Menu.Item>
+      <S.List>
+        <S.Item>
           <a
             rel="noopener noreferrer"
             target="_blank"
@@ -49,16 +49,16 @@ function SignedInLinks({ closeNav }: Props) {
           >
             Zostań patronem <ExternalLinkIcon />
           </a>
-        </S.Menu.Item>
-      </S.Menu.List>
+        </S.Item>
+      </S.List>
 
       <ExternalLinkFB />
 
       <ExternalLinkRPO />
 
-      <S.Menu.Footer>
+      <S.Footer>
         <Button onClick={signOut}>Wyloguj</Button>
-      </S.Menu.Footer>
+      </S.Footer>
     </>
   );
 };
