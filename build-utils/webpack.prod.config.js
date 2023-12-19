@@ -9,6 +9,9 @@ const config = {
       'process.env.API_HOST': JSON.stringify('https://uprzejmiedonosze.net')
     })
   ],
+  output: {
+    publicPath: '/new'
+  },
   optimization: {
     minimize: true,
     minimizer: [
