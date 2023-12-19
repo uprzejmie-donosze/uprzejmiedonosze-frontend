@@ -25,6 +25,12 @@ jobs:
         echo "${{ secrets.ENV_FILE }}" > .env
     - name: Build
       run: yarn build:prod
-    - name: Check bundle
-      run: cd dist && ls -l
+    - name: Deploy to staging
+      shell: bash -x
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.ID_ED25519 }}" > ~/.ssh/id_ed25519
+        chmod 700 ~/.ssh/id_ed25519
+        ssh-keyscan -H ${{ secrets.SCP_HOST }} >> ~/.ssh/known_hosts
+        scp -i ~/.ssh/id_ed25519 -v -o StrictHostKeyChecking=no -P ${{ secrets.SCP_PORT }} -r ./dist/* github@${{ secrets.SCP_HOST }}:/var/www/staging.uprzejmiedonosze.net/new/
 
