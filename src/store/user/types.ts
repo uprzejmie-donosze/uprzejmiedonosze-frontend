@@ -37,4 +37,9 @@ export type UserLogout = {
   type: typeof USER_ACTIONS.logout;
 };
 
-export type ActionType = ErrorAction | LoadingAction | UserLoaded | UserEmpty | UserLogout;
+export type ActionType =
+  | ErrorAction
+  | LoadingAction
+  | UserLoaded
+  | UserEmpty
+  | UserLogout;
