@@ -1,5 +1,4 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
-const webpack = require('webpack');
 
 const config = {
   mode: 'development',
@@ -8,10 +7,7 @@ const config = {
       failOnError: false,
       emitError: true,
       emitWarning: true,
-    }),
-    new webpack.DefinePlugin({
-      'process.env.API_HOST': JSON.stringify('http://localhost:8080')
-    }),
+    })
   ],
   devServer: {
     historyApiFallback: true,
