@@ -23,7 +23,7 @@ function App() {
   const isUserLoaded = useAppSelector((state) => state.user.isLoaded);
 
   useEffect(() => {
-    (!isUserLoaded && isAuthLoaded) && dispatch(getUser());
+    !isUserLoaded && isAuthLoaded && dispatch(getUser());
   }, [isUserLoaded, isAuthLoaded]);
 
   return (
