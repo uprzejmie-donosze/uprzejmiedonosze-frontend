@@ -25,6 +25,16 @@ jobs:
         echo "${{ secrets.ENV_FILE }}" > .env
     - name: Build
       run: yarn build:prod
-    - name: Check bundle
-      run: cd dist && ls -l
+    - name: Deploy to staging
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.SCP_HOST}}
+        username: github
+        port: ${{ secrets.SCP_PORT }}
+        key: ${{ secrets.ID_ED25519 }}
+        passphrase: ${{ secrets.ID_ED25519_PASS }}
+        debug: true
+        overwrite: true
+        source: "dist/*"
+        target: /var/www/staging.uprzejmiedonosze.net/new/
 
