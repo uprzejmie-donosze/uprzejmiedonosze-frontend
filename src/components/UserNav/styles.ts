@@ -1,4 +1,4 @@
-import { Link } from "@reach/router";
+import { Link as RouteLink } from "@reach/router";
 import styled from "styled-components";
 import { colors } from "../../styles";
 
@@ -6,17 +6,17 @@ export const Nav = styled.nav`
   border-bottom: 1px solid ${colors.border};
 `;
 
-Nav.List = styled.ul`
+export const List = styled.ul`
   display: flex;
   flex-flow: nowrap;
 `;
 
-Nav.Item = styled.li`
+export const Item = styled.li`
   position: relative;
   padding: 0 15px;
 `;
 
-Nav.Link = styled(Link)`
+export const Link = styled(RouteLink)`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 600;
