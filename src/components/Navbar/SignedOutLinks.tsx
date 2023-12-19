@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
+import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from "./CommonLinks";
 
-function SignedOutLinks({ closeNav }: { closeNav: () => void }){
+function SignedOutLinks({ closeNav }: { closeNav: () => void }) {
   return (
     <>
       <CommonLinks closeNav={closeNav} />
@@ -12,6 +12,6 @@ function SignedOutLinks({ closeNav }: { closeNav: () => void }){
       <ExternalLinkRPO />
     </>
   );
-};
+}
 
 export default SignedOutLinks;
