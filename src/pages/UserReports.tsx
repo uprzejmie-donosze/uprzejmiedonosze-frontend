@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from '@reach/router';
-import { ROUTES, withAuth } from '../config';
+import React from "react";
+import { Link } from "@reach/router";
+import { ROUTES, withAuth } from "../config";
 
 function UserReportsPage() {
   return (
@@ -13,7 +13,6 @@ function UserReportsPage() {
       </div>
     </section>
   );
-};
+}
 
 export const UserReports = withAuth(UserReportsPage);
-
