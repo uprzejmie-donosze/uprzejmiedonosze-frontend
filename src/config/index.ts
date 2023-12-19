@@ -1,3 +1,3 @@
-export * from './auth';
-export * from './firebaseConfig';
-export * from './routes';
+export * from "./auth";
+export * from "./firebaseConfig";
+export * from "./routes";
