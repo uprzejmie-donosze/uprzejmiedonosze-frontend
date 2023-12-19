@@ -1,26 +1,29 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import PropTypes from 'prop-types';
 
 import * as S from './styles';
-import { ROUTES } from './../../../config';
+import { ROUTES } from '../../../config';
 import { ExternalLinkIcon, HomeIcon } from '../../Icons';
 
 const RPO_PETITION_URL = "https://prawapieszych.pl"
 const FB_URL = "https://www.facebook.com/uprzejmiedonosze.net"
 
-function CommonLinks({ closeNav }){
+type Props = {
+  closeNav: () => void;
+}
+
+function CommonLinks({ closeNav }: Props){
   return (
     <>
-      <S.Menu.Menu>
+      <S.Menu.List>
         <S.Menu.Item>
           <Link onClick={closeNav} to={ROUTES.home}>
             Strona główna <HomeIcon />
           </Link>
         </S.Menu.Item>
-      </S.Menu.Menu>
+      </S.Menu.List>
 
-      <S.Menu.Menu>
+      <S.Menu.List>
         <S.Menu.Item>
           <Link onClick={closeNav} to={ROUTES.gallery}>
             ‣&nbsp;&nbsp;&nbsp;Galeria
@@ -77,18 +80,15 @@ function CommonLinks({ closeNav }){
             ‣&nbsp;&nbsp;&nbsp;Dzwoń do SM jak szeryf
           </Link>
         </S.Menu.Item>
-      </S.Menu.Menu>
+      </S.Menu.List>
     </>
   );
 };
 
-CommonLinks.propTypes = {
-  closeNav: PropTypes.func
-};
 
 export function ExternalLinkRPO() {
   return (
-    <S.Menu.Menu>
+    <S.Menu.List>
       <S.Menu.Item>
         <a
           rel="noopener noreferrer"
@@ -98,13 +98,13 @@ export function ExternalLinkRPO() {
           Podpisz wniosek do RPO <ExternalLinkIcon />
         </a>
       </S.Menu.Item>
-    </S.Menu.Menu>
+    </S.Menu.List>
   );
 }
 
 export function ExternalLinkFB() {
   return (
-    <S.Menu.Menu>
+    <S.Menu.List>
       <S.Menu.Item>
         <a
           rel="noopener noreferrer"
@@ -114,7 +114,7 @@ export function ExternalLinkFB() {
           Uprzejmie Donoszę na FB <ExternalLinkIcon />
         </a>
       </S.Menu.Item>
-    </S.Menu.Menu>
+    </S.Menu.List>
   );
 }
 

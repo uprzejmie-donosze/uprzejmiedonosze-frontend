@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
 
-function SignedOutLinks({ closeNav }){
+function SignedOutLinks({ closeNav }: { closeNav: () => void }){
   return (
     <>
       <CommonLinks closeNav={closeNav} />
@@ -13,10 +12,6 @@ function SignedOutLinks({ closeNav }){
       <ExternalLinkRPO />
     </>
   );
-};
-
-SignedOutLinks.propTypes = {
-  closeNav: PropTypes.func
 };
 
 export default SignedOutLinks;

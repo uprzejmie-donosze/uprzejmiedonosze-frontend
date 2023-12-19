@@ -1,38 +1,46 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
 import { ExternalLinkIcon, ListIcon, PlusIcon } from '../../Icons';
-
-import * as S from './styles';
 import { ROUTES } from '../../../config';
 import { Button } from '../../../styles';
 import { signOutUser } from '../../../store/firebase';
+import { useAppDispatch } from '../../../store';
+import * as S from './styles';
 
-function SignedInLinks({ closeNav, signOut }) {
+type Props = {
+  closeNav: () => void;
+}
+
+function SignedInLinks({ closeNav }: Props) {
+  const dispatch = useAppDispatch();
+
+  function signOut() {
+    dispatch(signOutUser())
+  }
+
   return (
     <>
-      <S.Menu.Menu>
+      <S.Menu.List>
         <S.Menu.Item>
           <Link onClick={closeNav} to={ROUTES.newReport}>
             Nowe zgłoszenie <PlusIcon />
           </Link>
         </S.Menu.Item>
-      </S.Menu.Menu>
+      </S.Menu.List>
 
-      <S.Menu.Menu>
+      <S.Menu.List>
         <S.Menu.Item>
           <Link onClick={closeNav} to={ROUTES.userReports}>
             Moje zgłoszenia <ListIcon />
           </Link>
         </S.Menu.Item>
-      </S.Menu.Menu>
+      </S.Menu.List>
 
       <CommonLinks closeNav={closeNav} />
 
-      <S.Menu.Menu>
+      <S.Menu.List>
         <S.Menu.Item>
           <a
             rel="noopener noreferrer"
@@ -42,30 +50,17 @@ function SignedInLinks({ closeNav, signOut }) {
             Zostań patronem <ExternalLinkIcon />
           </a>
         </S.Menu.Item>
-      </S.Menu.Menu>
+      </S.Menu.List>
 
       <ExternalLinkFB />
 
       <ExternalLinkRPO />
 
       <S.Menu.Footer>
-        <Button onClick={signOut}>logout</Button>
+        <Button onClick={signOut}>Wyloguj</Button>
       </S.Menu.Footer>
     </>
   );
 };
 
-SignedInLinks.propTypes = {
-  signOut: PropTypes.func,
-  closeNav: PropTypes.func
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signOut: () => dispatch(signOutUser()),
-  };
-};
-
-const mapStateToProps = () => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);
+export default SignedInLinks;
