@@ -7,6 +7,7 @@ const initialState: UserState = {
   error: null,
   isLoaded: false,
   isRegistered: false,
+  empty: true,
 };
 
 export function userReducer(
@@ -21,6 +22,7 @@ export function userReducer(
         error: null,
         isLoaded: false,
         isRegistered: false,
+        empty: true,
       };
     case USER_ACTIONS.error:
       return {
@@ -29,6 +31,7 @@ export function userReducer(
         error: (action as ErrorAction).error,
         isLoaded: true,
         isRegistered: false,
+        empty: true,
       };
     case USER_ACTIONS.loaded:
       return {
@@ -38,7 +41,17 @@ export function userReducer(
         loading: false,
         error: null,
         isLoaded: true,
+        empty: false,
       };
+    case USER_ACTIONS.empty:
+      return {
+        ...state,
+        isLoaded: true,
+        empty: true,
+        error: null,
+      };
+    case USER_ACTIONS.logout:
+      return { ...initialState };
     default:
       return state;
   }

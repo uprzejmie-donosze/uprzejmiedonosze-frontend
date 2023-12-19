@@ -6,18 +6,16 @@ import { Dispatch } from "redux";
 export function getUser() {
   return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
     const firebase = getFirebase();
+    if (firebase.auth().currentUser === null) {
+      return dispatch({ type: USER_ACTIONS.empty });
+    }
+
     dispatch({ type: USER_ACTIONS.loading });
 
     firebase
       .auth()
-      .currentUser?.getIdToken()
+      .currentUser.getIdToken()
       .then((token: string) => {
-        if (!token)
-          return dispatch({
-            type: USER_ACTIONS.error,
-            error: "Auth token is missing.",
-          });
-
         apiClient
           .getUser(token)
           .then((user) => dispatch({ type: USER_ACTIONS.loaded, user }))

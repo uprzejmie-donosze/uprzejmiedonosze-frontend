@@ -12,6 +12,7 @@ export type UserState = {
   error: Error | null;
   isLoaded: boolean;
   isRegistered: boolean;
+  empty: boolean;
 };
 
 export type ErrorAction = {
@@ -28,4 +29,12 @@ export type UserLoaded = {
   user: UserProfile;
 };
 
-export type ActionType = ErrorAction | LoadingAction | UserLoaded;
+export type UserEmpty = {
+  type: typeof USER_ACTIONS.empty;
+};
+
+export type UserLogout = {
+  type: typeof USER_ACTIONS.logout;
+};
+
+export type ActionType = ErrorAction | LoadingAction | UserLoaded | UserEmpty | UserLogout;
