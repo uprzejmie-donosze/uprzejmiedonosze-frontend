@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from '@reach/router';
 
@@ -9,8 +7,11 @@ import { LinearLoader } from '../components/Loader';
 
 import { ROUTES } from '../config';
 import { Container, colors } from '../styles';
+import { useAppSelector } from '../store';
 
-function HomePage({ auth }){
+export function Home(){
+  const auth = useAppSelector(state => state.firebase.auth);
+
   if (!auth.isLoaded) return <Container><LinearLoader /></Container>;
   if (!auth.uid) return <Landing />
 
@@ -30,18 +31,6 @@ function HomePage({ auth }){
   );
 };
 
-HomePage.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  })
-};
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
 const RoundedLink = styled(Link)`
   position: fixed;
   bottom: 1rem;
@@ -58,5 +47,3 @@ const Icon = styled.svg`
   top: calc((100% - 20px) / 2);
   left: calc((100% - 20px) / 2);
 `;
-
-export const Home = connect(mapStateToProps)(HomePage);
