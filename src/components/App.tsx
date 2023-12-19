@@ -19,16 +19,11 @@ const NotFound = () => <Container>Sorry, nothing here</Container>;
 
 function App() {
   const dispatch = useAppDispatch();
-  const isAuthLoaded = useAppSelector(
-    (state) => state.firebase.auth.isLoaded && !state.firebase.auth.isEmpty,
-  );
-  const isUserLoaded = useAppSelector((state) => {
-    return state.user.isLoaded && !state.user.empty;
-  });
+  const isAuthLoaded = useAppSelector((state) => state.firebase.auth.isEmpty);
 
   useEffect(() => {
-    !isUserLoaded && isAuthLoaded && dispatch(getUser());
-  }, [isUserLoaded, isAuthLoaded]);
+    dispatch(getUser());
+  }, [isAuthLoaded]);
 
   return (
     <AppContainer>
