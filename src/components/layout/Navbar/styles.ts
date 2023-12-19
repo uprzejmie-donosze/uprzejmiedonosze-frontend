@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { StyledComponent, css } from "styled-components";
 import { Link } from "@reach/router";
 import { colors } from "../../../styles/variables";
 import mediaMin, { breakpoints } from "../../../styles/mediaQueries";
@@ -6,7 +6,12 @@ import { SIDEBAR_WIDTH_LG } from "../../../styles/styledComponents";
 
 const NAVBAR_HEIGHT = "60px";
 
-export const Navbar = styled.nav`
+type Navbar = StyledComponent<'div', any> & {
+  Container: React.ElementType;
+  Logo: React.ElementType;
+};
+
+export const Navbar: Navbar = styled.nav`
   display: flex;
   align-items: start;
   justify-content: center;
@@ -39,7 +44,25 @@ Navbar.Logo = styled(Link)`
   font-weight: 600;
 `;
 
-export const Menu = styled.div`
+
+interface MenuProps {
+  readonly isNavOpened: boolean;
+}
+
+type Menu = StyledComponent<'div', any> & {
+  Overlay: React.ElementType;
+  Header: React.ElementType;
+  Avatar: React.ElementType;
+  Photo: React.ElementType;
+  Title: React.ElementType;
+  Body: React.ElementType;
+  List: React.ElementType;
+  Item: React.ElementType;
+  Footer: React.ElementType;
+  Burger: React.ElementType;
+}
+
+export const Menu: Menu = styled.div<MenuProps>`
   position: fixed;
   top: 0;
   left: -80%;
@@ -135,7 +158,7 @@ Menu.Body = styled.div`
   overflow-x: hidden;
 `;
 
-Menu.Menu = styled.ul`
+Menu.List = styled.ul`
   display: flex;
   align-items: flex-start;
   flex-direction: column;

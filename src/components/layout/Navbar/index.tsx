@@ -1,19 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
+import { closeNavbar, openNavbar } from '../../../store/app';
+import { useAppDispatch, useAppSelector } from '../../../store';
+import { LinearLoader } from '../../Loader';
+import { UserIcon } from '../../Icons';
+import { ROUTES } from '../../../config';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
-import { closeNavbar, openNavbar } from '../../../store/app';
-import { LinearLoader } from '../../Loader';
-import { UserIcon } from '../../Icons';
-
-import { ROUTES } from '../../../config';
 import * as S from './styles';
-import { signOutUser } from '../../../store/firebase';
 
-function Navbar({ auth, isNavOpened, closeNav, openNav }) {
+function Navbar() {
+  const auth = useAppSelector(state => state.firebase.auth);
+  const isNavOpened = useAppSelector(state => state.app.isNavOpened);
+  const dispatch = useAppDispatch();
+
+  function closeNav() {
+    dispatch(closeNavbar())
+  }
+
+  function openNav() {
+    dispatch(openNavbar())
+  }
+
   function toggleMenu() {
     isNavOpened ? closeNav() : openNav();
   }
@@ -70,32 +79,4 @@ function Navbar({ auth, isNavOpened, closeNav, openNav }) {
   );
 };
 
-Navbar.defaultProps = {
-  auth: {
-    uid: null,
-    isUserAutorized: false
-  }
-};
-
-Navbar.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string
-  })
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signOut: () => dispatch(signOutUser()),
-    openNav: () => dispatch(openNavbar()),
-    closeNav: () => dispatch(closeNavbar()),
-  };
-};
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth,
-    isNavOpened: state.app.isNavOpened
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;
