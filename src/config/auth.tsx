@@ -12,7 +12,7 @@ export function withAuth(Component: React.ElementType) {
     const auth = useAppSelector((state) => state.firebase.auth);
     const user = useAppSelector((state) => state.user);
 
-    if (!auth.isLoaded || !user.isLoaded)
+    if (!auth.isLoaded || user.loading)
       return (
         <Container>
           <LinearLoader />
@@ -23,7 +23,11 @@ export function withAuth(Component: React.ElementType) {
       return <Redirect from={location.pathname} to={ROUTES.login} noThrow />;
     }
 
-    if (!user.isRegistered && location.pathname !== ROUTES.userEdit) {
+    if (
+      !user.empty &&
+      !user.isRegistered &&
+      location.pathname !== ROUTES.userEdit
+    ) {
       return <Redirect from={location.pathname} to={ROUTES.userEdit} noThrow />;
     }
 

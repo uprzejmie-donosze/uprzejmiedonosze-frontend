@@ -18,7 +18,11 @@ export function signInUser() {
 export function signOutUser() {
   return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
     const firebase = getFirebase();
-    firebase.auth().signOut();
-    dispatch({ type: USER_ACTIONS.logout });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: USER_ACTIONS.logout });
+      });
   };
 }
