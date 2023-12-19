@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 16
+    - name: Check
+      run: |
+        yarn
+        yarn lint
+        yarn tsc
+    - name: Create config
+      shell: bash
+      env:
+        FIREBASE_API_KEY: ${{ secrets.firebaseApiKey }}
+        FIREBASE_AUTH_DOMAIN: ${{ secrets.firebaseAuthDomain }}
+        FIREBASE_DATABASE_URL: ${{ secrets.firebaseDatabaseURL }}
+        FIREBASE_PROJECT_ID: ${{ secrets.firebaseProjectId }}
+        FIREBASE_STORAGE_BUCKET: ${{ secrets.firebaseStorageBucket }}
+        FIREBASE_MESSAGE_SENDER_ID=: ${{ secrets.firebaseMessagingSenderId }}
+      run: |
+        echo "$env:FIREBASE_API_KEY" >> .env
+        echo "$env:FIREBASE_AUTH_DOMAIN" >> .env
+        echo "$env:FIREBASE_DATABASE_URL" >> .env
+        echo "$env:FIREBASE_PROJECT_ID" >> .env
+        echo "$env:FIREBASE_STORAGE_BUCKET" >> .env
+        echo "$env:FIREBASE_MESSAGE_SENDER_ID" >> .env
+    - name: Build
+      run: yarn build:prod
+    - name: Check bundle
+      run: cd dist && ls -l
+
