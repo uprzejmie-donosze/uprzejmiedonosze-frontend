@@ -4,7 +4,7 @@ import { Router } from "@reach/router";
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as Page from '../pages';
-import Navbar from './layout/Navbar';
+import Navbar from './Navbar';
 import { ROUTES } from '../config';
 import { GlobalStyle, Container } from '../styles';
 import { getUser } from '../store/user';

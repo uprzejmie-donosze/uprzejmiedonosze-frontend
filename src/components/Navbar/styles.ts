@@ -1,17 +1,12 @@
-import styled, { StyledComponent, css } from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "@reach/router";
-import { colors } from "../../../styles/variables";
-import mediaMin, { breakpoints } from "../../../styles/mediaQueries";
-import { SIDEBAR_WIDTH_LG } from "../../../styles/styledComponents";
+import { colors } from "../../styles/variables";
+import mediaMin, { breakpoints } from "../../styles/mediaQueries";
+import { SIDEBAR_WIDTH_LG } from "../../styles/styledComponents";
 
 const NAVBAR_HEIGHT = "60px";
 
-type Navbar = StyledComponent<'div', any> & {
-  Container: React.ElementType;
-  Logo: React.ElementType;
-};
-
-export const Navbar: Navbar = styled.nav`
+export const Navbar = styled.nav`
   display: flex;
   align-items: start;
   justify-content: center;
@@ -21,7 +16,7 @@ export const Navbar: Navbar = styled.nav`
   height: ${NAVBAR_HEIGHT};
 `;
 
-Navbar.Container = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -38,7 +33,7 @@ Navbar.Container = styled.div`
   }
 `;
 
-Navbar.Logo = styled(Link)`
+export const Logo = styled(Link)`
   margin-right: 10px;
   user-select: none;
   font-weight: 600;
@@ -49,20 +44,7 @@ interface MenuProps {
   readonly isNavOpened: boolean;
 }
 
-type Menu = StyledComponent<'div', any> & {
-  Overlay: React.ElementType;
-  Header: React.ElementType;
-  Avatar: React.ElementType;
-  Photo: React.ElementType;
-  Title: React.ElementType;
-  Body: React.ElementType;
-  List: React.ElementType;
-  Item: React.ElementType;
-  Footer: React.ElementType;
-  Burger: React.ElementType;
-}
-
-export const Menu: Menu = styled.div<MenuProps>`
+export const Menu = styled.div<MenuProps>`
   position: fixed;
   top: 0;
   left: -80%;
@@ -86,7 +68,7 @@ export const Menu: Menu = styled.div<MenuProps>`
   }
 `;
 
-Menu.Overlay = styled.div`
+export const Overlay = styled.div<MenuProps>`
   position: fixed;
   top: 0;
   left: -100%;
@@ -110,7 +92,7 @@ Menu.Overlay = styled.div`
   }
 `;
 
-Menu.Header = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   background: ${colors.primary};
@@ -118,7 +100,7 @@ Menu.Header = styled.div`
   height: ${NAVBAR_HEIGHT};
 `;
 
-Menu.Avatar = styled.figure`
+export const Avatar = styled.figure`
   position: relative;
   width: 30px;
   height: 30px;
@@ -136,7 +118,7 @@ Menu.Avatar = styled.figure`
   }
 `;
 
-Menu.Photo = styled.img`
+export const Photo = styled.img`
   position: absolute;
   top: 0;
   left: 0;
@@ -146,19 +128,19 @@ Menu.Photo = styled.img`
   transition: all 0.3s ease-in-out;
 `;
 
-Menu.Title = styled(Link)`
+export const Title = styled(Link)`
   color: white;
   font-size: 14px;
   margin: 0 0 0 15px;
 `;
 
-Menu.Body = styled.div`
+export const Body = styled.div`
   height: calc(100% - ${NAVBAR_HEIGHT});
   overflow-y: scroll;
   overflow-x: hidden;
 `;
 
-Menu.List = styled.ul`
+export const List = styled.ul`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -168,7 +150,7 @@ Menu.List = styled.ul`
   }
 `;
 
-Menu.Item = styled.li`
+export const Item = styled.li`
   width: 100%;
   font-size: 0.85rem;
   color: ${colors.text};
@@ -201,12 +183,12 @@ Menu.Item = styled.li`
   }
 `;
 
-Menu.Footer = styled.div`
+export const Footer = styled.div`
   padding: 1rem;
   border-top: 1px solid ${colors.background};
 `;
 
-Menu.Burger = styled.div`
+export const Burger = styled.div`
   ${mediaMin(breakpoints.lg)} {
     display: none;
     pointer-events: none;

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { closeNavbar, openNavbar } from '../../../store/app';
-import { useAppDispatch, useAppSelector } from '../../../store';
-import { LinearLoader } from '../../Loader';
-import { UserIcon } from '../../Icons';
-import { ROUTES } from '../../../config';
+import { closeNavbar, openNavbar } from '../../store/app';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { LinearLoader } from '../Loader';
+import { UserIcon } from '../Icons';
+import { ROUTES } from '../../config';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
@@ -29,52 +29,52 @@ function Navbar() {
 
   return (
     <S.Navbar>
-      <S.Navbar.Container>
-        <S.Navbar.Logo to={ROUTES.home}>
+      <S.Container>
+        <S.Logo to={ROUTES.home}>
           Uprzejmie Donoszę
-        </S.Navbar.Logo>
+        </S.Logo>
 
-        <S.Menu.Burger onClick={toggleMenu}>
+        <S.Burger onClick={toggleMenu}>
           <svg width="20px" height="20px" viewBox="0 0 92 92">
 
           <path fill="currentColor" id="XMLID_101_" d="M78,23.5H14c-3.6,0-6.5-2.9-6.5-6.5s2.9-6.5,6.5-6.5h64c3.6,0,6.5,2.9,6.5,6.5S81.6,23.5,78,23.5z M84.5,46
             c0-3.6-2.9-6.5-6.5-6.5H14c-3.6,0-6.5,2.9-6.5,6.5s2.9,6.5,6.5,6.5h64C81.6,52.5,84.5,49.6,84.5,46z M84.5,75c0-3.6-2.9-6.5-6.5-6.5
             H14c-3.6,0-6.5,2.9-6.5,6.5s2.9,6.5,6.5,6.5h64C81.6,81.5,84.5,78.6,84.5,75z"/>
           </svg>
-        </S.Menu.Burger>
+        </S.Burger>
 
-        <S.Menu.Overlay onClick={toggleMenu} isNavOpened={isNavOpened} />
+        <S.Overlay onClick={toggleMenu} isNavOpened={isNavOpened} />
 
         <S.Menu isNavOpened={isNavOpened}>
           {(!auth.isLoaded) ? (
             <LinearLoader />
           ) : (
             <>
-              <S.Menu.Header>
-                <S.Menu.Avatar>
-                  {!!auth.photoURL ? <S.Menu.Photo src={auth.photoURL} /> : <UserIcon />}
-                </S.Menu.Avatar>
+              <S.Header>
+                <S.Avatar>
+                  {!!auth.photoURL ? <S.Photo src={auth.photoURL} /> : <UserIcon />}
+                </S.Avatar>
 
                 {!!auth.uid ? (
-                  <S.Menu.Title to={ROUTES.user.main}>
+                  <S.Title to={ROUTES.user.main}>
                     {auth.displayName}
-                  </S.Menu.Title>
+                  </S.Title>
                 ) : (
-                  <S.Menu.Title onClick={closeNav} to={ROUTES.login}>
+                  <S.Title onClick={closeNav} to={ROUTES.login}>
                     Zaloguj/ zarejestruj się
-                  </S.Menu.Title>
+                  </S.Title>
                 )}
-              </S.Menu.Header>
-            <S.Menu.Body>
+              </S.Header>
+            <S.Body>
               {!!auth.uid ? (
                 <SignedInLinks closeNav={closeNav} />
               ) : (
                 <SignedOutLinks closeNav={closeNav} />
               )}
-            </S.Menu.Body>
+            </S.Body>
             </>)}
         </S.Menu>
-      </S.Navbar.Container>
+      </S.Container>
     </S.Navbar>
   );
 };
