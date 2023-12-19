@@ -31,7 +31,7 @@ export const LinearLoader = styled.div`
   margin: 0 auto;
 `;
 
-LinearLoader.Content = styled.div`
+export const Content = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
