@@ -19,7 +19,7 @@ export function Login() {
     return (
       <Container>
         <LinearLoader />
-      </Container>;
+      </Container>
     );
   if (auth.uid)
     return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
