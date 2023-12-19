@@ -12,7 +12,7 @@ export function withAuth(Component: React.ElementType) {
     const auth = useAppSelector((state) => state.firebase.auth);
     const user = useAppSelector((state) => state.user);
 
-    if (!auth.isLoaded || user.loading)
+    if (!auth.isLoaded || !user.isLoaded)
       return (
         <Container>
           <LinearLoader />
