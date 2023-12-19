@@ -3,13 +3,10 @@ import { APP_ACTIONS } from "./actionTypes";
 import { AppState } from "./types";
 
 const initialState: AppState = {
-  isNavOpened: false
+  isNavOpened: false,
 };
 
-export function appReducer(
-  state: AppState = initialState,
-  action: ActionType,
-) {
+export function appReducer(state: AppState = initialState, action: ActionType) {
   switch (action.type) {
     case APP_ACTIONS.openNav:
       return {
@@ -24,4 +21,4 @@ export function appReducer(
     default:
       return state || initialState;
   }
-};
+}

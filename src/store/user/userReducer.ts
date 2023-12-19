@@ -1,5 +1,5 @@
-import { USER_ACTIONS } from './actionTypes';
-import { ActionType, ErrorAction, UserLoaded, UserState } from './types';
+import { USER_ACTIONS } from "./actionTypes";
+import { ActionType, ErrorAction, UserLoaded, UserState } from "./types";
 
 const initialState: UserState = {
   profile: null,
@@ -12,7 +12,7 @@ const initialState: UserState = {
 export function userReducer(
   state: UserState = initialState,
   action: ActionType,
- ): UserState {
+): UserState {
   switch (action.type) {
     case USER_ACTIONS.loading:
       return {
@@ -42,4 +42,4 @@ export function userReducer(
     default:
       return state;
   }
-};
+}

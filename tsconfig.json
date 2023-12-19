@@ -8,5 +8,8 @@
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-  }
+    "skipLibCheck": true,
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.spec.ts"]
 }

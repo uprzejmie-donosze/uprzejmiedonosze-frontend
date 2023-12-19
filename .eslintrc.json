@@ -1,14 +1,16 @@
 {
   "extends": [
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "globals": {
     "Promise": "writable"
   },
   "plugins": [
-    "react"
+    "react",
+   "@typescript-eslint"
   ],
   "settings": {
     "react": {

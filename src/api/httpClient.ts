@@ -1,4 +1,3 @@
-
 export class HTTPClient {
   private host: string;
 
@@ -9,21 +8,23 @@ export class HTTPClient {
   static getHeaders(token: string) {
     return new Headers({
       authorization: `Bearer ${token}`,
-      accept: 'application/json',
-      'content-type': 'application/json',
+      accept: "application/json",
+      "content-type": "application/json",
     });
   }
 
   static fetchToJson(res: Response): Promise<Response> {
-    return res.headers.get('content-type') === 'application/json' ? res.json() : res.text();
+    return res.headers.get("content-type") === "application/json"
+      ? res.json()
+      : res.text();
   }
 
-  static handleResponse(response: Response): Promise<Response>  {
+  static handleResponse(response: Response): Promise<Response> {
     const jsonResponse = HTTPClient.fetchToJson(response);
     if (response.ok) {
       return jsonResponse;
     }
-    throw new Error('Something went wrong'); // TODO: handle error
+    throw new Error("Something went wrong"); // TODO: handle error
   }
 
   async makeRequest({
@@ -36,8 +37,8 @@ export class HTTPClient {
     method: string;
     path: string;
     token: string;
-    body?: {[key: string]: any};
-    params?: {[key: string]: string};
+    body?: { [key: string]: any };
+    params?: { [key: string]: string };
   }) {
     let url = `${this.host}${path}`;
     if (params) url += `?${new URLSearchParams(params).toString()}`;
@@ -47,23 +48,25 @@ export class HTTPClient {
       headers: HTTPClient.getHeaders(token),
       body: JSON.stringify(body),
     })
-    .then(response => HTTPClient.handleResponse(response))
-    .catch(e => { throw new Error('Something went wrong'); }); // TODO: handle error
+      .then((response) => HTTPClient.handleResponse(response))
+      .catch((e) => {
+        throw new Error("Something went wrong");
+      }); // TODO: handle error
   }
 
-  get(path: string, token: string, params: {[key: string]: string} = {}) {
+  get(path: string, token: string, params: { [key: string]: string } = {}) {
     return this.makeRequest({ method: "GET", token, path, params });
   }
 
-  patch(path: string, token: string, body: {[key: string]: any} = {}) {
+  patch(path: string, token: string, body: { [key: string]: any } = {}) {
     return this.makeRequest({ method: "PATCH", token, path, body });
   }
 
-  post(path: string, token: string, body: {[key: string]: any} = {}) {
+  post(path: string, token: string, body: { [key: string]: any } = {}) {
     return this.makeRequest({ method: "POST", token, path, body });
   }
 
-  put(path: string, token: string, body: {[key: string]: any} = {}) {
+  put(path: string, token: string, body: { [key: string]: any } = {}) {
     return this.makeRequest({ method: "PUT", token, path, body });
   }
 }
