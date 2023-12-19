@@ -1,23 +1,23 @@
-import React from 'react';
-import { Link } from '@reach/router';
+import React from "react";
+import { Link } from "@reach/router";
 
-import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from './CommonLinks';
-import { ExternalLinkIcon, ListIcon, PlusIcon } from '../Icons';
-import { ROUTES } from '../../config';
-import { Button } from '../../styles';
-import { signOutUser } from '../../store/firebase';
-import { useAppDispatch } from '../../store';
-import * as S from './styles';
+import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from "./CommonLinks";
+import { ExternalLinkIcon, ListIcon, PlusIcon } from "../Icons";
+import { ROUTES } from "../../config";
+import { Button } from "../../styles";
+import { signOutUser } from "../../store/firebase";
+import { useAppDispatch } from "../../store";
+import * as S from "./styles";
 
 type Props = {
   closeNav: () => void;
-}
+};
 
 function SignedInLinks({ closeNav }: Props) {
   const dispatch = useAppDispatch();
 
   function signOut() {
-    dispatch(signOutUser())
+    dispatch(signOutUser());
   }
 
   return (
@@ -61,6 +61,6 @@ function SignedInLinks({ closeNav }: Props) {
       </S.Footer>
     </>
   );
-};
+}
 
 export default SignedInLinks;

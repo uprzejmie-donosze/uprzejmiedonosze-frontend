@@ -39,7 +39,6 @@ export const Logo = styled(Link)`
   font-weight: 600;
 `;
 
-
 interface MenuProps {
   readonly isNavOpened: boolean;
 }

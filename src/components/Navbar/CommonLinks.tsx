@@ -1,18 +1,18 @@
-import React from 'react';
-import { Link } from '@reach/router';
+import React from "react";
+import { Link } from "@reach/router";
 
-import * as S from './styles';
-import { ROUTES } from '../../config';
-import { ExternalLinkIcon, HomeIcon } from '../Icons';
+import * as S from "./styles";
+import { ROUTES } from "../../config";
+import { ExternalLinkIcon, HomeIcon } from "../Icons";
 
-const RPO_PETITION_URL = "https://prawapieszych.pl"
-const FB_URL = "https://www.facebook.com/uprzejmiedonosze.net"
+const RPO_PETITION_URL = "https://prawapieszych.pl";
+const FB_URL = "https://www.facebook.com/uprzejmiedonosze.net";
 
 type Props = {
   closeNav: () => void;
-}
+};
 
-function CommonLinks({ closeNav }: Props){
+function CommonLinks({ closeNav }: Props) {
   return (
     <>
       <S.List>
@@ -45,12 +45,12 @@ function CommonLinks({ closeNav }: Props){
         <S.Item>
           <Link onClick={closeNav} to={ROUTES.websiteRegulations}>
             ‣&nbsp;&nbsp;&nbsp;Regulamin
-        </Link>
+          </Link>
         </S.Item>
 
         <S.Item>
           <Link onClick={closeNav} to={ROUTES.stats}>
-          ‣&nbsp;&nbsp;&nbsp;Statystyki
+            ‣&nbsp;&nbsp;&nbsp;Statystyki
           </Link>
         </S.Item>
 
@@ -73,28 +73,20 @@ function CommonLinks({ closeNav }: Props){
         </S.Item>
 
         <S.Item>
-          <Link
-            onClick={closeNav}
-            to={ROUTES.publicInfoAccess}
-          >
+          <Link onClick={closeNav} to={ROUTES.publicInfoAccess}>
             ‣&nbsp;&nbsp;&nbsp;Dzwoń do SM jak szeryf
           </Link>
         </S.Item>
       </S.List>
     </>
   );
-};
-
+}
 
 export function ExternalLinkRPO() {
   return (
     <S.List>
       <S.Item>
-        <a
-          rel="noopener noreferrer"
-          target="_blank"
-          href={RPO_PETITION_URL}
-        >
+        <a rel="noopener noreferrer" target="_blank" href={RPO_PETITION_URL}>
           Podpisz wniosek do RPO <ExternalLinkIcon />
         </a>
       </S.Item>
@@ -106,11 +98,7 @@ export function ExternalLinkFB() {
   return (
     <S.List>
       <S.Item>
-        <a
-          rel="noopener noreferrer"
-          target="_blank"
-          href={FB_URL}
-        >
+        <a rel="noopener noreferrer" target="_blank" href={FB_URL}>
           Uprzejmie Donoszę na FB <ExternalLinkIcon />
         </a>
       </S.Item>
