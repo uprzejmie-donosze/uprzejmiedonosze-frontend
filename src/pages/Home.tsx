@@ -10,19 +10,20 @@ import { Container, colors } from "../styles";
 import { useAppSelector } from "../store";
 
 export function Home() {
-  const auth = useAppSelector((state) => state.firebase.auth);
+  const user = useAppSelector((state) => state.user);
 
-  if (!auth.isLoaded)
+  if (!user.isLoaded)
     return (
       <Container>
         <LinearLoader />
       </Container>
     );
-  if (!auth.uid) return <Landing />;
+
+  if (user.isEmpty) return <Landing />;
 
   return (
     <Container>
-      <h1>{`Cześć ${auth.displayName}!`}</h1>
+      <h1>{`Cześć ${user.profile.data.name}!`}</h1>
 
       <RoundedLink to={ROUTES.newReport}>
         <Icon width="20px" height="20px" viewBox="0 0 92 92">

@@ -2,8 +2,22 @@ import { USER_ACTIONS } from "./actionTypes";
 
 export type UserProfile = {
   data: {
+    name: string;
+    msisdn: string;
     address: string;
+    email: string;
+    sex: string;
+    number: number;
+    exposeData: boolean;
+    stopAgresji: boolean;
+    termsConfirmation: string;
+    autoSend: boolean;
+    myAppsSize: number;
   };
+  number: number;
+  updated: string;
+  lastLocation: string;
+  appsCount: number;
 };
 
 export type UserState = {
@@ -12,7 +26,7 @@ export type UserState = {
   error: Error | null;
   isLoaded: boolean;
   isRegistered: boolean;
-  empty: boolean;
+  isEmpty: boolean;
 };
 
 export type ErrorAction = {
@@ -33,13 +47,4 @@ export type UserEmpty = {
   type: typeof USER_ACTIONS.empty;
 };
 
-export type UserLogout = {
-  type: typeof USER_ACTIONS.logout;
-};
-
-export type ActionType =
-  | ErrorAction
-  | LoadingAction
-  | UserLoaded
-  | UserEmpty
-  | UserLogout;
+export type ActionType = ErrorAction | LoadingAction | UserLoaded | UserEmpty;

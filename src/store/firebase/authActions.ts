@@ -22,7 +22,7 @@ export function signOutUser() {
       .auth()
       .signOut()
       .then(() => {
-        dispatch({ type: USER_ACTIONS.logout });
+        dispatch({ type: USER_ACTIONS.empty });
       });
   };
 }

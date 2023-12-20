@@ -3,17 +3,18 @@ import { withAuth } from "../config";
 import { useAppSelector } from "../store";
 
 function UserProfilePage() {
-  const auth = useAppSelector((state) => state.firebase.auth);
+  const user = useAppSelector((state) => state.user);
+  const photoURL = useAppSelector((state) => state.firebase.auth.photoURL);
 
   return (
     <section>
-      <h1>{auth.displayName}</h1>
+      <h1>{user.profile.data.name}</h1>
 
       <figure style={{ display: "flex", margin: 0 }}>
-        <img src={auth.photoURL} style={{ maxWidth: "200px" }} />
+        <img src={photoURL} style={{ maxWidth: "200px" }} />
 
         <figcaption style={{ paddingLeft: "20px" }}>
-          <h3>{auth.email || "No email added"}</h3>
+          <h3>{user.profile.data.email || "No email added"}</h3>
         </figcaption>
       </figure>
     </section>

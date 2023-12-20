@@ -8,20 +8,21 @@ import { signInUser } from "../store/firebase";
 import { useAppDispatch, useAppSelector } from "../store";
 
 export function Login() {
-  const auth = useAppSelector((state) => state.firebase.auth);
+  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   function signIn() {
     dispatch(signInUser());
   }
 
-  if (!auth.isLoaded)
+  if (!user.isLoaded)
     return (
       <Container>
         <LinearLoader />
       </Container>
     );
-  if (auth.uid)
+
+  if (!user.isEmpty)
     return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
   return (

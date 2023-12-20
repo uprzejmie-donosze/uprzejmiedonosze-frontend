@@ -4,10 +4,8 @@ import { RouteComponentProps, Router } from "@reach/router";
 
 import * as Page from "../pages";
 import Navbar from "./Navbar";
-import { ROUTES } from "../config";
+import { ROUTES, withLogin } from "../config";
 import { GlobalStyle, Container } from "../styles";
-import { getUser } from "../store/user";
-import { useAppDispatch, useAppSelector } from "../store";
 
 type Props = { component: React.ElementType } & RouteComponentProps;
 
@@ -18,12 +16,7 @@ const Route: FunctionComponent<Props> = ({ component: Component, ...rest }) => (
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 
 function App() {
-  const dispatch = useAppDispatch();
-  const isAuthLoaded = useAppSelector((state) => state.firebase.auth.isEmpty);
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [isAuthLoaded]);
+  withLogin();
 
   return (
     <AppContainer>
