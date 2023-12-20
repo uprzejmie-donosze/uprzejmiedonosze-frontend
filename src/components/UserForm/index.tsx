@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppSelector } from "../../store";
 import { Button } from "../../styles";
+import { InputField } from "../Form";
 
 export function UserForm() {
   const user = useAppSelector((state) => state.user);
@@ -8,6 +9,8 @@ export function UserForm() {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
   }
+
+  function handleChange() {}
 
   return (
     <section>
@@ -20,25 +23,50 @@ export function UserForm() {
             informacji jakich wymaga SM do przyjęcia zgłoszenia.
           </small>
 
-          <div>
-            <label htmlFor="name">Imię i nazwisko</label>
-            <input id="name" defaultValue={user.profile.data.name} />
-          </div>
+          <InputField
+            handleChange={handleChange}
+            contentData={{
+              placeholder: "John Doe",
+              id: "name",
+              type: "text",
+              label: "Imię i nazwisko",
+              name: "name",
+            }}
+          />
 
-          <div>
-            <label htmlFor="email">Email</label>
-            <input id="email" defaultValue={user.profile.data.email} />
-          </div>
+          <InputField
+            handleChange={handleChange}
+            contentData={{
+              placeholder: user.profile.data.email,
+              disabled: true,
+              id: "email",
+              type: "text",
+              label: "E-mail",
+              name: "email",
+            }}
+          />
 
-          <div>
-            <label htmlFor="address">Adres zamieszkania</label>
-            <input id="address" defaultValue={user.profile.data.address} />
-          </div>
+          <InputField
+            handleChange={handleChange}
+            contentData={{
+              placeholder: user.profile.data.address,
+              id: "address",
+              type: "text",
+              label: "Adres zamieszkania",
+              name: "address",
+            }}
+          />
 
-          <div>
-            <label htmlFor="phone">Telefon kontaktowy</label>
-            <input id="phone" defaultValue={user.profile.data.number} />
-          </div>
+          <InputField
+            handleChange={handleChange}
+            contentData={{
+              placeholder: String(user.profile.data.number),
+              id: "phone",
+              type: "text",
+              label: "Telefon kontaktowy",
+              name: "v",
+            }}
+          />
         </fieldset>
 
         <fieldset>
@@ -51,45 +79,79 @@ export function UserForm() {
                 protokole danych dotyczących swojego miejsca zamieszkania?
               </p>
 
-              <div>
-                <input type="radio" id="address-permission-yes" />
-                <label htmlFor="address-permission-yes">Tak, ...</label>
-              </div>
+              <InputField
+                handleChange={handleChange}
+                contentData={{
+                  placeholder: "",
+                  id: "address-permission-yes",
+                  type: "radio",
+                  label: "Tak, ...",
+                  name: "address-permission-yes",
+                }}
+              />
 
-              <div>
-                <input type="radio" id="address-permission-no" />
-                <label htmlFor="address-permission-no">Nie, ...</label>
-              </div>
+              <InputField
+                handleChange={handleChange}
+                contentData={{
+                  placeholder: "",
+                  id: "address-permission-no",
+                  type: "radio",
+                  label: "Nie, ...",
+                  name: "address-permission-no",
+                }}
+              />
             </div>
 
             <div>
               <p>Chcę wysyłać swoje zgłoszenia</p>
 
-              <div>
-                <input type="radio" id="send-to-municipal-police" />
-                <label htmlFor="send-to-municipal-police">
-                  Straży Miejskiej...
-                </label>
-              </div>
+              <InputField
+                handleChange={handleChange}
+                contentData={{
+                  placeholder: String(user.profile.data.number),
+                  id: "send-to-minuciple-police",
+                  type: "radio",
+                  label: "Straży Miejskiej",
+                  name: "send-to-minuciple-police",
+                }}
+              />
 
-              <div>
-                <input type="radio" id="send-to-police" />
-                <label htmlFor="send-to-police">Policji...</label>
-              </div>
+              <InputField
+                handleChange={handleChange}
+                contentData={{
+                  placeholder: String(user.profile.data.number),
+                  id: "send-to-police",
+                  type: "radio",
+                  label: "Policji",
+                  name: "send-to-police",
+                }}
+              />
             </div>
 
             <div>
               <p>Liczba zgłoszeń ładowana na start w "Moje zgłoszenia"</p>
 
-              <div>
-                <input type="radio" id="initial-reports-count-200" />
-                <label htmlFor="initial-reports-count-200">200</label>
-              </div>
+              <InputField
+                handleChange={handleChange}
+                contentData={{
+                  placeholder: String(user.profile.data.number),
+                  id: "initial-reports-count-50",
+                  type: "radio",
+                  label: "50",
+                  name: "initial-reports-count-50",
+                }}
+              />
 
-              <div>
-                <input type="radio" id="initial-reports-count-50" />
-                <label htmlFor="initial-reports-count-50">50</label>
-              </div>
+              <InputField
+                handleChange={handleChange}
+                contentData={{
+                  placeholder: String(user.profile.data.number),
+                  id: "initial-reports-count-200",
+                  type: "radio",
+                  label: "200",
+                  name: "initial-reports-count-200",
+                }}
+              />
             </div>
           </div>
         </fieldset>

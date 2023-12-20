@@ -10,7 +10,6 @@ function UserRegistrationPage() {
 
   return (
     <section>
-      <h1>Rejestracja</h1>
       {!isUserRegistered && (
         <div>
           <p>
