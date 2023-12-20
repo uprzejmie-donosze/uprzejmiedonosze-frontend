@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: yarn build:prod
     - name: Deploy to staging
-      shell: bash -x
+      if: github.ref == 'refs/heads/master'
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.ID_ED25519 }}" > ~/.ssh/id_ed25519
