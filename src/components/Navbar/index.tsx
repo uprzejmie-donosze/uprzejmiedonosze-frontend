@@ -81,7 +81,7 @@ function Menu({ closeNav }: { closeNav: () => void }) {
       <S.Header>
         <S.Avatar>{photo}</S.Avatar>
         <S.Title onClick={closeNav} to={ROUTES.user.main}>
-          {user.profile.data.name}
+          {user.profile.data.name || user.profile.data.email}
         </S.Title>
       </S.Header>
 

@@ -14,7 +14,7 @@ export class HTTPClient {
   }
 
   static fetchToJson(res: Response): Promise<unknown> {
-    return res.headers.get("content-type") === "application/json"
+    return res.headers.get("Content-Type").includes("application/json")
       ? res.json()
       : res.text();
   }
