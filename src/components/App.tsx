@@ -25,7 +25,7 @@ function App() {
       <Fallback />
       <Navbar />
 
-      <Router>
+      <Router primary={false}>
         <Route component={Page.Home} path={ROUTES.home} />
         <Route component={NotFound} default />
         <Route component={Page.Login} path={ROUTES.login} />
