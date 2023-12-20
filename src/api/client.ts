@@ -9,7 +9,7 @@ export class APIClient {
   }
 
   getUser(token: string): Promise<IUser> {
-    return this.httpClient.get("user", token) as Promise<IUser>;
+    return this.httpClient.patch("user", token) as Promise<IUser>;
   }
 
   updateUser(token: string, user: IUser): Promise<unknown> {

@@ -23,7 +23,7 @@ export function Home() {
 
   return (
     <Container>
-      <h1>{`Cześć ${user.profile.data.name}!`}</h1>
+      <h1>{`Cześć ${user.profile.data.name || user.profile.data.email}!`}</h1>
 
       <RoundedLink to={ROUTES.newReport}>
         <Icon width="20px" height="20px" viewBox="0 0 92 92">

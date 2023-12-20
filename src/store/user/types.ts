@@ -7,7 +7,7 @@ export type UserProfile = {
     address: string;
     email: string;
     sex: string;
-    number: number;
+    number: string;
     exposeData: boolean;
     stopAgresji: boolean;
     termsConfirmation: string;

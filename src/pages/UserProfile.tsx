@@ -8,7 +8,7 @@ function UserProfilePage() {
 
   return (
     <section>
-      <h1>{user.profile.data.name}</h1>
+      <h1>{user.profile.data.name || user.profile.data.email}</h1>
 
       <figure style={{ display: "flex", margin: 0 }}>
         <img src={photoURL} style={{ maxWidth: "200px" }} />
