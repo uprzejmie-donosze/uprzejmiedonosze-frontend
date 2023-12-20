@@ -26,15 +26,9 @@ jobs:
     - name: Build
       run: yarn build:prod
     - name: Deploy to staging
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.SCP_HOST}}
-        username: github
-        port: ${{ secrets.SCP_PORT }}
-        key: ${{ secrets.ID_ED25519 }}
-        passphrase: ${{ secrets.ID_ED25519_PASS }}
-        debug: true
-        overwrite: true
-        source: "dist/*"
-        target: /var/www/staging.uprzejmiedonosze.net/new/
-
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.ID_ED25519 }}" > ~/.ssh/id_ed25519
+        chmod 700 ~/.ssh/id_ed25519
+        ssh-keyscan -H ${{ secrets.SCP_HOST }} >> ~/.ssh/known_hosts
+        scp -i ~/.ssh/id_ed25519 -v -o StrictHostKeyChecking=no -P ${{ secrets.SCP_PORT }} -r ./dist/* github@${{ secrets.SCP_HOST }}:/var/www/staging.uprzejmiedonosze.net/new/
