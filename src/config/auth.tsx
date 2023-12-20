@@ -37,7 +37,7 @@ export function withAuth(Component: React.ElementType) {
   return WithAuth;
 }
 
-export function withLogin() {
+export function useLogin() {
   const auth = useAppSelector((state) => state.firebase.auth);
   const dispatch = useAppDispatch();
 

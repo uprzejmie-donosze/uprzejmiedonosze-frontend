@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import { RouteComponentProps, Router } from "@reach/router";
 
 import * as Page from "../pages";
 import Navbar from "./Navbar";
-import { ROUTES, withLogin } from "../config";
+import { ROUTES, useLogin } from "../config";
 import { GlobalStyle, Container } from "../styles";
 
 type Props = { component: React.ElementType } & RouteComponentProps;
@@ -16,7 +16,7 @@ const Route: FunctionComponent<Props> = ({ component: Component, ...rest }) => (
 const NotFound = () => <Container>Sorry, nothing here</Container>;
 
 function App() {
-  withLogin();
+  useLogin();
 
   return (
     <AppContainer>
