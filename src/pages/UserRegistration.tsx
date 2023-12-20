@@ -1,6 +1,7 @@
 import React from "react";
 import { withAuth } from "../config";
 import { useAppSelector } from "../store";
+import { UserForm } from "../components/UserForm";
 
 function UserRegistrationPage() {
   const isUserRegistered = useAppSelector(
@@ -21,6 +22,7 @@ function UserRegistrationPage() {
           </p>
         </div>
       )}
+      <UserForm />
     </section>
   );
 }
