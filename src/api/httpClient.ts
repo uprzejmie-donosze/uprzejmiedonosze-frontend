@@ -13,13 +13,13 @@ export class HTTPClient {
     });
   }
 
-  static fetchToJson(res: Response): Promise<Response> {
+  static fetchToJson(res: Response): Promise<unknown> {
     return res.headers.get("content-type") === "application/json"
       ? res.json()
       : res.text();
   }
 
-  static handleResponse(response: Response): Promise<Response> {
+  static handleResponse(response: Response): Promise<unknown> {
     const jsonResponse = HTTPClient.fetchToJson(response);
     if (response.ok) {
       return jsonResponse;
@@ -39,7 +39,7 @@ export class HTTPClient {
     token: string;
     body?: { [key: string]: any };
     params?: { [key: string]: string };
-  }) {
+  }): Promise<unknown> {
     let url = `${this.host}${path}`;
     if (params) url += `?${new URLSearchParams(params).toString()}`;
 
@@ -50,6 +50,7 @@ export class HTTPClient {
     })
       .then((response) => HTTPClient.handleResponse(response))
       .catch((e) => {
+        console.error(e);
         throw new Error("Something went wrong");
       }); // TODO: handle error
   }
