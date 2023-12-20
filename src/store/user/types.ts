@@ -14,7 +14,7 @@ export type UserProfile = {
     autoSend: boolean;
     myAppsSize: number;
   };
-  number: number;
+  number?: number;
   updated: string;
   lastLocation: string;
   appsCount: number;
