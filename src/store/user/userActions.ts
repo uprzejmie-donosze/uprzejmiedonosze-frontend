@@ -19,9 +19,11 @@ export function getUser() {
         apiClient
           .getUser(token)
           .then((user) => dispatch({ type: USER_ACTIONS.loaded, user }))
-          .catch((error: Error) =>
-            dispatch({ type: USER_ACTIONS.error, error: error }),
-          );
+          .catch((error: Error) => {
+            dispatch({ type: USER_ACTIONS.error, error: error })
+            // logout after fetching user profile fails
+            firebase.auth().signOut()
+          });
       });
   };
 }
