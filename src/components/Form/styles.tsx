@@ -6,6 +6,7 @@ import {
   inputStyles,
   inputSize,
   radius,
+  convertHex,
 } from "../../styles";
 import mediaMin from "../../styles/mediaQueries";
 
@@ -189,6 +190,7 @@ export const FieldError = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
 `;
 
 export const FieldErrorFixed = styled(FieldError)`
@@ -212,14 +214,14 @@ export const FieldInput = styled.input<{
   isValid: boolean;
   hasIcon: boolean;
   disabled: boolean;
+  onChange: (e: InputEvent) => void;
 }>`
   ${inputStyles}
 
   background: ${(props) =>
-    props.isValid ? colors.primaryLight : colors.background};
+    props.isValid ? convertHex(colors.primary, 6) : colors.background};
   color: ${(props) => (props.isValid ? colors.primary : colors.text)};
-  border-color: ${(props) =>
-    props.isValid ? colors.primaryLight : colors.border};
+  border-color: ${(props) => (props.isValid ? colors.primary : colors.border)};
   padding-right: ${(props) => (props.hasIcon ? "2.5rem" : ".5rem")};
 `;
 

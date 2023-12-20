@@ -40,8 +40,9 @@ export function Input({
         type={type}
         placeholder={placeholder}
         {...meta}
+        onChange={input.onChange}
         disabled={input.disabled || false}
-        isValid={meta.touched && meta.valid && !!input.value}
+        isValid={meta.touched && meta.valid}
         hasIcon={!!children}
       />
       {children}
