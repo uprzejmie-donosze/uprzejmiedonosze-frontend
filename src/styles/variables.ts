@@ -44,7 +44,11 @@ export const inputStyles = `
   }
 
   &:disabled {
-    opacity: .6;
+    opacity: 0.6;
+  }
+
+  &::placeholder {
+    opacity: 0.6;
   }
 `;
 

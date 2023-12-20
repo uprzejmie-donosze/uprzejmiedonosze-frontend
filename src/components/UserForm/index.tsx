@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppSelector } from "../../store";
 import { Button } from "../../styles";
 import { InputField } from "../Form";
+import { stringRequired } from "../Form/validation";
 
 export function UserForm() {
   const user = useAppSelector((state) => state.user);
+  const [userState, setUserState] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+  const [settings, setSettings] = useState({
+    policeType: "",
+    reportsCount: 0,
+    addressPerm: "",
+  });
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
   }
 
-  function handleChange() {}
+  function handleChange(v: string) {
+    console.log(v);
+  }
 
   return (
     <section>
@@ -31,6 +44,7 @@ export function UserForm() {
               type: "text",
               label: "Imię i nazwisko",
               name: "name",
+              validate: stringRequired,
             }}
           />
 
@@ -41,7 +55,7 @@ export function UserForm() {
               disabled: true,
               id: "email",
               type: "text",
-              label: "E-mail",
+              label: "E-mail (edycja niemożliwa)",
               name: "email",
             }}
           />
@@ -54,6 +68,7 @@ export function UserForm() {
               type: "text",
               label: "Adres zamieszkania",
               name: "address",
+              validate: stringRequired,
             }}
           />
 
@@ -65,6 +80,7 @@ export function UserForm() {
               type: "text",
               label: "Telefon kontaktowy",
               name: "v",
+              validate: stringRequired,
             }}
           />
         </fieldset>
