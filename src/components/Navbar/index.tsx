@@ -11,7 +11,6 @@ import SignedOutLinks from "./SignedOutLinks";
 import * as S from "./styles";
 
 function Navbar() {
-  const auth = useAppSelector((state) => state.firebase.auth);
   const isNavOpened = useAppSelector((state) => state.app.isNavOpened);
   const dispatch = useAppDispatch();
 
@@ -47,39 +46,56 @@ function Navbar() {
         <S.Overlay onClick={toggleMenu} isNavOpened={isNavOpened} />
 
         <S.Menu isNavOpened={isNavOpened}>
-          {!auth.isLoaded ? (
-            <LinearLoader />
-          ) : (
-            <>
-              <S.Header>
-                <S.Avatar>
-                  {!!auth.photoURL ? (
-                    <S.Photo src={auth.photoURL} />
-                  ) : (
-                    <UserIcon />
-                  )}
-                </S.Avatar>
-
-                {!!auth.uid ? (
-                  <S.Title to={ROUTES.user.main}>{auth.displayName}</S.Title>
-                ) : (
-                  <S.Title onClick={closeNav} to={ROUTES.login}>
-                    Zaloguj/ zarejestruj się
-                  </S.Title>
-                )}
-              </S.Header>
-              <S.Body>
-                {!!auth.uid ? (
-                  <SignedInLinks closeNav={closeNav} />
-                ) : (
-                  <SignedOutLinks closeNav={closeNav} />
-                )}
-              </S.Body>
-            </>
-          )}
+          <Menu closeNav={closeNav} />
         </S.Menu>
       </S.Container>
     </S.Navbar>
+  );
+}
+
+function Menu({ closeNav }: { closeNav: () => void }) {
+  const user = useAppSelector((state) => state.user);
+  let photoURL = useAppSelector((state) => state.firebase.auth.photoURL);
+  photoURL = user.isEmpty ? "" : photoURL;
+
+  if (!user.isLoaded) {
+    return <LinearLoader />;
+  }
+
+  if (user.isEmpty) {
+    return (
+      <>
+        <S.Header>
+          <S.Avatar>
+            {!!photoURL ? <S.Photo src={photoURL} /> : <UserIcon />}
+          </S.Avatar>
+
+          <S.Title onClick={closeNav} to={ROUTES.login}>
+            Zaloguj/ zarejestruj się
+          </S.Title>
+        </S.Header>
+
+        <S.Body>
+          <SignedOutLinks closeNav={closeNav} />
+        </S.Body>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <S.Header>
+        <S.Avatar>
+          {!!photoURL ? <S.Photo src={photoURL} /> : <UserIcon />}
+        </S.Avatar>
+
+        <S.Title to={ROUTES.user.main}>{user.profile.data.name}</S.Title>
+      </S.Header>
+
+      <S.Body>
+        <SignedInLinks closeNav={closeNav} />
+      </S.Body>
+    </>
   );
 }
 
