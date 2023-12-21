@@ -10,6 +10,7 @@ type Props = {
     error: string | null;
     touched: boolean;
   };
+  type: string;
 };
 
 export function Field({
@@ -17,10 +18,11 @@ export function Field({
   children,
   id,
   meta: { error, touched },
+  type,
 }: Props) {
   return (
-    <S.Field>
-      <S.FieldHeader>
+    <S.Field type={type}>
+      <S.FieldHeader type={type}>
         {label && <S.FieldLabel htmlFor={id}>{label}</S.FieldLabel>}
         {!!error && touched && <S.FieldError>{error}</S.FieldError>}
       </S.FieldHeader>

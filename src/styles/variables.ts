@@ -2,9 +2,10 @@ import { keyframes } from "styled-components";
 
 export const colors: { [key: string]: string } = {
   primary: "#009C7F",
-  secondary: "#e9c200",
+  secondary: "#9C7F00",
   background: "#F0F0F0",
   text: "#333",
+  textLight: "#a1a1a1",
   white: "#FFF",
   error: "#ff4e42",
   border: "#d1d1d1",
@@ -49,6 +50,27 @@ export const inputStyles = `
 
   &::placeholder {
     opacity: 0.6;
+  }
+
+  &[type="radio"] {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid ${colors.border};
+
+    &:checked{
+      border: 2px solid ${colors.primary};
+
+      & ~ div {
+        transform: scale(1);
+      }
+    }
   }
 `;
 

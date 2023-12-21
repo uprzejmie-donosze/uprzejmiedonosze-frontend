@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { colors } from "./variables";
 
 export const GlobalStyle = createGlobalStyle`
   body, html {
@@ -7,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: #F0F0F0;
+    background-color: ${colors.background};
   }
 
   button,
