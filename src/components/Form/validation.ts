@@ -1,5 +1,7 @@
 const required = (type: string, message?: string) => (value: any) =>
-  !!value || typeof value === typeof type ? undefined : message || "Required";
+  !!value || typeof value === typeof type
+    ? undefined
+    : message || "Pole wymagane";
 
 const validateByPattern = (pattern: RegExp) => (value: any) => {
   if (value !== undefined) {
