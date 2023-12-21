@@ -6,9 +6,17 @@ import * as S from "./styles";
 type Validator = (value: any, allValues?: any, props?: any, name?: any) => any;
 
 type Props = {
-  handleChange: (v: string) => void;
+  handleChange: ({
+    name,
+    value,
+    valid,
+  }: {
+    name: string;
+    value: string;
+    valid: boolean;
+  }) => void;
   contentData: {
-    placeholder: string;
+    placeholder?: string;
     id: string;
     type: string;
     label: string;
@@ -16,6 +24,7 @@ type Props = {
     icon?: ReactElement;
     disabled?: boolean;
     validate?: Validator;
+    defaultValue?: string;
   };
 };
 
@@ -23,19 +32,28 @@ export function InputField({ handleChange, contentData }: Props) {
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
-  const { placeholder, id, type, label, icon, name, disabled } = contentData;
+  const { placeholder, id, type, label, icon, name, disabled, defaultValue } =
+    contentData;
 
   const handleInputChange = (e: InputEvent) => {
-    if (!!contentData.validate) {
-      const err = contentData.validate(
-        (e.target as HTMLInputElement).value || null,
-      );
-      setError(err);
-    }
-    handleChange((e.target as HTMLInputElement).value);
+    const err = validate((e.target as HTMLInputElement).value);
+    handleChange({
+      value: (e.target as HTMLInputElement).value,
+      valid: !err,
+      name: contentData.name,
+    });
     setValue((e.target as HTMLInputElement).value);
     setTouched(true);
   };
+
+  function validate(value: string): string | null {
+    let err = null;
+    if (!!contentData.validate) {
+      err = contentData.validate(value || null);
+      setError(err);
+    }
+    return err;
+  }
 
   const inputData = { onChange: handleInputChange, value, disabled };
   const meta = { touched, valid: !!value && !error, error: error };
@@ -48,6 +66,7 @@ export function InputField({ handleChange, contentData }: Props) {
       placeholder={placeholder}
       label={label}
       meta={meta}
+      defaultValue={defaultValue}
     >
       {icon && <S.FieldIcon hasValue={!!value}>{icon}</S.FieldIcon>}
     </Input>

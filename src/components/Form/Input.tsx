@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { HTMLInputTypeAttribute, ReactNode } from "react";
 
 import { Field } from "./Field";
 import * as S from "./styles";
@@ -16,10 +16,11 @@ type Props = {
     valid: boolean;
     error: string | null;
   };
-  type: string;
+  type: HTMLInputTypeAttribute;
   placeholder: string;
   children: ReactNode;
   name: string;
+  defaultValue?: string;
 };
 
 export function Input({
@@ -31,11 +32,13 @@ export function Input({
   placeholder,
   name,
   children,
+  defaultValue,
 }: Props) {
   return (
     <Field label={label} id={id} meta={meta} type={type}>
       <S.InputContainer type={type}>
         <S.FieldInput
+          defaultValue={defaultValue}
           id={id}
           name={name}
           type={type}
