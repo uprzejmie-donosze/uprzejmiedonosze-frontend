@@ -5,6 +5,7 @@ import mediaMin, { breakpoints } from "../../styles/mediaQueries";
 export const FormContent = styled.div`
   ${mediaMin(breakpoints.lg)} {
     display: flex;
+    justify-content: space-between;
   }
 `;
 
@@ -19,6 +20,11 @@ export const TextHint = styled.p`
 export const Fieldset = styled.fieldset`
   margin-bottom: 20px;
   border: 1px solid transparent;
+
+  ${mediaMin(breakpoints.lg)} {
+    width: 48%;
+    padding: 0;
+  }
 `;
 
 export const Legend = styled.legend`
