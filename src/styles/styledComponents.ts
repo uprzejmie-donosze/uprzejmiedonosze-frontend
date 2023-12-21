@@ -1,17 +1,21 @@
 import styled from "styled-components";
-import { colors } from "./variables";
-import mediaMin, { breakpoints } from "./mediaQueries";
+import { APP_WIDTH_LARGE, APP_WIDTH_SMALL, colors } from "./variables";
+import mediaMin, { breakpoints, mediaMax } from "./mediaQueries";
 
 export const SIDEBAR_WIDTH_LG = "300px";
 
 export const Container = styled.div`
   width: 100%;
   color: ${colors.text};
-  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
 
+  ${mediaMax(breakpoints.lg)} {
+    max-width: ${APP_WIDTH_SMALL};
+  }
+
   ${mediaMin(breakpoints.lg)} {
+    max-width: ${APP_WIDTH_LARGE};
     width: calc(100% - ${SIDEBAR_WIDTH_LG});
     margin-left: ${SIDEBAR_WIDTH_LG};
   }

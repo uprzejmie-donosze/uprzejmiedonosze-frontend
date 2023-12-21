@@ -95,3 +95,6 @@ export const flowTop = keyframes`
     width: 10%;
   }
 `;
+
+export const APP_WIDTH_SMALL = "800px";
+export const APP_WIDTH_LARGE = "1200px";

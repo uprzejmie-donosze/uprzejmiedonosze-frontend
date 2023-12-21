@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components";
 import { Link } from "@reach/router";
-import { colors } from "../../styles/variables";
-import mediaMin, { breakpoints } from "../../styles/mediaQueries";
+import {
+  APP_WIDTH_LARGE,
+  APP_WIDTH_SMALL,
+  colors,
+} from "../../styles/variables";
+import mediaMin, { breakpoints, mediaMax } from "../../styles/mediaQueries";
 import { SIDEBAR_WIDTH_LG } from "../../styles/styledComponents";
 
 const NAVBAR_HEIGHT = "60px";
@@ -24,12 +28,16 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   color: ${colors.white};
-  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
 
+  ${mediaMax(breakpoints.lg)} {
+    max-width: ${APP_WIDTH_SMALL};
+  }
+
   ${mediaMin(breakpoints.lg)} {
     margin-left: ${SIDEBAR_WIDTH_LG};
+    max-width: ${APP_WIDTH_LARGE};
   }
 `;
 
