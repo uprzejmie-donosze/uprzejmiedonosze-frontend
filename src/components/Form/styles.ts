@@ -299,20 +299,15 @@ export const FieldCheckboxBox = styled.div`
   }
 `;
 
-export const InputContainer = styled.div<{ type: string }>`
+export const RadioInputContainer = styled.div`
   position: relative;
-
-  ${(props) =>
-    props.type === "radio" &&
-    css`
-      display: block;
-      width: 20px;
-      height: 20px;
-      margin-right: 5px;
-    `}
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 `;
 
-export const CheckedIndicator = styled.div`
+export const RadioCheckedIndicator = styled.div`
   content: "";
   position: absolute;
   top: 5px;

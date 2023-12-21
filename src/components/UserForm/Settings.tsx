@@ -1,20 +1,20 @@
 import React from "react";
-import { InputField } from "../Form";
 import * as S from "./styles";
+import { RadioInputField } from "../Form";
 
 type Props = {
-  onChange: ({
-    name,
-    value,
-    valid,
-  }: {
-    name: string;
-    value: string;
-    valid: boolean;
-  }) => void;
+  addressPermSelected: string;
+  policeTypeSelected: string;
+  reportsCountSelected: string;
+  onChange: (name: string, value: string) => void;
 };
 
-export function Settings({ onChange }: Props) {
+export function Settings({
+  onChange,
+  addressPermSelected,
+  policeTypeSelected,
+  reportsCountSelected,
+}: Props) {
   return (
     <S.Fieldset>
       <S.Legend>Ustawienia</S.Legend>
@@ -24,25 +24,25 @@ export function Settings({ onChange }: Props) {
           protokole danych dotyczących swojego miejsca zamieszkania?
         </S.TextHint>
 
-        <InputField
+        <RadioInputField
           handleChange={onChange}
           contentData={{
-            placeholder: "",
+            selected: addressPermSelected === "yes",
             id: "address-permission-yes",
-            type: "radio",
             label: "Tak, ...",
-            name: "address-permission-yes",
+            name: "addressPerm",
+            value: "yes",
           }}
         />
 
-        <InputField
+        <RadioInputField
           handleChange={onChange}
           contentData={{
-            placeholder: "",
+            selected: addressPermSelected === "no",
             id: "address-permission-no",
-            type: "radio",
             label: "Nie, ...",
-            name: "address-permission-no",
+            name: "addressPerm",
+            value: "no",
           }}
         />
       </S.Options>
@@ -50,25 +50,27 @@ export function Settings({ onChange }: Props) {
       <S.Options>
         <S.TextHint>Chcę wysyłać swoje zgłoszenia</S.TextHint>
 
-        <InputField
+        <RadioInputField
           handleChange={onChange}
           contentData={{
+            selected: policeTypeSelected === "municipal",
             id: "send-to-minuciple-police",
-            type: "radio",
             label:
               "do Straży Miejskiej/Gminnej właściwej dla miejscowości zgłoszenia (domyślnie)",
-            name: "send-to-minuciple-police",
+            name: "policeType",
+            value: "municipal",
           }}
         />
 
-        <InputField
+        <RadioInputField
           handleChange={onChange}
           contentData={{
+            selected: policeTypeSelected === "police",
             id: "send-to-police",
-            type: "radio",
             label:
               "na komendę Policji właściwą dla województwa zgłoszenia (eksperymentalnie)",
-            name: "send-to-police",
+            name: "policeType",
+            value: "police",
           }}
         />
       </S.Options>
@@ -78,23 +80,25 @@ export function Settings({ onChange }: Props) {
           Liczba zgłoszeń ładowana na start w "Zgłoszenia"
         </S.TextHint>
 
-        <InputField
+        <RadioInputField
           handleChange={onChange}
           contentData={{
             id: "initial-reports-count-50",
-            type: "radio",
+            selected: reportsCountSelected === "50",
             label: "50, dobre na starszych telefonach i słabej sieci",
-            name: "initial-reports-count-50",
+            name: "reportsCount",
+            value: "50",
           }}
         />
 
-        <InputField
+        <RadioInputField
           handleChange={onChange}
           contentData={{
             id: "initial-reports-count-200",
-            type: "radio",
+            selected: reportsCountSelected === "200",
             label: "200 (domyślnie)",
-            name: "initial-reports-count-200",
+            name: "reportsCount",
+            value: "200",
           }}
         />
       </S.Options>

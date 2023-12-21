@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../../store";
 import { Button } from "../../styles";
-import { InputField } from "../Form";
 import { Profile } from "./Profile";
-import * as S from "./styles";
 import { Settings } from "./Settings";
+import * as S from "./styles";
 
 type UserField = {
   value: string;
@@ -28,9 +27,9 @@ export function UserForm() {
   });
 
   const [settings, setSettings] = useState({
-    policeType: { value: "municipal", valid: true },
-    reportsCount: { value: 200, valid: true },
-    addressPerm: { value: "yes", valid: true },
+    policeType: "municipal",
+    reportsCount: "200",
+    addressPerm: "yes",
   });
 
   const isInvalid = Object.values(userState).some(
@@ -40,6 +39,7 @@ export function UserForm() {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     console.log(userState);
+    console.log(settings);
   }
 
   function handleUserChange({
@@ -57,16 +57,8 @@ export function UserForm() {
     });
   }
 
-  function handleSettingsChange({
-    name,
-    value,
-    valid,
-  }: {
-    name: FieldType;
-    value: string;
-    valid: boolean;
-  }) {
-    console.log(value);
+  function handleSettingsChange(name: string, value: string) {
+    setSettings({ ...settings, [name]: value });
   }
 
   return (
@@ -75,7 +67,14 @@ export function UserForm() {
         <S.FormContent>
           <Profile user={user.profile} onChange={handleUserChange} />
 
-          {user.isRegistered && <Settings onChange={handleSettingsChange} />}
+          {user.isRegistered && (
+            <Settings
+              onChange={handleSettingsChange}
+              addressPermSelected={settings.addressPerm}
+              policeTypeSelected={settings.policeType}
+              reportsCountSelected={settings.reportsCount}
+            />
+          )}
         </S.FormContent>
 
         <Button type="submit" disabled={isInvalid}>
