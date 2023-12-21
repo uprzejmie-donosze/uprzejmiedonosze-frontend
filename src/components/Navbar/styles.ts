@@ -50,7 +50,7 @@ export const Menu = styled.div<MenuProps>`
   z-index: 2;
   width: 80%;
   height: 100%;
-  background-color: white;
+  background-color: ${colors.white};
   transition: transform 0.3s;
 
   ${(props) =>

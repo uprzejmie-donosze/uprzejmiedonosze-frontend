@@ -16,7 +16,7 @@ type Props = {
 
 export function Checkbox({ input, label, id, meta }: Props) {
   return (
-    <S.FieldFlex>
+    <S.FieldFlex type="checkbox">
       {meta.error && meta.touched && (
         <S.FieldErrorFixed>{meta.error}</S.FieldErrorFixed>
       )}

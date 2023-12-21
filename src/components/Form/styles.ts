@@ -1,10 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { DottedLoader } from "../Icons";
 import {
   breakpoints,
   colors,
   inputStyles,
-  inputSize,
   radius,
   convertHex,
 } from "../../styles";
@@ -155,11 +154,19 @@ export const FormGrayScreen = styled.div`
   background: rgba(0, 0, 0, 0.15);
 `;
 
-export const Field = styled.div`
+export const Field = styled.div<{ type: string }>`
   position: relative;
   width: 100%;
   margin: 0;
   padding: ${`${SPACING}rem`} 0 0;
+
+  ${(props) =>
+    props.type === "radio" &&
+    css`
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    `}
 `;
 
 export const FieldFlex = styled(Field)`
@@ -167,20 +174,25 @@ export const FieldFlex = styled(Field)`
   align-items: center;
 `;
 
-export const FieldHeader = styled.div`
+export const FieldHeader = styled.div<{ type: string }>`
   display: flex;
   flex-direction: column;
   font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 
   ${mediaMin(breakpoints.md)} {
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: center;
   }
+
+  ${(props) =>
+    props.type === "radio" &&
+    css`
+      margin-bottom: 0;
+      margin-left: 0.3rem;
+    `}
 `;
 
 export const FieldError = styled.span`
@@ -287,27 +299,29 @@ export const FieldCheckboxBox = styled.div`
   }
 `;
 
-export const FieldSelect = styled.select<{ isValid: boolean }>`
-  ${inputStyles}
+export const InputContainer = styled.div<{ type: string }>`
+  position: relative;
 
-  background: ${(props) =>
-    props.isValid ? colors.primaryLight : colors.background};
-  color: ${(props) => (props.isValid ? colors.primary : colors.textLighten)};
-  border-color: ${(props) =>
-    props.isValid ? colors.primaryLight : colors.border};
+  ${(props) =>
+    props.type === "radio" &&
+    css`
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    `}
 `;
 
-export const Textarea = styled.textarea<{ hasCode: boolean; isValid: boolean }>`
-  ${inputStyles}
-  resize: vertical;
-  min-height: ${`${2 * inputSize}px`};
-  white-space: pre;
-  font-family: ${(props) => (props.hasCode ? "monospace" : "inherit")};
-  font-size: ${(props) => (props.hasCode ? "1rem" : ".8rem")};
-  line-height: 1.5;
-  background: ${(props) =>
-    props.isValid ? colors.primaryLight : colors.background};
-  color: ${(props) => (props.isValid ? colors.primary : colors.textLighten)};
-  border-color: ${(props) =>
-    props.isValid ? colors.primaryLight : colors.border};
+export const CheckedIndicator = styled.div`
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  background-color: ${colors.primary};
+  transform: scale(0);
+  pointer-events: none;
+  border-radius: 100%;
+  transition: transform 0.2s ease-in-out;
 `;

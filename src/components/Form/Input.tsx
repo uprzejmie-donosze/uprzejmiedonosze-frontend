@@ -33,18 +33,21 @@ export function Input({
   children,
 }: Props) {
   return (
-    <Field label={label} id={id} meta={meta}>
-      <S.FieldInput
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        {...meta}
-        onChange={input.onChange}
-        disabled={input.disabled || false}
-        isValid={meta.touched && meta.valid}
-        hasIcon={!!children}
-      />
+    <Field label={label} id={id} meta={meta} type={type}>
+      <S.InputContainer type={type}>
+        <S.FieldInput
+          id={id}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          {...meta}
+          onChange={input.onChange}
+          disabled={input.disabled || false}
+          isValid={meta.touched && meta.valid}
+          hasIcon={!!children}
+        />
+        {type === "radio" && <S.CheckedIndicator />}
+      </S.InputContainer>
       {children}
     </Field>
   );
