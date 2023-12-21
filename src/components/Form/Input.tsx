@@ -3,7 +3,7 @@ import React, { HTMLInputTypeAttribute, ReactNode } from "react";
 import { Field } from "./Field";
 import * as S from "./styles";
 
-type Props = {
+type InputProps = {
   id: string;
   label: string;
   input: {
@@ -33,25 +33,67 @@ export function Input({
   name,
   children,
   defaultValue,
-}: Props) {
+}: InputProps) {
   return (
     <Field label={label} id={id} meta={meta} type={type}>
-      <S.InputContainer type={type}>
+      <S.FieldInput
+        defaultValue={defaultValue}
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        {...meta}
+        onChange={input.onChange}
+        disabled={input.disabled || false}
+        isValid={meta.touched && meta.valid}
+        hasIcon={!!children}
+      />
+      {children}
+    </Field>
+  );
+}
+
+type RadioInputProps = {
+  id: string;
+  label: string;
+  input: {
+    onChange: (e: InputEvent) => void;
+    selected: boolean;
+    disabled?: boolean;
+  };
+  meta: {
+    touched: boolean;
+  };
+  type: HTMLInputTypeAttribute;
+  placeholder: string;
+  name: string;
+};
+
+export function RadioInput({
+  input,
+  meta,
+  label,
+  id,
+  type,
+  placeholder,
+  name,
+}: RadioInputProps) {
+  return (
+    <Field label={label} id={id} meta={{ ...meta, error: null }} type={type}>
+      <S.RadioInputContainer>
         <S.FieldInput
-          defaultValue={defaultValue}
           id={id}
           name={name}
           type={type}
           placeholder={placeholder}
-          {...meta}
           onChange={input.onChange}
           disabled={input.disabled || false}
-          isValid={meta.touched && meta.valid}
-          hasIcon={!!children}
+          isValid={true}
+          hasIcon={false}
+          checked={input.selected}
         />
-        {type === "radio" && <S.CheckedIndicator />}
-      </S.InputContainer>
-      {children}
+        <S.RadioCheckedIndicator />
+      </S.RadioInputContainer>
     </Field>
   );
 }

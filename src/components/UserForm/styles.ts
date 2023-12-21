@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../styles";
-import mediaMin, { breakpoints } from "../../styles/mediaQueries";
+import mediaMin, { breakpoints, mediaMax } from "../../styles/mediaQueries";
 
 export const FormContent = styled.div`
   ${mediaMin(breakpoints.lg)} {

@@ -76,7 +76,6 @@ export function Profile({ user, onChange }: Props) {
           type: "text",
           label: "Telefon kontaktowy",
           name: "phone",
-          validate: stringRequired,
         }}
       />
     </S.Fieldset>
