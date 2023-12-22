@@ -13,7 +13,7 @@ export class APIClient {
     return this.httpClient.patch("user", token) as Promise<IUser>;
   }
 
-  updateUser(token: string, user: IUpdateUserBody): Promise<unknown> {
-    return this.httpClient.post("user", token, user);
+  updateUser(token: string, user: IUpdateUserBody): Promise<IUser> {
+    return this.httpClient.post("user", token, user) as Promise<IUser>;
   }
 }
