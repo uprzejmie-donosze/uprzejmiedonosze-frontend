@@ -71,7 +71,7 @@ export function Profile({ user, onChange }: Props) {
         handleChange={onChange}
         contentData={{
           placeholder: "np. 666111222",
-          defaultValue: String(user.data.number),
+          defaultValue: user.data.msisdn,
           id: "phone",
           type: "text",
           label: "Telefon kontaktowy",
