@@ -100,8 +100,11 @@ export function UserForm() {
           )}
         </S.FormContent>
 
-        <S.Submit type="submit" disabled={isInvalid || !hasDefaults || updating}>
-          {updating ? <DottedLoader/> : "potwierdź"}
+        <S.Submit
+          type="submit"
+          disabled={isInvalid || !hasDefaults || updating}
+        >
+          {updating ? <DottedLoader /> : "potwierdź"}
         </S.Submit>
       </form>
     </section>
