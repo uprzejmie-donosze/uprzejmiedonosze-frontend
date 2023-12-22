@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../../styles";
-import mediaMin, { breakpoints, mediaMax } from "../../styles/mediaQueries";
+import { Button, colors } from "../../styles";
+import mediaMin, { breakpoints } from "../../styles/mediaQueries";
 
 export const FormContent = styled.div`
   ${mediaMin(breakpoints.lg)} {
@@ -37,5 +37,14 @@ export const Legend = styled.legend`
 export const Options = styled.div`
   & + & {
     margin-top: 30px;
+  }
+`;
+
+export const Submit = styled(Button)`
+  & svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    padding-left: 9px;
   }
 `;

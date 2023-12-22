@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { Button } from "../../styles";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
 import * as S from "./styles";
@@ -12,6 +11,7 @@ import {
   DEFAULT_USER_STATE,
   POLICE_TYPE_OPTIONS,
 } from "./variables";
+import { DottedLoader } from "../Icons";
 
 type UserField = {
   value: string;
@@ -100,9 +100,9 @@ export function UserForm() {
           )}
         </S.FormContent>
 
-        <Button type="submit" disabled={isInvalid || !hasDefaults || updating}>
-          potwierdź
-        </Button>
+        <S.Submit type="submit" disabled={isInvalid || !hasDefaults || updating}>
+          {updating ? <DottedLoader/> : "potwierdź"}
+        </S.Submit>
       </form>
     </section>
   );
