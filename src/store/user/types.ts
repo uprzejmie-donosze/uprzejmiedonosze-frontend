@@ -7,17 +7,18 @@ export type UserProfile = {
     address: string;
     email: string;
     sex: string;
-    number: string;
     exposeData: boolean;
     stopAgresji: boolean;
     termsConfirmation: string;
     autoSend: boolean;
     myAppsSize: number;
   };
-  number?: number;
+  number: number;
   updated: string;
   lastLocation: string;
   appsCount: number;
+  isRegistered: boolean;
+  isTermsConfirmed: boolean;
 };
 
 export type UserState = {
@@ -25,7 +26,6 @@ export type UserState = {
   loading: boolean;
   error: Error | null;
   isLoaded: boolean;
-  isRegistered: boolean;
   isEmpty: boolean;
 };
 

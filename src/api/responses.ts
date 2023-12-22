@@ -5,15 +5,16 @@ export type IUser = {
     address?: string;
     email: string;
     sex?: string;
-    number?: string;
     exposeData?: boolean;
     stopAgresji?: boolean;
     termsConfirmation?: string;
     autoSend?: boolean;
     myAppsSize?: number;
   };
-  number?: number;
+  number: number;
   updated?: string;
   lastLocation?: string;
   appsCount?: number;
+  isRegistered?: boolean;
+  isTermsConfirmed?: boolean;
 };

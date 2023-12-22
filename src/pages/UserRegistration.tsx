@@ -3,7 +3,9 @@ import { withAuth } from "../config";
 import { useAppSelector } from "../store";
 
 function UserRegistrationPage() {
-  const isUserRegistered = useAppSelector((state) => state.user.isRegistered);
+  const isUserRegistered = useAppSelector(
+    (state) => state.user.profile.isRegistered,
+  );
 
   return (
     <section>
