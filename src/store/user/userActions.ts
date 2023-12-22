@@ -39,6 +39,27 @@ export function getUser() {
   };
 }
 
+export function updateUser(user: IUser) {
+  return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
+    const firebase = getFirebase();
+    if (firebase.auth().currentUser === null) {
+      return dispatch({ type: USER_ACTIONS.empty });
+    }
+    firebase
+      .auth()
+      .currentUser.getIdToken()
+      .then((token: string) => {
+        apiClient
+          .updateUser(token, user)
+          .then((user) => dispatch({ type: USER_ACTIONS.loaded, user }))
+          .catch((error: Error) => {
+            console.error(error);
+            // dispatch generic error
+          });
+      });
+  };
+}
+
 function normaliseUserData(user: IUser): UserProfile {
   const profile: UserProfile = {
     data: {
