@@ -41,7 +41,6 @@ function normaliseUserData(user: IUser): UserProfile {
       address: user.data.address || "",
       email: user.data.email || "",
       sex: user.data.sex || "",
-      number: user.data.number || "",
       exposeData: Boolean(user.data.exposeData),
       stopAgresji: Boolean(user.data.stopAgresji),
       termsConfirmation: user.data.termsConfirmation || "",
@@ -50,8 +49,10 @@ function normaliseUserData(user: IUser): UserProfile {
     },
     number: user.number,
     updated: user.updated || new Date().toDateString(),
-    lastLocation: user.lastLocation ?? "",
+    lastLocation: user.lastLocation || "",
     appsCount: user.appsCount || 0,
+    isRegistered: Boolean(user.isTermsConfirmed),
+    isTermsConfirmed: Boolean(user.isTermsConfirmed),
   };
 
   return profile;

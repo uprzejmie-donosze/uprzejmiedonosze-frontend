@@ -6,7 +6,6 @@ const initialState: UserState = {
   loading: false,
   error: null,
   isLoaded: false,
-  isRegistered: false,
   isEmpty: true,
 };
 
@@ -21,7 +20,6 @@ export function userReducer(
         loading: true,
         error: null,
         isLoaded: false,
-        isRegistered: false,
         isEmpty: true,
       };
     case USER_ACTIONS.error:
@@ -30,14 +28,12 @@ export function userReducer(
         loading: false,
         error: (action as ErrorAction).error,
         isLoaded: true,
-        isRegistered: false,
         isEmpty: true,
       };
     case USER_ACTIONS.loaded:
       return {
         ...state,
         profile: { ...(action as UserLoaded).user },
-        isRegistered: !!(action as UserLoaded).user.data.address.length,
         loading: false,
         error: null,
         isLoaded: true,

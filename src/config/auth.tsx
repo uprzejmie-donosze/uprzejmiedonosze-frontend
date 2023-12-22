@@ -25,7 +25,7 @@ export function withAuth(Component: React.ElementType) {
 
     if (
       !user.isEmpty &&
-      !user.isRegistered &&
+      !user.profile.isRegistered &&
       location.pathname !== ROUTES.userEdit
     ) {
       return <Redirect from={location.pathname} to={ROUTES.userEdit} noThrow />;
