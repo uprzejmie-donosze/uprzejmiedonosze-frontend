@@ -67,7 +67,7 @@ export function UserForm() {
         <S.FormContent>
           <Profile user={user.profile} onChange={handleUserChange} />
 
-          {user.isRegistered && (
+          {user.profile.isRegistered && (
             <Settings
               onChange={handleSettingsChange}
               addressPermSelected={settings.addressPerm}
