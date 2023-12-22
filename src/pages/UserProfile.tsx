@@ -8,13 +8,13 @@ function UserProfilePage() {
 
   return (
     <section>
-      <h1>{user.profile.data.name || user.profile.data.email}</h1>
+      <h1>{user.profile.name || user.profile.email}</h1>
 
       <figure style={{ display: "flex", margin: 0 }}>
         <img src={photoURL} style={{ maxWidth: "200px" }} />
 
         <figcaption style={{ paddingLeft: "20px" }}>
-          <h3>{user.profile.data.email || "No email added"}</h3>
+          <h3>{user.profile.email || "No email added"}</h3>
         </figcaption>
       </figure>
     </section>

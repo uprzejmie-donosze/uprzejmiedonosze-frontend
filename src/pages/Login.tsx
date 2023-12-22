@@ -22,6 +22,9 @@ export function Login() {
       </Container>
     );
 
+  if (!user.isEmpty && !user.profile.isRegistered)
+    return <Redirect from={ROUTES.login} to={ROUTES.userEdit} noThrow />;
+
   if (!user.isEmpty)
     return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
