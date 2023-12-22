@@ -1,10 +1,5 @@
 import styled, { css } from "styled-components";
-import {
-  breakpoints,
-  colors,
-  inputStyles,
-  convertHex,
-} from "../../styles";
+import { breakpoints, colors, inputStyles, convertHex } from "../../styles";
 import mediaMin from "../../styles/mediaQueries";
 
 const SPACING = "1.5";
