@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { Button } from "../../styles";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
 import * as S from "./styles";
+import { updateUser } from "../../store/user";
+import { IUpdateUserBody } from "../../api/requests";
+import {
+  ADDRESS_PERM_OPTIONS,
+  DEFAULT_SETTINGS,
+  DEFAULT_USER_STATE,
+  POLICE_TYPE_OPTIONS,
+} from "./variables";
 
 type UserField = {
   value: string;
@@ -19,27 +27,30 @@ type UserState = {
 };
 
 export function UserForm() {
-  const user = useAppSelector((state) => state.user);
-  const [userState, setUserState] = useState<UserState>({
-    name: { value: "", valid: true },
-    phone: { value: "", valid: true },
-    address: { value: "", valid: true },
-  });
-
-  const [settings, setSettings] = useState({
-    policeType: "municipal",
-    reportsCount: "200",
-    addressPerm: "yes",
-  });
+  const [userState, setUserState] = useState<UserState>(DEFAULT_USER_STATE);
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
+  const dispatch = useAppDispatch();
+  const profile = useAppSelector((state) => state.user.profile);
+  const updating = useAppSelector((state) => state.user.updating);
 
   const isInvalid = Object.values(userState).some(
     (value: UserField) => !value.valid,
   );
+  const hasDefaults = !!profile.name.length && !!profile.address;
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    console.log(userState);
-    console.log(settings);
+    if (isInvalid || !hasDefaults) return;
+
+    const userData: IUpdateUserBody = {
+      name: userState.name.value || profile.name,
+      address: userState.address.value || profile.address,
+      msisdn: userState.phone.value || profile.msisdn,
+      exposeData: settings.addressPerm,
+      stopAgresji: settings.policeType,
+      myAppsSize: Number(settings.reportsCount),
+    };
+    dispatch(updateUser(userData));
   }
 
   function handleUserChange({
@@ -65,19 +76,31 @@ export function UserForm() {
     <section>
       <form onSubmit={handleSubmit}>
         <S.FormContent>
-          <Profile user={user.profile} onChange={handleUserChange} />
+          <Profile user={profile} onChange={handleUserChange} />
 
-          {user.profile.isRegistered && (
+          {profile.isRegistered && (
             <Settings
               onChange={handleSettingsChange}
-              addressPermSelected={settings.addressPerm}
-              policeTypeSelected={settings.policeType}
-              reportsCountSelected={settings.reportsCount}
+              addressPermSelected={
+                settings.addressPerm ||
+                (profile.exposeData
+                  ? ADDRESS_PERM_OPTIONS.yes
+                  : ADDRESS_PERM_OPTIONS.no)
+              }
+              policeTypeSelected={
+                settings.policeType ||
+                (profile.stopAgresji
+                  ? POLICE_TYPE_OPTIONS.sa
+                  : POLICE_TYPE_OPTIONS.sm)
+              }
+              reportsCountSelected={
+                settings.reportsCount || String(profile.myAppsSize)
+              }
             />
           )}
         </S.FormContent>
 
-        <Button type="submit" disabled={isInvalid}>
+        <Button type="submit" disabled={isInvalid || !hasDefaults || updating}>
           potwierdź
         </Button>
       </form>

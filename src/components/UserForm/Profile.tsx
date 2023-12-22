@@ -32,7 +32,7 @@ export function Profile({ user, onChange }: Props) {
         handleChange={onChange}
         contentData={{
           placeholder: "np. Jan Kowalski",
-          defaultValue: user.data.name,
+          defaultValue: user.name,
           id: "name",
           type: "text",
           label: "Imię i nazwisko",
@@ -45,7 +45,7 @@ export function Profile({ user, onChange }: Props) {
         handleChange={onChange}
         contentData={{
           placeholder: "np. jan@kowalski.pl",
-          defaultValue: user.data.email,
+          defaultValue: user.email,
           disabled: true,
           id: "email",
           type: "text",
@@ -58,7 +58,7 @@ export function Profile({ user, onChange }: Props) {
         handleChange={onChange}
         contentData={{
           placeholder: "np. Mickiewicza 4/3, Warszawa",
-          defaultValue: user.data.address,
+          defaultValue: user.address,
           id: "address",
           type: "text",
           label: "Adres zamieszkania",
@@ -71,7 +71,7 @@ export function Profile({ user, onChange }: Props) {
         handleChange={onChange}
         contentData={{
           placeholder: "np. 666111222",
-          defaultValue: user.data.msisdn,
+          defaultValue: user.msisdn,
           id: "phone",
           type: "text",
           label: "Telefon kontaktowy",

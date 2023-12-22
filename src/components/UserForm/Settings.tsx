@@ -1,6 +1,11 @@
 import React from "react";
 import * as S from "./styles";
 import { RadioInputField } from "../Form";
+import {
+  ADDRESS_PERM_OPTIONS,
+  POLICE_TYPE_OPTIONS,
+  REPORTS_CONUT_OPTIONS,
+} from "./variables";
 
 type Props = {
   addressPermSelected: string;
@@ -27,22 +32,23 @@ export function Settings({
         <RadioInputField
           handleChange={onChange}
           contentData={{
-            selected: addressPermSelected === "yes",
+            selected: addressPermSelected === ADDRESS_PERM_OPTIONS.yes,
             id: "address-permission-yes",
-            label: "Tak, ...",
+            label:
+              "Tak, chcę utrudnić sprawcy wykroczenia poznanie mojego adresu (domyślnie).",
             name: "addressPerm",
-            value: "yes",
+            value: ADDRESS_PERM_OPTIONS.yes,
           }}
         />
 
         <RadioInputField
           handleChange={onChange}
           contentData={{
-            selected: addressPermSelected === "no",
+            selected: addressPermSelected === ADDRESS_PERM_OPTIONS.no,
             id: "address-permission-no",
-            label: "Nie, ...",
+            label: "Nie, mój adres i tak łatwo znaleźć w sieci.",
             name: "addressPerm",
-            value: "no",
+            value: ADDRESS_PERM_OPTIONS.no,
           }}
         />
       </S.Options>
@@ -53,24 +59,24 @@ export function Settings({
         <RadioInputField
           handleChange={onChange}
           contentData={{
-            selected: policeTypeSelected === "municipal",
+            selected: policeTypeSelected === POLICE_TYPE_OPTIONS.sm,
             id: "send-to-minuciple-police",
             label:
               "do Straży Miejskiej/Gminnej właściwej dla miejscowości zgłoszenia (domyślnie)",
             name: "policeType",
-            value: "municipal",
+            value: POLICE_TYPE_OPTIONS.sm,
           }}
         />
 
         <RadioInputField
           handleChange={onChange}
           contentData={{
-            selected: policeTypeSelected === "police",
+            selected: policeTypeSelected === POLICE_TYPE_OPTIONS.sa,
             id: "send-to-police",
             label:
               "na komendę Policji właściwą dla województwa zgłoszenia (eksperymentalnie)",
             name: "policeType",
-            value: "police",
+            value: POLICE_TYPE_OPTIONS.sa,
           }}
         />
       </S.Options>
@@ -83,22 +89,22 @@ export function Settings({
         <RadioInputField
           handleChange={onChange}
           contentData={{
-            id: "initial-reports-count-50",
-            selected: reportsCountSelected === "50",
-            label: "50, dobre na starszych telefonach i słabej sieci",
+            id: "initial-reports-count-200",
+            selected: reportsCountSelected === REPORTS_CONUT_OPTIONS["200"],
+            label: "200 (domyślnie)",
             name: "reportsCount",
-            value: "50",
+            value: REPORTS_CONUT_OPTIONS["200"],
           }}
         />
 
         <RadioInputField
           handleChange={onChange}
           contentData={{
-            id: "initial-reports-count-200",
-            selected: reportsCountSelected === "200",
-            label: "200 (domyślnie)",
+            id: "initial-reports-count-50",
+            selected: reportsCountSelected === REPORTS_CONUT_OPTIONS["50"],
+            label: "50, dobre na starszych telefonach i słabej sieci",
             name: "reportsCount",
-            value: "200",
+            value: REPORTS_CONUT_OPTIONS["50"],
           }}
         />
       </S.Options>

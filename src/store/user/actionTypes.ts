@@ -4,4 +4,6 @@ export const USER_ACTIONS = {
   loaded: "FETCH_USER/SUCCESS",
   empty: "FETCH_USER/EMPTY",
   logout: "FETCH_USER/LOGOUT",
+  updating: "UPDATE_USER/LOADING",
+  updated: "UPDATE_USER/SUCCESS",
 };

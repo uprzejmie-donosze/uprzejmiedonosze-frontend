@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "@reach/router";
+import { Link, Redirect } from "@reach/router";
 
 import Landing from "../components/Landing";
 import { LinearLoader } from "../components/Loader";
@@ -21,9 +21,12 @@ export function Home() {
 
   if (user.isEmpty) return <Landing />;
 
+  if (!user.isEmpty && !user.profile.isRegistered)
+    return <Redirect from={ROUTES.home} to={ROUTES.userEdit} noThrow />;
+
   return (
     <Container>
-      <h1>{`Cześć ${user.profile.data.name || user.profile.data.email}!`}</h1>
+      <h1>{`Cześć ${user.profile.name || user.profile.email}!`}</h1>
 
       <RoundedLink to={ROUTES.newReport}>
         <Icon width="20px" height="20px" viewBox="0 0 92 92">

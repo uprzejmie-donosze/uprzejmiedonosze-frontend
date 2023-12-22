@@ -1,5 +1,11 @@
 import { USER_ACTIONS } from "./actionTypes";
-import { ActionType, ErrorAction, UserLoaded, UserState } from "./types";
+import {
+  ActionType,
+  ErrorAction,
+  UserLoaded,
+  UserState,
+  UserUpdated,
+} from "./types";
 
 const initialState: UserState = {
   profile: null,
@@ -7,6 +13,8 @@ const initialState: UserState = {
   error: null,
   isLoaded: false,
   isEmpty: true,
+  updated: false,
+  updating: false,
 };
 
 export function userReducer(
@@ -46,6 +54,19 @@ export function userReducer(
         isLoaded: true,
         isEmpty: true,
         error: null,
+      };
+    case USER_ACTIONS.updating:
+      return {
+        ...state,
+        updating: true,
+        updated: false,
+      };
+    case USER_ACTIONS.updated:
+      return {
+        ...state,
+        updating: false,
+        updated: true,
+        profile: { ...(action as UserUpdated).user },
       };
     default:
       return state;
