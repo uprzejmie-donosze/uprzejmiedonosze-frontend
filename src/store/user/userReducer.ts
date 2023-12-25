@@ -68,6 +68,11 @@ export function userReducer(
         updated: true,
         profile: { ...(action as UserUpdated).user },
       };
+    case USER_ACTIONS.updateFailed:
+      return {
+        ...state,
+        updating: false,
+      };
     default:
       return state;
   }

@@ -56,10 +56,15 @@ export type UserEmpty = {
   type: typeof USER_ACTIONS.empty;
 };
 
+export type UserUpdateFailed = {
+  type: typeof USER_ACTIONS.updateFailed;
+};
+
 export type ActionType =
   | ErrorAction
   | LoadingAction
   | UserLoaded
   | UserEmpty
   | UserUpdated
-  | UserUpdating;
+  | UserUpdating
+  | UserUpdateFailed;
