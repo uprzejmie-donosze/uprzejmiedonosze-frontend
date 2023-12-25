@@ -13,7 +13,6 @@ export function getUser() {
     if (firebase.auth().currentUser === null) {
       return dispatch({ type: USER_ACTIONS.empty });
     }
-
     dispatch({ type: USER_ACTIONS.loading });
 
     firebase
@@ -36,6 +35,9 @@ export function getUser() {
             // logout after fetching user profile fails
             firebase.auth().signOut();
           });
+      })
+      .catch((error) => {
+        dispatch({ type: USER_ACTIONS.error, error: error });
       });
   };
 }
@@ -61,9 +63,15 @@ export function updateUser(user: IUpdateUserBody) {
             // TODO: dispatch generic success
           })
           .catch((error: Error) => {
+            dispatch({ type: USER_ACTIONS.updateFailed });
             console.error(error);
             // TODO: dispatch generic error
           });
+      })
+      .catch((error) => {
+        dispatch({ type: USER_ACTIONS.updateFailed });
+        console.error(error);
+        // TODO: dispatch generic error
       });
   };
 }

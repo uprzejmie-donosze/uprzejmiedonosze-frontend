@@ -18,6 +18,8 @@ export const TextHint = styled.p`
 `;
 
 export const Fieldset = styled.fieldset`
+  margin: 0;
+  padding: 0;
   margin-bottom: 20px;
   border: 1px solid transparent;
 
@@ -28,10 +30,11 @@ export const Fieldset = styled.fieldset`
 `;
 
 export const Legend = styled.legend`
-  font-size: 20px;
-  font-weight: 600;
+  margin: 0;
   padding: 0;
   padding-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
 `;
 
 export const Options = styled.div`

@@ -6,41 +6,32 @@ import * as S from "./styles";
 import { updateUser } from "../../store/user";
 import { IUpdateUserBody } from "../../api/requests";
 import {
-  ADDRESS_PERM_OPTIONS,
-  DEFAULT_SETTINGS,
-  DEFAULT_USER_STATE,
-  POLICE_TYPE_OPTIONS,
+  FieldType,
+  SettingsState,
+  UserState,
+  getDefaultSettingsState,
+  getDefaultUserState,
+  isSubmitAllowed,
 } from "./variables";
 import { DottedLoader } from "../Icons";
 
-type UserField = {
-  value: string;
-  valid: boolean;
-};
-
-type FieldType = "phone" | "address" | "name";
-
-type UserState = {
-  phone: UserField;
-  address: UserField;
-  name: UserField;
-};
-
 export function UserForm() {
-  const [userState, setUserState] = useState<UserState>(DEFAULT_USER_STATE);
-  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
-  const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
   const updating = useAppSelector((state) => state.user.updating);
+  const dispatch = useAppDispatch();
 
-  const isInvalid = Object.values(userState).some(
-    (value: UserField) => !value.valid,
+  const [userState, setUserState] = useState<UserState>(
+    getDefaultUserState(profile),
   );
-  const hasDefaults = !!profile.name.length && !!profile.address;
+  const [settings, setSettings] = useState<SettingsState>(
+    getDefaultSettingsState(profile),
+  );
+
+  const isSumbitAllowed = isSubmitAllowed(userState, settings, profile);
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (isInvalid || !hasDefaults) return;
+    if (!isSumbitAllowed) return;
 
     const userData: IUpdateUserBody = {
       name: userState.name.value || profile.name,
@@ -81,29 +72,14 @@ export function UserForm() {
           {profile.isRegistered && (
             <Settings
               onChange={handleSettingsChange}
-              addressPermSelected={
-                settings.addressPerm ||
-                (profile.exposeData
-                  ? ADDRESS_PERM_OPTIONS.yes
-                  : ADDRESS_PERM_OPTIONS.no)
-              }
-              policeTypeSelected={
-                settings.policeType ||
-                (profile.stopAgresji
-                  ? POLICE_TYPE_OPTIONS.sa
-                  : POLICE_TYPE_OPTIONS.sm)
-              }
-              reportsCountSelected={
-                settings.reportsCount || String(profile.myAppsSize)
-              }
+              addressPermSelected={settings.addressPerm}
+              policeTypeSelected={settings.policeType}
+              reportsCountSelected={settings.reportsCount}
             />
           )}
         </S.FormContent>
 
-        <S.Submit
-          type="submit"
-          disabled={isInvalid || !hasDefaults || updating}
-        >
+        <S.Submit type="submit" disabled={!isSumbitAllowed || updating}>
           {updating ? <DottedLoader /> : "potwierdź"}
         </S.Submit>
       </form>

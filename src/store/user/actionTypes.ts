@@ -6,4 +6,5 @@ export const USER_ACTIONS = {
   logout: "FETCH_USER/LOGOUT",
   updating: "UPDATE_USER/LOADING",
   updated: "UPDATE_USER/SUCCESS",
+  updateFailed: "UPDATE_USER/FAILED",
 };
