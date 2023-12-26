@@ -31,7 +31,7 @@ function ErrorToast({
     <Toast data-active={!!errorMsg}>
       <div className="content">
         <div className="message">
-          <span className="title">Error</span>
+          <span className="title">Błąd!</span>
           <span className="text">{errorMsg}</span>
         </div>
       </div>
