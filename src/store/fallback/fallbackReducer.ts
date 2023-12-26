@@ -1,4 +1,4 @@
-import { FOLLBACK_ACTIONS } from "./actionTypes";
+import { FALLBACK_ACTIONS } from "./actionTypes";
 import { FollbackState } from "./types";
 
 const initialState: FollbackState = {
@@ -6,14 +6,14 @@ const initialState: FollbackState = {
   success: null,
 };
 
-export function follbackReducer(state = initialState, action: any) {
+export function fallbackReducer(state = initialState, action: any) {
   switch (action.type) {
-    case FOLLBACK_ACTIONS.error:
+    case FALLBACK_ACTIONS.error:
       return {
         ...state,
         error: action.error,
       };
-    case FOLLBACK_ACTIONS.errorClean:
+    case FALLBACK_ACTIONS.errorClean:
       return {
         ...state,
         error: null,
