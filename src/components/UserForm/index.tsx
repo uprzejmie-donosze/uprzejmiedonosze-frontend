@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "@reach/router";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
@@ -14,12 +15,13 @@ import {
   isSubmitAllowed,
 } from "./variables";
 import { DottedLoader } from "../Icons";
-import { Button, ButtonClose } from "../../styles";
+import { ROUTES } from "../../config";
 
 export function UserForm() {
   const profile = useAppSelector((state) => state.user.profile);
-  const { updating, updated } = useAppSelector((state) => state.user);
+  const updating = useAppSelector((state) => state.user.updating);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [userState, setUserState] = useState<UserState>(
     getDefaultUserState(profile),
@@ -27,7 +29,6 @@ export function UserForm() {
   const [settings, setSettings] = useState<SettingsState>(
     getDefaultSettingsState(profile),
   );
-  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
   const isSumbitAllowed = isSubmitAllowed(userState, settings, profile);
 
@@ -43,7 +44,7 @@ export function UserForm() {
       stopAgresji: settings.policeType,
       myAppsSize: Number(settings.reportsCount),
     };
-    dispatch(updateUser(userData));
+    dispatch(updateUser(userData, handleSubmitSuccess));
   }
 
   function handleUserChange({
@@ -59,22 +60,15 @@ export function UserForm() {
       ...userState,
       [name]: { value, valid },
     });
-    resetConfirmation();
   }
 
   function handleSettingsChange(name: string, value: string) {
     setSettings({ ...settings, [name]: value });
-    resetConfirmation();
   }
 
-  function resetConfirmation() {
-    if (showConfirmation) setShowConfirmation(false);
+  function handleSubmitSuccess() {
+    navigate(ROUTES.user.main, { replace: false });
   }
-
-  useEffect(() => {
-    if (updating) setShowConfirmation(false);
-    if (updated && !updating) setShowConfirmation(true);
-  }, [updated, updating]);
 
   return (
     <section>
@@ -96,15 +90,6 @@ export function UserForm() {
           {updating ? <DottedLoader /> : "potwierdź"}
         </S.Submit>
       </form>
-
-      {showConfirmation && (
-        <S.Confirmation>
-          <S.ConfirmationText>
-            Dane zaktualizowane pomyślnie!
-          </S.ConfirmationText>
-          <ButtonClose onClick={resetConfirmation} />
-        </S.Confirmation>
-      )}
     </section>
   );
 }
