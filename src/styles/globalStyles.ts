@@ -57,6 +57,7 @@ export const GlobalStyle = createGlobalStyle`
     &:disabled {
       opacity: .6;
       cursor: not-allowed;
+      transform: unset;
     }
   }
 `;

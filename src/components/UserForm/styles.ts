@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, colors } from "../../styles";
+import { Button, colors, convertHex } from "../../styles";
 import mediaMin, { breakpoints } from "../../styles/mediaQueries";
 
 export const FormContent = styled.div`
@@ -50,4 +50,28 @@ export const Submit = styled(Button)`
     margin: 0 auto;
     padding-left: 9px;
   }
+`;
+
+export const Confirmation = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  font-size: 13px;
+  border: 2px solid ${colors.secondary};
+  padding: 5px;
+  border-radius: 4px;
+  background: ${convertHex(colors.secondary, 5)};
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+
+  & > button {
+    margin-left: auto;
+  }
+`;
+
+export const ConfirmationText = styled.span`
+  display: block;
+  margin-right: 10px;
 `;
