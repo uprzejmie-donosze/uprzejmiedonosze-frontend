@@ -25,12 +25,20 @@ jobs:
         echo "${{ secrets.ENV_FILE }}" > .env
     - name: Build
       run: yarn build:prod
+    - uses: actions/upload-artifact@master
+      with:
+        name: build
+        path: ./dist
   deploy:
     if: github.ref == 'refs/heads/deploy-staging-cicd'
     runs-on: ubuntu-latest
     environment: staging
     needs: [build]
     steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build
+        path: ./dist
     - name: Deploy to staging
       uses: nogsantos/scp-deploy@master
       with:
