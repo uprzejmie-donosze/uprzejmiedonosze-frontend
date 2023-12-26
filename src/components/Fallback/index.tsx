@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import { Toast } from "./styles";
 import { cleanError } from "../../store/fallback/fallbackActions";
 
-export function Follback() {
+export function Fallback() {
   const { error } = useAppSelector((state) => state.fallback);
   const dispatch = useAppDispatch();
 
