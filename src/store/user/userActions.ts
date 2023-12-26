@@ -4,7 +4,7 @@ import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
 import { IUser } from "../../api/responses";
 import { UserProfile } from "./types";
-import { FOLLBACK_ACTIONS } from "../follback/actionTypes";
+import { FALLBACK_ACTIONS } from "../fallback/actionTypes";
 
 export function getUser() {
   return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
@@ -28,7 +28,10 @@ export function getUser() {
           .catch((error: Error) => {
             dispatch({ type: USER_ACTIONS.error, error: error });
             // TODO: fix error message
-            dispatch({ type: FOLLBACK_ACTIONS.error, error: "Failed" });
+            dispatch({
+              type: FALLBACK_ACTIONS.error,
+              error: "Failed to fetch user profile",
+            });
             // logout after fetching user profile fails
             firebase.auth().signOut();
           });
