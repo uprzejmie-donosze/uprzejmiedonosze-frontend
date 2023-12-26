@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { Toast } from "./styles";
 import { cleanError } from "../../store/follback/follbackActions";
