@@ -1,9 +1,10 @@
+import { Dispatch } from "redux";
 import { USER_ACTIONS } from "./actionTypes";
 import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
-import { Dispatch } from "redux";
 import { IUser } from "../../api/responses";
 import { UserProfile } from "./types";
+import { FOLLBACK_ACTIONS } from "../follback/actionTypes";
 
 export function getUser() {
   return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
@@ -26,6 +27,8 @@ export function getUser() {
           })
           .catch((error: Error) => {
             dispatch({ type: USER_ACTIONS.error, error: error });
+            // TODO: fix error message
+            dispatch({ type: FOLLBACK_ACTIONS.error, error: "Failed" });
             // logout after fetching user profile fails
             firebase.auth().signOut();
           });
