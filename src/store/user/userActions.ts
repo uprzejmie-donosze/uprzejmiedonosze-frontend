@@ -34,7 +34,7 @@ export function getUser() {
   };
 }
 
-export function updateUser(user: IUpdateUserBody) {
+export function updateUser(user: IUpdateUserBody, sucessAction: () => void) {
   return async (
     dispatch: Dispatch,
     _: any,
@@ -53,6 +53,7 @@ export function updateUser(user: IUpdateUserBody) {
       const normalisedUser = normaliseUserData(newUser);
 
       dispatch({ type: USER_ACTIONS.updated, user: normalisedUser });
+      sucessAction();
     } catch (error) {
       dispatch({ type: USER_ACTIONS.updateFailed });
       dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
