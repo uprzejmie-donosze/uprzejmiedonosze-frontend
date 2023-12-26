@@ -8,71 +8,55 @@ import { FALLBACK_ACTIONS } from "../fallback/actionTypes";
 import { IUpdateUserBody } from "../../api/requests";
 
 export function getUser() {
-  return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
+  return async (
+    dispatch: Dispatch,
+    _: any,
+    { getFirebase }: StoreExtraArgs,
+  ) => {
     const firebase = getFirebase();
-    if (firebase.auth().currentUser === null) {
-      return dispatch({ type: USER_ACTIONS.empty });
-    }
-    dispatch({ type: USER_ACTIONS.loading });
+    try {
+      if (firebase.auth().currentUser === null) {
+        return dispatch({ type: USER_ACTIONS.empty });
+      }
 
-    firebase
-      .auth()
-      .currentUser.getIdToken()
-      .then((token: string) => {
-        apiClient
-          .getUser(token)
-          .then((user: IUser) => {
-            const normalisedUser = normaliseUserData(user);
-            dispatch({ type: USER_ACTIONS.loaded, user: normalisedUser });
-          })
-          .catch((error: Error) => {
-            dispatch({ type: USER_ACTIONS.error, error: error });
-            // TODO: fix error message
-            dispatch({
-              type: FALLBACK_ACTIONS.error,
-              error: "Failed to fetch user profile",
-            });
-            // logout after fetching user profile fails
-            firebase.auth().signOut();
-          });
-      })
-      .catch((error) => {
-        dispatch({ type: USER_ACTIONS.error, error: error });
-      });
+      dispatch({ type: USER_ACTIONS.loading });
+
+      const token = await firebase.auth().currentUser.getIdToken();
+      const user = await apiClient.getUser(token);
+      const normalisedUser = normaliseUserData(user);
+
+      dispatch({ type: USER_ACTIONS.loaded, user: normalisedUser });
+    } catch (error) {
+      dispatch({ type: USER_ACTIONS.error, error: error.message });
+      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
+      firebase.auth().signOut();
+    }
   };
 }
 
 export function updateUser(user: IUpdateUserBody) {
-  return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
+  return async (
+    dispatch: Dispatch,
+    _: any,
+    { getFirebase }: StoreExtraArgs,
+  ) => {
     const firebase = getFirebase();
-    if (firebase.auth().currentUser === null) {
-      return dispatch({ type: USER_ACTIONS.empty });
+    try {
+      if (firebase.auth().currentUser === null) {
+        return dispatch({ type: USER_ACTIONS.empty });
+      }
+
+      dispatch({ type: USER_ACTIONS.updating });
+
+      const token = await firebase.auth().currentUser.getIdToken();
+      const newUser = await apiClient.updateUser(token, user);
+      const normalisedUser = normaliseUserData(newUser);
+
+      dispatch({ type: USER_ACTIONS.updated, user: normalisedUser });
+    } catch (error) {
+      dispatch({ type: USER_ACTIONS.updateFailed });
+      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
     }
-
-    dispatch({ type: USER_ACTIONS.updating });
-
-    firebase
-      .auth()
-      .currentUser.getIdToken()
-      .then((token: string) => {
-        apiClient
-          .updateUser(token, user)
-          .then((user: IUser) => {
-            const normalisedUser = normaliseUserData(user);
-            dispatch({ type: USER_ACTIONS.updated, user: normalisedUser });
-            // TODO: dispatch generic success
-          })
-          .catch((error: Error) => {
-            dispatch({ type: USER_ACTIONS.updateFailed });
-            console.error(error);
-            // TODO: dispatch generic error
-          });
-      })
-      .catch((error) => {
-        dispatch({ type: USER_ACTIONS.updateFailed });
-        console.error(error);
-        // TODO: dispatch generic error
-      });
   };
 }
 

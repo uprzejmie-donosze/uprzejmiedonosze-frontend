@@ -1,3 +1,7 @@
+import { ErrorResponse } from "./responses";
+
+const GENERIC_ERROR_MSG = "Błąd podczas wysyłania danych";
+
 export class HTTPClient {
   private host: string;
 
@@ -13,18 +17,18 @@ export class HTTPClient {
     });
   }
 
-  static fetchToJson(res: Response): Promise<unknown> {
-    return res.headers.get("Content-Type").includes("application/json")
+  static async fetchToJson(res: Response): Promise<unknown> {
+    return (await res.headers.get("Content-Type").includes("application/json"))
       ? res.json()
       : res.text();
   }
 
-  static handleResponse(response: Response): Promise<unknown> {
-    const jsonResponse = HTTPClient.fetchToJson(response);
+  static async handleResponse(response: Response): Promise<unknown> {
+    const jsonResponse = await HTTPClient.fetchToJson(response);
     if (response.ok) {
       return jsonResponse;
     }
-    throw new Error("Something went wrong"); // TODO: handle error
+    throw Error((jsonResponse as ErrorResponse).error || GENERIC_ERROR_MSG);
   }
 
   async makeRequest({
@@ -43,16 +47,17 @@ export class HTTPClient {
     let url = `${this.host}${path}`;
     if (params) url += `?${new URLSearchParams(params).toString()}`;
 
-    return await fetch(url, {
-      method: method,
-      headers: HTTPClient.getHeaders(token),
-      body: JSON.stringify(body),
-    })
-      .then((response) => HTTPClient.handleResponse(response))
-      .catch((e) => {
-        console.error(e);
-        throw new Error("Something went wrong");
-      }); // TODO: handle error
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: HTTPClient.getHeaders(token),
+        body: JSON.stringify(body),
+      });
+      const data = await HTTPClient.handleResponse(response);
+      return data;
+    } catch (e) {
+      throw new Error(e.message);
+    }
   }
 
   get(path: string, token: string, params: { [key: string]: string } = {}) {

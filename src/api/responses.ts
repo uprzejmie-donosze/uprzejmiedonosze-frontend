@@ -18,3 +18,7 @@ export type IUser = {
   isRegistered?: boolean;
   isTermsConfirmed?: boolean;
 };
+
+export type ErrorResponse = {
+  error?: string;
+};
