@@ -22,8 +22,8 @@ function ErrorToast({
   close: () => void;
 }) {
   useEffect(() => {
-    let timeout: NodeJS.Timeout = null;
-    if (errorMsg && !timeout) timeout = setTimeout(close, 5000);
+    if (!errorMsg) return;
+    const timeout = setTimeout(close, 5000);
     return () => timeout && clearTimeout(timeout);
   }, [errorMsg]);
 
