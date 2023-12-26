@@ -1,7 +1,7 @@
 import { FALLBACK_ACTIONS } from "./actionTypes";
-import { FollbackState } from "./types";
+import { FallbackState } from "./types";
 
-const initialState: FollbackState = {
+const initialState: FallbackState = {
   error: null,
   success: null,
 };

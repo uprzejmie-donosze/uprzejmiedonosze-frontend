@@ -6,7 +6,7 @@ import * as Page from "../pages";
 import Navbar from "./Navbar";
 import { ROUTES, useLogin } from "../config";
 import { GlobalStyle, Container } from "../styles";
-import { Follback } from "./Fallback";
+import { Fallback } from "./Fallback";
 
 type Props = { component: React.ElementType } & RouteComponentProps;
 
@@ -22,7 +22,7 @@ function App() {
   return (
     <AppContainer>
       <GlobalStyle />
-      <Follback />
+      <Fallback />
       <Navbar />
 
       <Router>
