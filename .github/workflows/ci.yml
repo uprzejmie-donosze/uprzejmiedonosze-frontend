@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "main", "deploy-staging-cicd" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
 
 jobs:
   build:
@@ -26,16 +26,17 @@ jobs:
     - name: Build
       run: yarn build:prod
   deploy:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/deploy-staging-cicd'
     runs-on: ubuntu-latest
     environment: staging
     needs: [build]
     steps:
     - name: Deploy to staging
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.ID_ED25519 }}" > ~/.ssh/id_ed25519
-        chmod 700 ~/.ssh/id_ed25519
-        ssh-keyscan -H ${{ secrets.SCP_HOST }} >> ~/.ssh/known_hosts
-        scp -i ~/.ssh/id_ed25519 -v -o StrictHostKeyChecking=no -P ${{ secrets.SCP_PORT }} -r ./dist/* github@${{ secrets.SCP_HOST }}:/var/www/staging.uprzejmiedonosze.net/new/
-
+      uses: nogsantos/scp-deploy@master
+      with:
+        src: ./dist/*
+        host: ${{ secrets.SCP_HOST }}
+        remote: /var/www/staging.uprzejmiedonosze.net/new/
+        port: ${{ secrets.SCP_PORT }}
+        user: github
+        key: ${{ secrets.ID_ED25519 }}
