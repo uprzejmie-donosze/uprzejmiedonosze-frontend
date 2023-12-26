@@ -3,7 +3,6 @@ import { FallbackState } from "./types";
 
 const initialState: FallbackState = {
   error: null,
-  success: null,
 };
 
 export function fallbackReducer(state = initialState, action: any) {
