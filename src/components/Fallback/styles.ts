@@ -11,7 +11,7 @@ const progress = keyframes`
 `;
 
 export const Toast = styled.div<{ "data-active": boolean }>`
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 10px;
   border-radius: 4px;
@@ -23,6 +23,7 @@ export const Toast = styled.div<{ "data-active": boolean }>`
   transform: ${(props) =>
     props["data-active"] ? "translateX(0)" : "translateX(calc(100% + 10px))"};
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+  z-index: 999;
 
   .content {
     display: flex;
