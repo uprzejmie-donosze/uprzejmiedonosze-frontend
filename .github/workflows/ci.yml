@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "master", "main", "deploy-staging-cicd" ]
+    branches: [ "master", "main" ]
   pull_request:
     branches: [ "master", "main" ]
 
@@ -30,7 +30,7 @@ jobs:
         name: build
         path: ./dist
   deploy:
-    if: github.ref == 'refs/heads/deploy-staging-cicd'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: staging
     needs: [build]
