@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "master", "main" ]
+    branches: [ "master", "main", "deploy-staging-cicd" ]
   pull_request:
     branches: [ "master", "main" ]
 
@@ -30,7 +30,7 @@ jobs:
         name: build
         path: ./dist
   deploy:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/deploy-staging-cicd'
     runs-on: ubuntu-latest
     environment: staging
     needs: [build]
@@ -44,7 +44,7 @@ jobs:
       with:
         src: ./dist/*
         host: ${{ secrets.SCP_HOST }}
-        remote: /var/www/staging.uprzejmiedonosze.net/new/
+        remote: /var/www/new.uprzejmiedonosze.net/
         port: ${{ secrets.SCP_PORT }}
         user: github
         key: ${{ secrets.ID_ED25519 }}
