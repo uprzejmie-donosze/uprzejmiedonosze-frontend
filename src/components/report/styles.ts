@@ -22,15 +22,15 @@ export const Category = styled.figure`
   display: flex;
   flex-irection: row;
   align-items: flex-start;
-  margin: 0,
-`
+  margin: 0;
+`;
 export const CategoryImage = styled.img`
   width: 50px;
   height: 50px;
   background: ${colors.secondary};
   margin-right: 10px;
-`
+`;
 export const CategoryInfo = styled.figcaption`
   display: flex;
   flex-direction: column;
-`
+`;
