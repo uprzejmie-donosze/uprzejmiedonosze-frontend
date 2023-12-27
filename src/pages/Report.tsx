@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import FormNew from "../components/report/FormNew";
 import FormConfirm from "../components/report/FormConfirm";
 
-import { Container, colors } from "../styles";
+import { Button, Container, colors } from "../styles";
 import { withAuth } from "../config";
 
 const STAGES = {
@@ -83,12 +83,8 @@ function ReportPage() {
           background: "white",
         }}
       >
-        <button style={{ background: "white" }} onClick={handlePrev}>
-          back
-        </button>
-        <button style={{ background: "white" }} onClick={handleNext}>
-          next
-        </button>
+        <Button onClick={handlePrev}>poprzedni</Button>
+        <Button onClick={handleNext}>następny</Button>
       </div>
     </Container>
   );

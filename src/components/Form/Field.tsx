@@ -4,7 +4,7 @@ import * as S from "./styles";
 
 type Props = {
   id: string;
-  label: string;
+  label: string | ReactNode;
   children: ReactNode;
   meta: {
     error: string | null;
