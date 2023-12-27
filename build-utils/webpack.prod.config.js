@@ -9,7 +9,7 @@ const config = {
     })
   ],
   output: {
-    publicPath: '/new'
+    publicPath: '/'
   },
   optimization: {
     minimize: true,
