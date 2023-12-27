@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 import { RadioInput } from "./Input";
 
@@ -6,7 +6,7 @@ type Props = {
   handleChange: (name: string, value: string) => void;
   contentData: {
     id: string;
-    label: string;
+    label: string | ReactNode;
     name: string;
     disabled?: boolean;
     selected: boolean;

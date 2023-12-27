@@ -55,7 +55,7 @@ export function Input({
 
 type RadioInputProps = {
   id: string;
-  label: string;
+  label: string | ReactNode;
   input: {
     onChange: (e: InputEvent) => void;
     selected: boolean;
