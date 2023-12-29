@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocalStorage } from "react-use";
+
 import { InputField } from "../Form";
 import { stringRequired } from "../Form/validation";
 import { Images } from "./components/Images";
 import { Location } from "./components/Location";
 import * as S from "./styles";
 import { Categories } from "./components/Categories";
-import { useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { getReport, newReport } from "../../store/report/reportActions";
 
 function FormNew() {
   const datetime = useAppSelector((state) => state.report.datetime.value);
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useLocalStorage<string>("app-id");
+
+  useEffect(() => {
+    if (!!value) {
+      dispatch(getReport(value));
+      return;
+    }
+    dispatch(newReport(setValue));
+  }, []);
+
   return (
     <form>
       <Images />
