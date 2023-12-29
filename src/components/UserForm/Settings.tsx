@@ -83,7 +83,7 @@ export function Settings({
 
       <S.Options>
         <S.TextHint>
-          Liczba zgłoszeń ładowana na start w "Zgłoszenia"
+          Liczba zgłoszeń ładowana na start w &quot;Zgłoszenia&quot;
         </S.TextHint>
 
         <RadioInputField

@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import { colors, convertHex, flowBottom, flowTop, rotate } from "../../styles";
+import styled from "styled-components";
+import { colors, flowBottom, flowTop, rotate } from "../../styles";
 
 export const LinearLoader = styled.div`
   overflow: hidden;
