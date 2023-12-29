@@ -16,4 +16,14 @@ export class APIClient {
   updateUser(token: string, user: IUpdateUserBody): Promise<IUser> {
     return this.httpClient.post("user", token, user) as Promise<IUser>;
   }
+
+  // TODO;
+  sendImage(
+    token: string,
+    image: any,
+    id: string,
+    metadata?: any,
+  ): Promise<unknown> {
+    return Promise.resolve({});
+  }
 }
