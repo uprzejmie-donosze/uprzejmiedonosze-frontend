@@ -61,6 +61,27 @@ export function updateUser(user: IUpdateUserBody, successAction: () => void) {
   };
 }
 
+export function confirmTermsOfUse() {
+  return async (
+    dispatch: Dispatch,
+    _: any,
+    { getFirebase }: StoreExtraArgs,
+  ) => {
+    const firebase = getFirebase();
+    try {
+      if (firebase.auth().currentUser === null) return;
+      dispatch({ type: USER_ACTIONS.updating });
+      const token = await firebase.auth().currentUser.getIdToken();
+      const newUser = await apiClient.confirmTermsOfUse(token);
+      const normalisedUser = normaliseUserData(newUser);
+      dispatch({ type: USER_ACTIONS.updated, user: normalisedUser });
+    } catch (error) {
+      dispatch({ type: USER_ACTIONS.updateFailed });
+      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
+    }
+  };
+}
+
 function normaliseUserData(user: IUser): UserProfile {
   const profile: UserProfile = {
     name: user.data.name || "",
