@@ -7,7 +7,6 @@ import Navbar from "./Navbar";
 import { ROUTES, useLogin } from "../config";
 import { GlobalStyle, Container } from "../styles";
 import { Fallback } from "./Fallback";
-import { GoogleMapsScript } from "../config/googleMapsConfig";
 
 type Props = { component: React.ElementType } & RouteComponentProps;
 
@@ -22,7 +21,6 @@ function App() {
 
   return (
     <AppContainer>
-      <GoogleMapsScript />
       <GlobalStyle />
       <Fallback />
       <Navbar />
