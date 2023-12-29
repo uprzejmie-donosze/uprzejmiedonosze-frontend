@@ -1,4 +1,5 @@
 export const REPORT_ACTIONS = {
+  new: "REPORT/NEW",
   clean: "REPORT/CLEAN",
   imageLoading: "REPORT/IMAGE_LOADING",
   imageError: "REPORT/IMAGE_ERROR",

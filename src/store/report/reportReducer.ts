@@ -2,6 +2,7 @@ import { REPORT_ACTIONS } from "./actionTypes";
 import { ReportState } from "./types";
 
 const initialState: ReportState = {
+  id: null,
   disabled: false,
   carImage: {
     loaded: false,
@@ -30,6 +31,11 @@ export function reportReducer(
   action: { type: string; payload: any },
 ) {
   switch (action.type) {
+    case REPORT_ACTIONS.new:
+      return {
+        ...state,
+        id: action.payload.id,
+      };
     case REPORT_ACTIONS.clean:
       return {
         ...initialState,

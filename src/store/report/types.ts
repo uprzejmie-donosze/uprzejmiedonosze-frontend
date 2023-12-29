@@ -1,4 +1,5 @@
 export type ReportState = {
+  id: string | null;
   disabled: boolean;
   carImage: ImageData;
   contextImage: ImageData;

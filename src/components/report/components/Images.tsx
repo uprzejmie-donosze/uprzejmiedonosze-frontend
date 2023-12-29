@@ -9,11 +9,12 @@ export function Images() {
   const form = useAppSelector((state) => state.report);
 
   function handleUpload(e: React.ChangeEvent<HTMLInputElement>, id: string) {
-    dispatch(uploadImage(e.target.files[0], id));
+    dispatch(uploadImage(e.target.files[0], form.id, id));
     if (e.target.files.length > 1) {
       dispatch(
         uploadImage(
           e.target.files[1],
+          form.id,
           e.target.id === "carImage" ? "contextImage" : "carImage",
         ),
       );
@@ -22,24 +23,6 @@ export function Images() {
 
   return (
     <FormRow>
-      <div style={{ padding: "1rem 0" }}>
-        <label htmlFor="carImage">
-          Wgraj zdjęcie z widoczną tablicą rejestracyjną
-        </label>
-        <input
-          disabled={form.disabled}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleUpload(e, "carImage")
-          }
-          id="carImage"
-          type="file"
-          accept="image/jpeg, image/png, image/heic"
-          multiple
-        />
-        {form.carImage.value && <img src={form.carImage.value} />}
-        {form.carImage.loading && <DottedLoader />}
-      </div>
-
       <div>
         <label htmlFor="contextImage">
           Wgraj zdjęcie z widocznym wykroczeniem
@@ -56,6 +39,24 @@ export function Images() {
         />
         {form.contextImage.value && <img src={form.contextImage.value} />}
         {form.contextImage.loading && <DottedLoader />}
+      </div>
+
+      <div style={{ padding: "1rem 0" }}>
+        <label htmlFor="carImage">
+          Wgraj zdjęcie z widoczną tablicą rejestracyjną
+        </label>
+        <input
+          disabled={form.disabled}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleUpload(e, "carImage")
+          }
+          id="carImage"
+          type="file"
+          accept="image/jpeg, image/png, image/heic"
+          multiple
+        />
+        {form.carImage.value && <img src={form.carImage.value} />}
+        {form.carImage.loading && <DottedLoader />}
       </div>
     </FormRow>
   );
