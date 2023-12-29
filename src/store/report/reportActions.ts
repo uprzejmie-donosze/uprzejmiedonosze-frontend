@@ -93,8 +93,8 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
         }
 
         if (
-          !!imageMeta.location.lat.length &&
-          !!imageMeta.location.lng.length
+          !!imageMeta.location.lat?.length &&
+          !!imageMeta.location.lng?.length
         ) {
           imageMetadata.latLng = `${imageMeta.location.lat},${imageMeta.location.lng}`;
           // TODO: get address from image
@@ -123,7 +123,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
       });
     } catch (error) {
       // TODO: add Sentry
-      console.error(error);
+      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
       dispatch({
         type: REPORT_ACTIONS.imageError,
         payload: {

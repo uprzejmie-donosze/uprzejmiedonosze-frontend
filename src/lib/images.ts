@@ -4,8 +4,8 @@ import { getDateTime } from "./datetime";
 
 type Medatata = {
   location: {
-    lat: string;
-    lng: string;
+    lat: string | null;
+    lng: string | null;
   };
   dateTime: string | null;
 };
@@ -20,7 +20,7 @@ export async function getMedatataFromImage(file: any): Promise<Medatata> {
   const dateTime = getDateTimeFromExif(exif);
 
   return {
-    location: { lat, lng },
+    location: { lat: lat, lng: lng },
     dateTime: getDateTime(dateTime),
   };
 }
@@ -71,7 +71,7 @@ export async function resizeImage(file: Blob) {
   });
 }
 
-function readGeoDataFromExif(exif: ExifReader.Tags) {
+function readGeoDataFromExif(exif: ExifReader.Tags): any[] {
   const lat = exif?.GPSLatitude?.description;
   const lng = exif?.GPSLongitude?.description;
   return [lat, lng];

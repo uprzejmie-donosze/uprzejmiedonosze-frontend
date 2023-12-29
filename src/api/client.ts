@@ -31,11 +31,11 @@ export class APIClient {
       latLng?: string;
     },
   ): Promise<NewReport> {
-    const params: any = { pictureType: pictureType, ...metadata, image: image };
+    const body = { [pictureType]: image, ...metadata };
     return this.httpClient.post(
       `app/${id}/image`,
       token,
-      params,
+      body,
     ) as Promise<NewReport>;
   }
 
