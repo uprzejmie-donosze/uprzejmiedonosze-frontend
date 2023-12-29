@@ -22,3 +22,7 @@ export type IUser = {
 export type ErrorResponse = {
   error?: string;
 };
+
+export type NewReport = {
+  id: string;
+};
