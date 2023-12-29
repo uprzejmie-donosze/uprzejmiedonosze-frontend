@@ -5,8 +5,10 @@ import { Images } from "./components/Images";
 import { Location } from "./components/Location";
 import * as S from "./styles";
 import { Categories } from "./components/Categories";
+import { useAppSelector } from "../../store";
 
 function FormNew() {
+  const datetime = useAppSelector((state) => state.report.datetime.value);
   return (
     <form>
       <Images />
@@ -26,6 +28,7 @@ function FormNew() {
         <InputField
           handleChange={() => console.log("hello")}
           contentData={{
+            defaultValue: datetime,
             id: "datetime",
             type: "datetime-local",
             label: "Data i czas zgłoszenia",
