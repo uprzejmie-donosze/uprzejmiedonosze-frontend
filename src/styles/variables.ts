@@ -3,12 +3,13 @@ import { keyframes } from "styled-components";
 export const colors: { [key: string]: string } = {
   primary: "#009C7F",
   secondary: "#9C7F00",
-  background: "#F0F0F0",
+  background: "#f9f9f9",
   text: "#333",
   textLight: "#a1a1a1",
   white: "#FFF",
   error: "#ff4e42",
   border: "#d1d1d1",
+  placeholder: "#eee",
 };
 
 export const rotate = keyframes`
@@ -19,17 +20,17 @@ export const rotate = keyframes`
 export const containerGutter = "1rem";
 export const radius = "5px";
 export const headerHeight = "50px";
-export const inputSize = 35;
+export const inputSize = 45;
 
 export const inputStyles = `
   width: 100%;
   height: ${`${inputSize}px`};
-  padding: .5rem;
+  padding: 10px;
   color: ${colors.text};
-  font-size: .8rem;
+  font-size: 14px;
   line-height: 1.2;
   background: ${colors.background};
-  border: 1px solid ${colors.border};
+  border: 2px solid ${colors.border};
   border-radius: 3px;
   outline: transparent;
   transition: all .3s ease-in-out;

@@ -27,7 +27,7 @@ export const FieldFlex = styled(Field)`
 export const FieldHeader = styled.div<{ type: string }>`
   display: flex;
   flex-direction: column;
-  font-size: 0.8rem;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 0.3rem;
 
@@ -47,7 +47,7 @@ export const FieldHeader = styled.div<{ type: string }>`
 
 export const FieldError = styled.span`
   color: ${colors.error};
-  font-size: 0.75rem;
+  font-size: 14px;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
@@ -61,7 +61,7 @@ export const FieldErrorFixed = styled(FieldError)`
 `;
 
 export const FieldLabel = styled.label`
-  font-size: 0.85rem;
+  font-size: 14px;
   font-weight: 600;
   color: ${colors.text};
   letter-spacing: 0.4px;
