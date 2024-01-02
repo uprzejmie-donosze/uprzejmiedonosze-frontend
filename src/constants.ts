@@ -5,3 +5,6 @@ export const REPORT_DATA_SOURCE = {
   user: "user",
   picture: "picture",
 };
+
+// TODO: add env variable
+export const IMAGE_HOST = "https://staging.uprzejmiedonosze.net/";
