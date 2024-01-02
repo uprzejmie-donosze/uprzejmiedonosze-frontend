@@ -1,6 +1,7 @@
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
@@ -23,7 +24,13 @@ const config = {
       { test: /\.jsx?$/, use:[{loader: 'babel-loader'}], exclude: /node_modules/ },
       {
         test: /\.(png|jpe?g|eot|svg|ttf|woff|woff2)/,
-        use: [{loader: 'file-loader?name=assets/[name].[ext]'}]
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: '/assets/images/',
+            name: '[name].[ext]'
+          }
+        }]
       },
       {
         test: /\.tsx?$/,
@@ -36,6 +43,12 @@ const config = {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: 'src/assets',
+        to: 'assets'
+      }]
+    }),
     new webpack.ProgressPlugin(),
     HtmlWebpackPluginConfig,
     new Dotenv({
