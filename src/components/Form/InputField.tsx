@@ -56,7 +56,7 @@ export function InputField({ handleChange, contentData }: Props) {
   }
 
   const inputData = { onChange: handleInputChange, value, disabled };
-  const meta = { touched, valid: !!value && !error, error: error };
+  const meta = { touched, valid: ((!!value || !!defaultValue) && !error), error: error };
   return (
     <Input
       input={inputData}

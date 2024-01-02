@@ -45,7 +45,7 @@ export function Input({
         {...meta}
         onChange={input.onChange}
         disabled={input.disabled || false}
-        isValid={meta.touched && meta.valid}
+        isValid={meta.valid}
         hasIcon={!!children}
       />
       {children}
