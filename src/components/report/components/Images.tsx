@@ -30,6 +30,8 @@ export function Images() {
   );
 
   function handleUpload(e: React.ChangeEvent<HTMLInputElement>, id: string) {
+    if (!e.target.files?.length) return;
+
     dispatch(uploadImage(e.target.files[0], appId, id));
     if (e.target.files.length > 1) {
       const imageID =
