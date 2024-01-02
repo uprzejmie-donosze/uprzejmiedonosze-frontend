@@ -8,12 +8,13 @@ import {
 import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
 import { FALLBACK_ACTIONS } from "../fallback/actionTypes";
+import { REPORT_CAR_IMAGE_NAME, REPORT_DATA_SOURCE } from "../../constants";
 
 export function clean() {
   return { type: REPORT_ACTIONS.clean };
 }
 
-export function getReport(id: string) {
+export function getOrCreateReport(id: string, handleMissingReport: () => void) {
   return async (
     dispatch: Dispatch,
     _: any,
@@ -24,15 +25,18 @@ export function getReport(id: string) {
       if (firebase.auth().currentUser === null) return;
       const token = await firebase.auth().currentUser.getIdToken();
       const data = await apiClient.getReport(token, id);
-      dispatch({ type: REPORT_ACTIONS.new, payload: { id: data.id } }); // TODO: update all data
+      dispatch({ type: REPORT_ACTIONS.new, payload: { id: data.id, data } });
     } catch (error) {
-      // TODO: if 404 create new;
+      if (error.status === 404) {
+        handleMissingReport();
+        return;
+      }
       dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
     }
   };
 }
 
-export function newReport(action: (id: string) => void) {
+export function createReport(action: (id: string) => void) {
   return async (
     dispatch: Dispatch,
     _: any,
@@ -43,7 +47,7 @@ export function newReport(action: (id: string) => void) {
       if (firebase.auth().currentUser === null) return;
       const token = await firebase.auth().currentUser.getIdToken();
       const data = await apiClient.createReport(token);
-      dispatch({ type: REPORT_ACTIONS.new, payload: { id: data.id } });
+      dispatch({ type: REPORT_ACTIONS.new, payload: { id: data.id, data } });
       action(data.id);
     } catch (error) {
       dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
@@ -81,14 +85,17 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
 
       const imageMetadata: any = {};
 
-      if (inputID === "carImage") {
+      if (inputID === REPORT_CAR_IMAGE_NAME) {
         const imageMeta = await getMedatataFromImage(file);
         if (imageMeta.dateTime) {
           imageMetadata.dateTime = imageMeta.dateTime;
 
           dispatch({
             type: REPORT_ACTIONS.setDatetime,
-            payload: { value: imageMeta.dateTime, source: "picture" },
+            payload: {
+              value: imageMeta.dateTime,
+              source: REPORT_DATA_SOURCE.picture,
+            },
           });
         }
 
@@ -100,7 +107,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
           // TODO: get address from image
           dispatch({
             type: REPORT_ACTIONS.setAddress,
-            payload: { value: "location", source: "picture" },
+            payload: { value: "location", source: REPORT_DATA_SOURCE.picture },
           });
         }
       }

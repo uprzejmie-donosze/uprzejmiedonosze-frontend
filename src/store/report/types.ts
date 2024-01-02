@@ -1,3 +1,5 @@
+import { NewReport } from "../../api/responses";
+
 export type ReportState = {
   id: string | null;
   disabled: boolean;
@@ -11,6 +13,7 @@ export type ReportState = {
     value: string | null;
     source: string | null;
   };
+  appData: NewReport | null;
 };
 
 export type ImageData = {

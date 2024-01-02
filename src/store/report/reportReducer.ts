@@ -24,6 +24,7 @@ const initialState: ReportState = {
     value: null,
     source: null,
   },
+  appData: null,
 };
 
 export function reportReducer(
@@ -35,6 +36,7 @@ export function reportReducer(
       return {
         ...state,
         id: action.payload.id,
+        appData: { ...action.payload.data },
       };
     case REPORT_ACTIONS.clean:
       return {
@@ -44,6 +46,7 @@ export function reportReducer(
       return {
         ...state,
         disabled: true,
+        appData: { ...action.payload.data },
         [action.payload.imageID]: {
           loading: true,
           loaded: false,

@@ -1,5 +1,5 @@
 import React from "react";
-import { FormRow } from "../styles";
+import { FormColumn, FormRow } from "../styles";
 import { uploadImage } from "../../../store/report/reportActions";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import {
@@ -35,12 +35,12 @@ export function Images() {
 
   return (
     <FormRow>
-      <div>
+      <FormColumn>
         <ImageDescription>
           Wgraj zdjęcie z widocznym wykroczeniem
         </ImageDescription>
 
-        <ImageContainer>
+        <ImageContainer valid={!!form.appData?.contextImage?.thumb}>
           <ImageLabel htmlFor={REPORT_CONTEXT_IMAGE_NAME}>
             <ImageInput
               disabled={form.disabled}
@@ -74,14 +74,14 @@ export function Images() {
             )}
           </ImageLabel>
         </ImageContainer>
-      </div>
+      </FormColumn>
 
-      <div>
+      <FormColumn>
         <ImageDescription>
           Wgraj zdjęcie z widoczną tablicą rejestracyjną
         </ImageDescription>
 
-        <ImageContainer>
+        <ImageContainer valid={!!form.appData?.carImage?.thumb}>
           <ImageLabel htmlFor={REPORT_CAR_IMAGE_NAME}>
             <ImageInput
               disabled={form.disabled}
@@ -113,7 +113,7 @@ export function Images() {
             </Loader>
           )}
         </ImageContainer>
-      </div>
+      </FormColumn>
     </FormRow>
   );
 }

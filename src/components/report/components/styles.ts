@@ -1,19 +1,31 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { colors, radius } from "../../../styles";
 
-export const FormContainer = styled.div`
-  padding-top: 15px;
-  padding-bottom: 50px;
-`;
-
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.div<{ valid: boolean }>`
   position: relative;
   background: ${colors.placeholder};
   height: 0;
   padding-top: 50%;
   overflow: hidden;
   border-radius: ${radius};
-  border: 2px solid ${colors.border};
+  border: 2px solid ${(props) => (props.valid ? colors.primary : colors.border)};
+
+  ${(props) =>
+    props.valid &&
+    css`
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        left: 0;
+        background-color: ${colors.primary};
+        z-index: 1;
+        opacity: 0.1;
+        pointer-events: none;
+      }
+    `}
 `;
 
 export const ImageLabel = styled.label`
