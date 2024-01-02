@@ -5,57 +5,66 @@ import { InputField } from "../Form";
 import { stringRequired } from "../Form/validation";
 import { Images } from "./components/Images";
 import { Location } from "./components/Location";
-import * as S from "./styles";
 import { Categories } from "./components/Categories";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { getReport, newReport } from "../../store/report/reportActions";
+import { createReport, getOrCreateReport } from "../../store/report";
+import { FormContainer } from "./components/styles";
+import * as S from "./styles";
+
+const NEW_FORM_ID = "app-id";
 
 function FormNew() {
   const datetime = useAppSelector((state) => state.report.datetime.value);
   const dispatch = useAppDispatch();
-  const [value, setValue] = useLocalStorage<string>("app-id");
+  const [value, setValue] = useLocalStorage<string>(NEW_FORM_ID);
 
   useEffect(() => {
     if (!!value) {
-      dispatch(getReport(value));
+      dispatch(getOrCreateReport(value, registerNewReport));
       return;
     }
-    dispatch(newReport(setValue));
+    registerNewReport();
   }, []);
 
+  function registerNewReport() {
+    dispatch(createReport(setValue));
+  }
+
   return (
-    <form>
-      <Images />
+    <FormContainer>
+      <form>
+        <Images />
 
-      <S.FormRow>
-        <InputField
-          handleChange={() => console.log("hello")}
-          contentData={{
-            placeholder: "numer rejestracyjny",
-            id: "carPlate",
-            type: "text",
-            label: "Podaj numer rejestracyjny",
-            name: "carPlate",
-            validate: stringRequired,
-          }}
-        />
-        <InputField
-          handleChange={() => console.log("hello")}
-          contentData={{
-            defaultValue: datetime,
-            id: "datetime",
-            type: "datetime-local",
-            label: "Data i czas zgłoszenia",
-            name: "datetime",
-            validate: stringRequired,
-          }}
-        />
-      </S.FormRow>
+        <S.FormRow>
+          <InputField
+            handleChange={() => console.log("hello")}
+            contentData={{
+              placeholder: "numer rejestracyjny",
+              id: "carPlate",
+              type: "text",
+              label: "Podaj numer rejestracyjny",
+              name: "carPlate",
+              validate: stringRequired,
+            }}
+          />
+          <InputField
+            handleChange={() => console.log("hello")}
+            contentData={{
+              defaultValue: datetime,
+              id: "datetime",
+              type: "datetime-local",
+              label: "Data i czas zgłoszenia",
+              name: "datetime",
+              validate: stringRequired,
+            }}
+          />
+        </S.FormRow>
 
-      <Location />
+        <Location />
 
-      <Categories />
-    </form>
+        <Categories />
+      </form>
+    </FormContainer>
   );
 }
 

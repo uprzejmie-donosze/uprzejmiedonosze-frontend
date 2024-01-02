@@ -1,9 +1,10 @@
 import React, { ReactElement } from "react";
-import { RadioInputField } from "../../Form";
 import { Link } from "@reach/router";
+import { RadioInputField } from "../../Form";
 import { ROUTES } from "../../../config";
 import * as S from "./../styles";
 
+// TODO: add all categories, handle selection
 export function Categories() {
   return (
     <div>
