@@ -9,12 +9,14 @@ import { createReport, getOrCreateReport } from "../../store/report";
 import { Datetime } from "./components/Datetime";
 import { CarPlates } from "./components/CarePlates";
 import * as S from "./styles";
+import { LinearLoader } from "../Loader";
 
 const NEW_FORM_ID = "app-id";
 
 function FormNew() {
   const dispatch = useAppDispatch();
-  const formDate = useAppSelector((state) => state.report.appData?.added || "");
+  const { loaded, loading, added, carImageThumb, contextImageThumb } =
+    useAppSelector((state) => state.report.app);
   const [value, setValue] = useLocalStorage<string>(NEW_FORM_ID);
 
   useEffect(() => {
@@ -29,15 +31,25 @@ function FormNew() {
     dispatch(createReport(setValue));
   }
 
+  if (loading) {
+    return <LinearLoader />;
+  }
+
+  if (!loaded) {
+    return <>Problem z załadowaniem formularza</>;
+  }
+
+  const showEditInfo = !!carImageThumb || !!contextImageThumb;
+
   return (
     <S.FormContainer>
-      {!!value && (
+      {showEditInfo && (
         <S.FormInfo>
           <p>Edycja zgłoszenia</p>
           <span>
-            {`Edytujesz zgłoszenie powstałe ${DateTime.fromISO(
-              formDate,
-            ).toFormat("yyyy-LL-dd'T'HH:mm")}.
+            {`Edytujesz zgłoszenie powstałe ${DateTime.fromISO(added).toFormat(
+              "yyyy-LL-dd'T'HH:mm",
+            )}.
             Jeśli chcesz zacząć od nowa`}
             &nbsp;
           </span>

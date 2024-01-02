@@ -24,6 +24,8 @@ export type ErrorResponse = {
 };
 
 export type NewReport = {
+  loaded: boolean;
+  loading: boolean;
   date: string | null;
   id: string;
   added: string | null;

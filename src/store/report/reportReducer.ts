@@ -1,8 +1,8 @@
-import { REPORT_ACTIONS } from "./actionTypes";
-import { ReportState } from "./types";
+import { combineReducers } from "redux";
+import { REPORT_APP_ACTIONS, REPORT_FORM_ACTIONS } from "./actionTypes";
+import { ReportAppState, ReportFormState } from "./types";
 
-const initialState: ReportState = {
-  id: null,
+const formState: ReportFormState = {
   disabled: false,
   carImage: {
     loaded: false,
@@ -24,29 +24,32 @@ const initialState: ReportState = {
     value: null,
     source: null,
   },
-  appData: null,
 };
 
-export function reportReducer(
-  state = initialState,
+const appState: ReportAppState = {
+  loaded: false,
+  loading: false,
+  id: null,
+  date: null,
+  added: null,
+  status: null,
+  carImageThumb: null,
+  contextImageThumb: null,
+};
+
+function formReducer(
+  state = formState,
   action: { type: string; payload: any },
 ) {
   switch (action.type) {
-    case REPORT_ACTIONS.new:
+    case REPORT_FORM_ACTIONS.clean:
       return {
-        ...state,
-        id: action.payload.id,
-        appData: { ...action.payload.data },
+        ...formState,
       };
-    case REPORT_ACTIONS.clean:
-      return {
-        ...initialState,
-      };
-    case REPORT_ACTIONS.imageLoading:
+    case REPORT_FORM_ACTIONS.imageLoading:
       return {
         ...state,
         disabled: true,
-        appData: { ...action.payload.data },
         [action.payload.imageID]: {
           loading: true,
           loaded: false,
@@ -54,7 +57,7 @@ export function reportReducer(
           error: null,
         },
       };
-    case REPORT_ACTIONS.imageError:
+    case REPORT_FORM_ACTIONS.imageError:
       return {
         ...state,
         disabled: false,
@@ -65,7 +68,7 @@ export function reportReducer(
           error: action.payload.imageError,
         },
       };
-    case REPORT_ACTIONS.imageResized:
+    case REPORT_FORM_ACTIONS.imageResized:
       return {
         ...state,
         disabled: false,
@@ -76,7 +79,7 @@ export function reportReducer(
           error: null,
         },
       };
-    case REPORT_ACTIONS.imageLoaded:
+    case REPORT_FORM_ACTIONS.imageLoaded:
       return {
         ...state,
         disabled: false,
@@ -87,7 +90,7 @@ export function reportReducer(
           error: null,
         },
       };
-    case REPORT_ACTIONS.setDatetime:
+    case REPORT_FORM_ACTIONS.setDatetime:
       return {
         ...state,
         datetime: {
@@ -96,6 +99,36 @@ export function reportReducer(
         },
       };
     default:
-      return state || initialState;
+      return state || formState;
   }
 }
+
+function appReducer(state = appState, action: { type: string; payload: any }) {
+  switch (action.type) {
+    case REPORT_APP_ACTIONS.loading:
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      };
+    case REPORT_APP_ACTIONS.loaded:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        id: action.payload.data.id,
+        added: action.payload.data.added,
+        date: action.payload.data.date,
+        carImageThumb: action.payload.data.carImage?.thumb,
+        contextImageThumb: action.payload.data.contextImage?.thumb,
+        status: action.payload.data.status,
+      };
+    default:
+      return state || appState;
+  }
+}
+
+export const reportReducer = combineReducers({
+  app: appReducer,
+  form: formReducer,
+});

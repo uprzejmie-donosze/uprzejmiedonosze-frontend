@@ -6,11 +6,9 @@ import { FormColumn } from "../styles";
 
 export function Datetime() {
   const datetimeFromImage = useAppSelector(
-    (state) => state.report.datetime.value,
+    (state) => state.report.form.datetime.value,
   );
-  const datetimeFromReport = useAppSelector(
-    (state) => state.report.appData?.date,
-  );
+  const datetimeFromReport = useAppSelector((state) => state.report.app.date);
 
   return (
     <FormColumn>
