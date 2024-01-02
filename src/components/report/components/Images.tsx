@@ -2,8 +2,8 @@ import React from "react";
 import { FormRow } from "../styles";
 import { uploadImage } from "../../../store/report/reportActions";
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { DottedLoader } from "../../Icons";
 import {
+  IMAGE_HOST,
   REPORT_CAR_IMAGE_NAME,
   REPORT_CONTEXT_IMAGE_NAME,
 } from "../../../constants";
@@ -59,7 +59,8 @@ export function Images() {
               <ImagePreview
                 loading={form.contextImage.loading}
                 src={
-                  form.contextImage.value || form.appData?.contextImage?.thumb
+                  form.contextImage.value ||
+                  `${IMAGE_HOST}${form.appData?.contextImage?.thumb}`
                 }
               />
             ) : (
@@ -96,7 +97,10 @@ export function Images() {
             {form.carImage.value || form.appData?.carImage?.thumb ? (
               <ImagePreview
                 loading={form.carImage.loading}
-                src={form.carImage.value || form.appData?.carImage?.thumb}
+                src={
+                  form.carImage.value ||
+                  `${IMAGE_HOST}${form.appData?.carImage?.thumb}`
+                }
               />
             ) : (
               <ImagePlaceholder src="assets/images/car_image.png" />
