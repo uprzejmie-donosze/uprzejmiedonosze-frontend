@@ -31,7 +31,7 @@ export const inputStyles = `
   line-height: 1.2;
   background: ${colors.background};
   border: 2px solid ${colors.border};
-  border-radius: 3px;
+  border-radius: ${radius};
   outline: transparent;
   transition: all .3s ease-in-out;
 

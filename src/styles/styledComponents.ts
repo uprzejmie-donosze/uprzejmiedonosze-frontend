@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { APP_WIDTH_LARGE, APP_WIDTH_SMALL, colors } from "./variables";
+import { APP_WIDTH_LARGE, APP_WIDTH_SMALL, colors, radius } from "./variables";
 import mediaMin, { breakpoints, mediaMax } from "./mediaQueries";
 
 export const SIDEBAR_WIDTH_LG = "300px";
@@ -33,7 +33,7 @@ export const Button = styled.button`
   font-weight: 600;
   letter-spacing: 0.7px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: ${radius};
   outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
