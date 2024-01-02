@@ -2,6 +2,14 @@ import { ErrorResponse } from "./responses";
 
 const GENERIC_ERROR_MSG = "Błąd podczas wysyłania danych";
 
+class HTTPError extends Error {
+  status: number;
+  constructor(msg: string, status: number) {
+    super(msg);
+    this.status = status;
+  }
+}
+
 export class HTTPClient {
   private host: string;
 
@@ -28,7 +36,10 @@ export class HTTPClient {
     if (response.ok) {
       return jsonResponse;
     }
-    throw Error((jsonResponse as ErrorResponse).error || GENERIC_ERROR_MSG);
+    throw new HTTPError(
+      (jsonResponse as ErrorResponse).error || GENERIC_ERROR_MSG,
+      response.status,
+    );
   }
 
   async makeRequest({
@@ -56,7 +67,8 @@ export class HTTPClient {
       const data = await HTTPClient.handleResponse(response);
       return data;
     } catch (e) {
-      throw new Error(e.message);
+      const err = e as HTTPError;
+      throw new HTTPError(err.message, err.status);
     }
   }
 
