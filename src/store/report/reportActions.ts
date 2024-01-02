@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { REPORT_ACTIONS } from "./actionTypes";
+import { REPORT_APP_ACTIONS, REPORT_FORM_ACTIONS } from "./actionTypes";
 import {
   getMedatataFromImage,
   invalidImageType,
@@ -11,7 +11,7 @@ import { FALLBACK_ACTIONS } from "../fallback/actionTypes";
 import { REPORT_CAR_IMAGE_NAME, REPORT_DATA_SOURCE } from "../../constants";
 
 export function clean() {
-  return { type: REPORT_ACTIONS.clean };
+  return { type: REPORT_FORM_ACTIONS.clean };
 }
 
 export function getOrCreateReport(id: string, handleMissingReport: () => void) {
@@ -23,9 +23,12 @@ export function getOrCreateReport(id: string, handleMissingReport: () => void) {
     const firebase = getFirebase();
     try {
       if (firebase.auth().currentUser === null) return;
+
+      dispatch({ type: REPORT_APP_ACTIONS.loading });
       const token = await firebase.auth().currentUser.getIdToken();
+
       const data = await apiClient.getReport(token, id);
-      dispatch({ type: REPORT_ACTIONS.new, payload: { id: data.id, data } });
+      dispatch({ type: REPORT_APP_ACTIONS.loaded, payload: { data } });
     } catch (error) {
       if (error.status === 404) {
         handleMissingReport();
@@ -45,9 +48,12 @@ export function createReport(action: (id: string) => void) {
     const firebase = getFirebase();
     try {
       if (firebase.auth().currentUser === null) return;
+
+      dispatch({ type: REPORT_APP_ACTIONS.loading });
       const token = await firebase.auth().currentUser.getIdToken();
+
       const data = await apiClient.createReport(token);
-      dispatch({ type: REPORT_ACTIONS.new, payload: { id: data.id, data } });
+      dispatch({ type: REPORT_APP_ACTIONS.loaded, payload: { data } });
       action(data.id);
     } catch (error) {
       dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
@@ -62,13 +68,13 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
     { getFirebase }: StoreExtraArgs,
   ) => {
     dispatch({
-      type: REPORT_ACTIONS.imageLoading,
+      type: REPORT_FORM_ACTIONS.imageLoading,
       payload: { imageID: inputID },
     });
 
     if (invalidImageType(file.type)) {
       dispatch({
-        type: REPORT_ACTIONS.imageError,
+        type: REPORT_FORM_ACTIONS.imageError,
         payload: {
           imageID: inputID,
           imageError: `Zdjęcie o niepoprawnym type ${file.type}`,
@@ -79,7 +85,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
     try {
       const resizedImage = await resizeImage(file);
       dispatch({
-        type: REPORT_ACTIONS.imageResized,
+        type: REPORT_FORM_ACTIONS.imageResized,
         payload: { imageID: inputID, image: resizedImage },
       });
 
@@ -91,7 +97,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
           imageMetadata.dateTime = imageMeta.dateTime;
 
           dispatch({
-            type: REPORT_ACTIONS.setDatetime,
+            type: REPORT_FORM_ACTIONS.setDatetime,
             payload: {
               value: imageMeta.dateTime,
               source: REPORT_DATA_SOURCE.picture,
@@ -106,7 +112,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
           imageMetadata.latLng = `${imageMeta.location.lat},${imageMeta.location.lng}`;
           // TODO: get address from image
           dispatch({
-            type: REPORT_ACTIONS.setAddress,
+            type: REPORT_FORM_ACTIONS.setAddress,
             payload: { value: "location", source: REPORT_DATA_SOURCE.picture },
           });
         }
@@ -122,17 +128,20 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
         inputID,
         imageMetadata,
       );
-      // TODO: handle success
-      console.log(response);
+
       dispatch({
-        type: REPORT_ACTIONS.imageLoaded,
+        type: REPORT_FORM_ACTIONS.imageLoaded,
         payload: { imageID: inputID, image: resizedImage },
+      });
+      dispatch({
+        type: REPORT_APP_ACTIONS.loaded,
+        payload: { data: response },
       });
     } catch (error) {
       // TODO: add Sentry
       dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
       dispatch({
-        type: REPORT_ACTIONS.imageError,
+        type: REPORT_FORM_ACTIONS.imageError,
         payload: {
           imageID: inputID,
           imageError: error.message,

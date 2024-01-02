@@ -1,7 +1,4 @@
-import { NewReport } from "../../api/responses";
-
-export type ReportState = {
-  id: string | null;
+export type ReportFormState = {
   disabled: boolean;
   carImage: ImageData;
   contextImage: ImageData;
@@ -13,7 +10,6 @@ export type ReportState = {
     value: string | null;
     source: string | null;
   };
-  appData: NewReport | null;
 };
 
 export type ImageData = {
@@ -21,4 +17,15 @@ export type ImageData = {
   loaded: boolean;
   error: string | null;
   value: string | null;
+};
+
+export type ReportAppState = {
+  loaded: boolean;
+  loading: boolean;
+  id: string;
+  date: string | null;
+  added: string | null;
+  status: string;
+  carImageThumb: string | null;
+  contextImageThumb: string | null;
 };

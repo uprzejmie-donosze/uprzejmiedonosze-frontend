@@ -20,16 +20,23 @@ import { LinearLoader } from "../../Loader";
 
 export function Images() {
   const dispatch = useAppDispatch();
-  const form = useAppSelector((state) => state.report);
+  const {
+    id: appId,
+    carImageThumb,
+    contextImageThumb,
+  } = useAppSelector((state) => state.report.app);
+  const { carImage, contextImage, disabled } = useAppSelector(
+    (state) => state.report.form,
+  );
 
   function handleUpload(e: React.ChangeEvent<HTMLInputElement>, id: string) {
-    dispatch(uploadImage(e.target.files[0], form.id, id));
+    dispatch(uploadImage(e.target.files[0], appId, id));
     if (e.target.files.length > 1) {
       const imageID =
         e.target.id === REPORT_CAR_IMAGE_NAME
           ? REPORT_CONTEXT_IMAGE_NAME
           : REPORT_CAR_IMAGE_NAME;
-      dispatch(uploadImage(e.target.files[1], form.id, imageID));
+      dispatch(uploadImage(e.target.files[1], appId, imageID));
     }
   }
 
@@ -40,10 +47,10 @@ export function Images() {
           Wgraj zdjęcie z widocznym wykroczeniem
         </ImageDescription>
 
-        <ImageContainer valid={!!form.appData?.contextImage?.thumb}>
+        <ImageContainer valid={!!contextImageThumb}>
           <ImageLabel htmlFor={REPORT_CONTEXT_IMAGE_NAME}>
             <ImageInput
-              disabled={form.disabled}
+              disabled={disabled}
               id={REPORT_CONTEXT_IMAGE_NAME}
               type="file"
               accept="image/jpeg, image/png, image/heic"
@@ -55,19 +62,16 @@ export function Images() {
 
             <ImagePlaceholder src="assets/images/context_image.png" />
 
-            {form.contextImage.value || form.appData?.contextImage?.thumb ? (
+            {contextImage.value || contextImageThumb ? (
               <ImagePreview
-                loading={form.contextImage.loading}
-                src={
-                  form.contextImage.value ||
-                  `${IMAGE_HOST}${form.appData?.contextImage?.thumb}`
-                }
+                loading={contextImage.loading}
+                src={contextImage.value || `${IMAGE_HOST}${contextImageThumb}`}
               />
             ) : (
               <ImagePlaceholder src="assets/images/context_image.png" />
             )}
 
-            {form.contextImage.loading && (
+            {contextImage.loading && (
               <Loader>
                 <LinearLoader />
               </Loader>
@@ -81,10 +85,10 @@ export function Images() {
           Wgraj zdjęcie z widoczną tablicą rejestracyjną
         </ImageDescription>
 
-        <ImageContainer valid={!!form.appData?.carImage?.thumb}>
+        <ImageContainer valid={!!carImageThumb}>
           <ImageLabel htmlFor={REPORT_CAR_IMAGE_NAME}>
             <ImageInput
-              disabled={form.disabled}
+              disabled={disabled}
               id={REPORT_CAR_IMAGE_NAME}
               type="file"
               accept="image/jpeg, image/png, image/heic"
@@ -94,20 +98,17 @@ export function Images() {
               }
             />
 
-            {form.carImage.value || form.appData?.carImage?.thumb ? (
+            {carImage.value || carImageThumb ? (
               <ImagePreview
-                loading={form.carImage.loading}
-                src={
-                  form.carImage.value ||
-                  `${IMAGE_HOST}${form.appData?.carImage?.thumb}`
-                }
+                loading={carImage.loading}
+                src={carImage.value || `${IMAGE_HOST}${carImageThumb}`}
               />
             ) : (
               <ImagePlaceholder src="assets/images/car_image.png" />
             )}
           </ImageLabel>
 
-          {form.carImage.loading && (
+          {carImage.loading && (
             <Loader>
               <LinearLoader />
             </Loader>
