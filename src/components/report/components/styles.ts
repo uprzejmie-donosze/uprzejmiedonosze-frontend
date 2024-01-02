@@ -45,7 +45,6 @@ export const ImageDescription = styled.span`
 
 export const ImagePlaceholder = styled.img`
   object-fit: cover;
-  border-radius: 0.8em;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -62,7 +61,6 @@ export const ImagePreview = styled.img<{ loading: boolean }>`
   width: 100%;
   min-width: 100%;
   object-fit: cover;
-  border-radius: 0.8em;
   position: absolute;
   top: 50%;
   left: 50%;

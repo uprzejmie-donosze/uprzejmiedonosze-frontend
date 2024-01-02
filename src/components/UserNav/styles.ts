@@ -1,6 +1,6 @@
 import { Link as RouteLink } from "@reach/router";
 import styled from "styled-components";
-import { colors } from "../../styles";
+import { colors, radius } from "../../styles";
 
 export const Nav = styled.nav`
   border-bottom: 1px solid ${colors.border};
@@ -38,7 +38,7 @@ export const Link = styled(RouteLink)`
     height: 4px;
     border-radius: 10px;
     content: "";
-    border-radius: 5px;
+    border-radius: ${radius};
     background: ${colors.primary};
     transition: transform 0.2s ease;
     transform: scale(0);
