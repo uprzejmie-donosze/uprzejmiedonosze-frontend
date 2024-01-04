@@ -4,14 +4,14 @@ import mediaMin from "../../styles/mediaQueries";
 
 const SPACING = "1.5";
 
-export const Field = styled.div<{ type: string }>`
+export const Field = styled.div<{ "data-type": string }>`
   position: relative;
   width: 100%;
   margin: 0;
   padding: ${`${SPACING}rem`} 0 0;
 
   ${(props) =>
-    props.type === "radio" &&
+    props["data-type"] === "radio" &&
     css`
       display: flex;
       flex-direction: row-reverse;
@@ -24,7 +24,7 @@ export const FieldFlex = styled(Field)`
   align-items: center;
 `;
 
-export const FieldHeader = styled.div<{ type: string }>`
+export const FieldHeader = styled.div<{ "data-type": string }>`
   display: flex;
   flex-direction: column;
   font-size: 15px;
@@ -38,7 +38,7 @@ export const FieldHeader = styled.div<{ type: string }>`
   }
 
   ${(props) =>
-    props.type === "radio" &&
+    props["data-type"] === "radio" &&
     css`
       margin-bottom: 0;
       margin-left: 0.3rem;
@@ -73,25 +73,26 @@ export const FieldLabelSpaced = styled(FieldLabel)`
 `;
 
 export const FieldInput = styled.input<{
-  isValid: boolean;
-  hasIcon: boolean;
+  "data-valid": boolean;
+  "data-icon": boolean;
   disabled: boolean;
   onChange: (e: InputEvent) => void;
 }>`
   ${inputStyles}
 
   background: ${(props) =>
-    props.isValid ? convertHex(colors.primary, 6) : colors.background};
-  color: ${(props) => (props.isValid ? colors.primary : colors.text)};
-  border-color: ${(props) => (props.isValid ? colors.primary : colors.border)};
-  padding-right: ${(props) => (props.hasIcon ? "2.5rem" : ".5rem")};
+    props["data-valid"] ? convertHex(colors.primary, 6) : colors.background};
+  color: ${(props) => (props["data-valid"] ? colors.primary : colors.text)};
+  border-color: ${(props) =>
+    props["data-valid"] ? colors.primary : colors.border};
+  padding-right: ${(props) => (props["data-icon"] ? "2.5rem" : ".5rem")};
 `;
 
-export const FieldIcon = styled.span<{ hasValue: boolean }>`
+export const FieldIcon = styled.span<{ "data-value": boolean }>`
   position: absolute;
   bottom: 0.1rem;
   right: 0.6rem;
-  color: ${(props) => (props.hasValue ? colors.primary : colors.border)};
+  color: ${(props) => (props["data-value"] ? colors.primary : colors.border)};
 
   svg {
     width: 20px;
