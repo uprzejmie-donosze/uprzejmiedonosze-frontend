@@ -1,73 +1,77 @@
-import React, { useEffect } from "react";
-import { useLocalStorage } from "react-use";
+import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Images } from "./components/Images";
 import { Location } from "./components/Location";
 import { Categories } from "./components/Categories";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { createReport, getOrCreateReport } from "../../store/report";
 import { Datetime } from "./components/Datetime";
 import { CarPlates } from "./components/CarePlates";
+import { useAppSelector } from "../../store";
+import { FormNav } from "./components/Nav";
+import { Button } from "../../styles";
 import * as S from "./styles";
-import { LinearLoader } from "../Loader";
 
-const NEW_FORM_ID = "app-id";
+type Props = {
+  newReport: () => void;
+  create: () => void;
+};
 
-function FormNew() {
-  const dispatch = useAppDispatch();
-  const { loaded, loading, added, carImageThumb, contextImageThumb } =
-    useAppSelector((state) => state.report.app);
-  const [value, setValue] = useLocalStorage<string>(NEW_FORM_ID);
+function FormNew({ newReport, create }: Props) {
+  const { carImageThumb, contextImageThumb } = useAppSelector(
+    (state) => state.report.app,
+  );
+  const disabled = useAppSelector((state) => state.report.form.disabled);
+  const [showEditInfo, setShowEditInfo] = useState<boolean>(false);
+
+  function handleSubmit() {
+    if (disabled) return;
+    create();
+  }
 
   useEffect(() => {
-    if (!!value) {
-      dispatch(getOrCreateReport(value, registerNewReport));
-      return;
-    }
-    registerNewReport();
+    setShowEditInfo(!!carImageThumb || !!contextImageThumb);
   }, []);
 
-  function registerNewReport() {
-    dispatch(createReport(setValue));
-  }
+  return (
+    <>
+      <S.FormContainer>
+        {showEditInfo && <EditInfo action={newReport} />}
 
-  if (loading) {
-    return <LinearLoader />;
-  }
+        <form>
+          <Images />
 
-  if (!loaded) {
-    return <>Problem z załadowaniem formularza</>;
-  }
+          <S.FormRow>
+            <Datetime />
+            <CarPlates />
+          </S.FormRow>
 
-  const showEditInfo = !!carImageThumb || !!contextImageThumb;
+          <Location />
+          <Categories />
+        </form>
+      </S.FormContainer>
+
+      <FormNav>
+        <Button disabled={disabled} onClick={handleSubmit}>
+          dalej
+        </Button>
+      </FormNav>
+    </>
+  );
+}
+
+function EditInfo({ action }: { action: () => void }) {
+  const createdAt = useAppSelector((state) => state.report.app.added);
 
   return (
-    <S.FormContainer>
-      {showEditInfo && (
-        <S.FormInfo>
-          <p>Edycja zgłoszenia</p>
-          <span>
-            {`Edytujesz zgłoszenie powstałe ${DateTime.fromISO(added).toFormat(
-              "yyyy-LL-dd'T'HH:mm",
-            )}.
-            Jeśli chcesz zacząć od nowa`}
-            &nbsp;
-          </span>
-          <strong onClick={registerNewReport}>kliknij tutaj</strong>.
-        </S.FormInfo>
-      )}
-      <form>
-        <Images />
-
-        <S.FormRow>
-          <CarPlates />
-          <Datetime />
-        </S.FormRow>
-
-        <Location />
-        <Categories />
-      </form>
-    </S.FormContainer>
+    <S.FormInfo>
+      <p>Edycja zgłoszenia</p>
+      <span>
+        {`Edytujesz zgłoszenie powstałe ${DateTime.fromISO(createdAt).toFormat(
+          "yyyy-LL-dd', 'HH:mm",
+        )}. Jeśli chcesz zacząć od nowa,`}
+        &nbsp;
+      </span>
+      <strong onClick={action}>kliknij tutaj</strong>.
+    </S.FormInfo>
   );
 }
 

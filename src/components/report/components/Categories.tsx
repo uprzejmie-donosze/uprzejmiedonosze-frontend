@@ -19,7 +19,7 @@ export function Categories() {
                 <Category
                   image="/"
                   description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="Mandat: 100zł"
+                  note="💰 mandat: 100zł"
                 />
               ),
               name: "pavement",
@@ -35,41 +35,7 @@ export function Categories() {
                 <Category
                   image="/"
                   description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="Mandat: 100zł"
-                />
-              ),
-              name: "pavement",
-              selected: false,
-              value: "pavement",
-            }}
-          />
-        </S.FormRow>
-        <S.FormRow>
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="Mandat: 100zł"
-                />
-              ),
-              name: "pavement",
-              selected: false,
-              value: "pavement",
-            }}
-          />
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="Mandat: 100zł"
+                  note="💰 mandat: 100zł"
                 />
               ),
               name: "pavement",
@@ -87,7 +53,41 @@ export function Categories() {
                 <Category
                   image="/"
                   description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="Mandat: 100zł"
+                  note="💰 mandat: 100zł"
+                />
+              ),
+              name: "pavement",
+              selected: false,
+              value: "pavement",
+            }}
+          />
+          <RadioInputField
+            handleChange={() => console.log("hello")}
+            contentData={{
+              id: "pavement",
+              label: (
+                <Category
+                  image="/"
+                  description="Zastawienie chodnika (mniej niż 1,5 m)"
+                  note="💰 mandat: 100zł"
+                />
+              ),
+              name: "pavement",
+              selected: false,
+              value: "pavement",
+            }}
+          />
+        </S.FormRow>
+        <S.FormRow>
+          <RadioInputField
+            handleChange={() => console.log("hello")}
+            contentData={{
+              id: "pavement",
+              label: (
+                <Category
+                  image="/"
+                  description="Zastawienie chodnika (mniej niż 1,5 m)"
+                  note="💰 mandat:  100zł"
                 />
               ),
               name: "pavement",

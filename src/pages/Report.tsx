@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useLocalStorage } from "react-use";
 import FormNew from "../components/report/FormNew";
 import FormConfirm from "../components/report/FormConfirm";
-
-import { Button, Container, colors } from "../styles";
+import { FormBreadcrumbs } from "../components/report/components/Breadcrumbs";
+import { useAppDispatch, useAppSelector } from "../store";
+import { createReport, getOrCreateReport } from "../store/report";
+import { LinearLoader } from "../components/Loader";
 import { withAuth } from "../config";
 
 const STAGES = {
@@ -12,8 +14,32 @@ const STAGES = {
   success: "success",
 };
 
+const BREADCRUMBS = [
+  { name: "formularz", value: STAGES.new },
+  { name: "podsumowanie", value: STAGES.confirm },
+  { name: "potwierdzenie", value: STAGES.success },
+];
+
+const NEW_FORM_ID = "app-id";
+
 function ReportPage() {
+  const dispatch = useAppDispatch();
   const [stage, setStage] = useState(STAGES.new);
+  const [value, setValue] = useLocalStorage<string>(NEW_FORM_ID);
+
+  const { loaded, loading } = useAppSelector((state) => state.report.app);
+
+  useEffect(() => {
+    if (!!value) {
+      dispatch(getOrCreateReport(value, registerNewReport));
+      return;
+    }
+    registerNewReport();
+  }, []);
+
+  function registerNewReport() {
+    dispatch(createReport(setValue));
+  }
 
   function handleNext() {
     switch (stage) {
@@ -41,52 +67,26 @@ function ReportPage() {
     }
   }
 
+  if (loading) {
+    return <LinearLoader />;
+  }
+
+  if (!loaded) {
+    return <p>Problem z załadowaniem formularza.</p>;
+  }
+
   return (
-    <Container>
-      <div>
-        <span
-          style={{
-            color: stage === STAGES.new ? colors.secondary : colors.border,
-          }}
-        >
-          New report &gt;{" "}
-        </span>
-        <span
-          style={{
-            color: stage === STAGES.confirm ? colors.secondary : colors.border,
-          }}
-        >
-          Confirm &gt;{" "}
-        </span>
-        <span
-          style={{
-            color: stage === STAGES.success ? colors.secondary : colors.border,
-          }}
-        >
-          Confirmation
-        </span>
-      </div>
+    <section>
+      <FormBreadcrumbs active={stage} items={BREADCRUMBS} />
 
-      {stage === STAGES.new && <FormNew />}
-      {stage === STAGES.confirm && <FormConfirm />}
+      {stage === STAGES.new && (
+        <FormNew create={handleNext} newReport={registerNewReport} />
+      )}
+      {stage === STAGES.confirm && (
+        <FormConfirm back={handlePrev} next={handleNext} />
+      )}
       {stage === STAGES.success && <div>success</div>}
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          position: "fixed",
-          width: "calc(100% - 300px)",
-          left: "300px",
-          bottom: "0",
-          padding: "1rem",
-          background: "white",
-        }}
-      >
-        <Button onClick={handlePrev}>poprzedni</Button>
-        <Button onClick={handleNext}>następny</Button>
-      </div>
-    </Container>
+    </section>
   );
 }
 

@@ -35,6 +35,8 @@ const appState: ReportAppState = {
   status: null,
   carImageThumb: null,
   contextImageThumb: null,
+  plateIdFromImage: null,
+  plateImage: null,
 };
 
 function formReducer(
@@ -122,6 +124,8 @@ function appReducer(state = appState, action: { type: string; payload: any }) {
         carImageThumb: action.payload.data.carImage?.thumb,
         contextImageThumb: action.payload.data.contextImage?.thumb,
         status: action.payload.data.status,
+        plateIdFromImage: action.payload.data.carInfo?.plateIdFromImage,
+        plateImage: action.payload.data.carInfo?.plateImage,
       };
     default:
       return state || appState;
