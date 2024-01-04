@@ -5,11 +5,11 @@ export const colors: { [key: string]: string } = {
   secondary: "#9C7F00",
   background: "#f9f9f9",
   text: "#333",
-  textLight: "#a1a1a1",
+  textLight: "#898883",
   white: "#FFF",
   error: "#ff4e42",
   border: "#d1d1d1",
-  placeholder: "#eee",
+  placeholder: "#eeeeee",
 };
 
 export const rotate = keyframes`
@@ -65,8 +65,9 @@ export const inputStyles = `
     background-color: transparent;
     outline: none;
     border: 2px solid ${colors.border};
+    cursor: pointer;
 
-    &:checked{
+    &:checked {
       border: 2px solid ${colors.primary};
 
       & ~ div {

@@ -5,12 +5,13 @@ export const GlobalStyle = createGlobalStyle`
   body, html {
     font-family: Helvetica, Arial, sans-serif;
     width: 100%;
+    font-weight: 400;
+    font-size: 16px;
     height: 100vh;
     margin: 0;
     padding: 0;
     background-color: ${colors.background};
   }
-
   button,
   a {
     touch-action: manipulation;
@@ -18,6 +19,7 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    line-height: 1.4;
   }
 
   label,
