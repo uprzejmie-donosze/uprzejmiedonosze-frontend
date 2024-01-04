@@ -37,9 +37,9 @@ function Navbar() {
           <BurgerIcon />
         </S.Burger>
 
-        <S.Overlay onClick={toggleMenu} isNavOpened={isNavOpened} />
+        <S.Overlay onClick={toggleMenu} data-open={isNavOpened} />
 
-        <S.Menu isNavOpened={isNavOpened}>
+        <S.Menu data-open={isNavOpened}>
           <Menu closeNav={closeNav} />
         </S.Menu>
       </S.Container>

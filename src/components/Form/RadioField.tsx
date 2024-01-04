@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function RadioInputField({ handleChange, contentData }: Props) {
-  const [touched, setTouched] = useState(false);
+  const [touched, setTouched] = useState<boolean>(false);
   const { id, label, name, disabled, selected } = contentData;
 
   const handleInputChange = () => {

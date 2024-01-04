@@ -18,6 +18,7 @@ export const Navbar = styled.nav`
   background: ${colors.primary};
   color: ${colors.white};
   height: ${NAVBAR_HEIGHT};
+  font-weight: 400;
 `;
 
 export const Container = styled.div`
@@ -36,7 +37,6 @@ export const Container = styled.div`
   }
 
   ${mediaMin(breakpoints.lg)} {
-    margin-left: ${SIDEBAR_WIDTH_LG};
     max-width: ${APP_WIDTH_LARGE};
   }
 `;
@@ -48,7 +48,7 @@ export const Logo = styled(Link)`
 `;
 
 interface MenuProps {
-  readonly isNavOpened: boolean;
+  readonly "data-open": boolean;
 }
 
 export const Menu = styled.div<MenuProps>`
@@ -62,16 +62,14 @@ export const Menu = styled.div<MenuProps>`
   transition: transform 0.3s;
 
   ${(props) =>
-    props.isNavOpened &&
+    props["data-open"] &&
     css`
       transform: translateX(100%);
     `};
 
   ${mediaMin(breakpoints.lg)} {
-    transform: translateX(100%);
     width: ${SIDEBAR_WIDTH_LG};
     left: -${SIDEBAR_WIDTH_LG};
-    border-right: 2px solid white;
   }
 `;
 
@@ -87,16 +85,11 @@ export const Overlay = styled.div<MenuProps>`
   transition: opacity 0.3s;
 
   ${(props) =>
-    props.isNavOpened &&
+    props["data-open"] &&
     css`
       transform: translateX(100%);
       opacity: 1;
     `};
-
-  ${mediaMin(breakpoints.lg)} {
-    display: none;
-    pointer-events: none;
-  }
 `;
 
 export const Header = styled.div`
@@ -195,9 +188,4 @@ export const Footer = styled.div`
   border-top: 1px solid ${colors.background};
 `;
 
-export const Burger = styled.div`
-  ${mediaMin(breakpoints.lg)} {
-    display: none;
-    pointer-events: none;
-  }
-`;
+export const Burger = styled.div``;

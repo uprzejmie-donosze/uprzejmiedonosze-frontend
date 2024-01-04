@@ -21,8 +21,8 @@ export function Field({
   type,
 }: Props) {
   return (
-    <S.Field type={type}>
-      <S.FieldHeader type={type}>
+    <S.Field data-type={type}>
+      <S.FieldHeader data-type={type}>
         {label && <S.FieldLabel htmlFor={id}>{label}</S.FieldLabel>}
         {!!error && touched && <S.FieldError>{error}</S.FieldError>}
       </S.FieldHeader>

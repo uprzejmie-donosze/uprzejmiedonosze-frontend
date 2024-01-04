@@ -72,7 +72,7 @@ export function InputField({ handleChange, contentData }: Props) {
       meta={meta}
       defaultValue={defaultValue}
     >
-      {icon && <S.FieldIcon hasValue={!!value}>{icon}</S.FieldIcon>}
+      {icon && <S.FieldIcon data-value={!!value}>{icon}</S.FieldIcon>}
     </Input>
   );
 }

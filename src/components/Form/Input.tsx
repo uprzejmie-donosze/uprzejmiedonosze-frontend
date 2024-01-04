@@ -45,8 +45,8 @@ export function Input({
         {...meta}
         onChange={input.onChange}
         disabled={input.disabled || false}
-        isValid={meta.valid}
-        hasIcon={!!children}
+        data-valid={meta.valid}
+        data-icon={!!children}
       />
       {children}
     </Field>
@@ -88,8 +88,8 @@ export function RadioInput({
           placeholder={placeholder}
           onChange={input.onChange}
           disabled={input.disabled || false}
-          isValid={true}
-          hasIcon={false}
+          data-valid={true}
+          data-icon={false}
           checked={input.selected}
         />
         <S.RadioCheckedIndicator />
