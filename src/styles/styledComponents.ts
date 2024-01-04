@@ -16,8 +16,6 @@ export const Container = styled.div`
 
   ${mediaMin(breakpoints.lg)} {
     max-width: ${APP_WIDTH_LARGE};
-    width: calc(100% - ${SIDEBAR_WIDTH_LG});
-    margin-left: ${SIDEBAR_WIDTH_LG};
   }
 `;
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "@reach/router";
 
 import { LinearLoader } from "../components/Loader";
-import { Button, Container } from "../styles";
+import { Button } from "../styles";
 import { ROUTES } from "../config";
 import { signInUser } from "../store/firebase";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -15,12 +15,7 @@ export function Login() {
     dispatch(signInUser());
   }
 
-  if (!user.isLoaded)
-    return (
-      <Container>
-        <LinearLoader />
-      </Container>
-    );
+  if (!user.isLoaded) return <LinearLoader />;
 
   if (!user.isEmpty && !user.profile.isRegistered)
     return <Redirect from={ROUTES.login} to={ROUTES.userEdit} noThrow />;
@@ -29,10 +24,10 @@ export function Login() {
     return <Redirect from={ROUTES.login} to={ROUTES.home} noThrow />;
 
   return (
-    <Container>
+    <section>
       <h1>Zaloguj się</h1>
 
       <Button onClick={signIn}>Zaloguj się przez Google</Button>
-    </Container>
+    </section>
   );
 }
