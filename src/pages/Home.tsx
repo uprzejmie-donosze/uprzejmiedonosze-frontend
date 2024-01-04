@@ -6,18 +6,13 @@ import Landing from "../components/Landing";
 import { LinearLoader } from "../components/Loader";
 
 import { ROUTES } from "../config";
-import { Container, colors } from "../styles";
+import { colors } from "../styles";
 import { useAppSelector } from "../store";
 
 export function Home() {
   const user = useAppSelector((state) => state.user);
 
-  if (!user.isLoaded)
-    return (
-      <Container>
-        <LinearLoader />
-      </Container>
-    );
+  if (!user.isLoaded) return <LinearLoader />;
 
   if (user.isEmpty) return <Landing />;
 
@@ -25,7 +20,7 @@ export function Home() {
     return <Redirect from={ROUTES.home} to={ROUTES.userEdit} noThrow />;
 
   return (
-    <Container>
+    <div>
       <h1>{`Cześć ${user.profile.name || user.profile.email}!`}</h1>
 
       <RoundedLink to={ROUTES.newReport}>
@@ -40,7 +35,7 @@ export function Home() {
           />
         </Icon>
       </RoundedLink>
-    </Container>
+    </div>
   );
 }
 

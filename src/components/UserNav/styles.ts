@@ -4,11 +4,13 @@ import { colors, radius } from "../../styles";
 
 export const Nav = styled.nav`
   border-bottom: 1px solid ${colors.border};
+  margin-bottom: 25px;
 `;
 
 export const List = styled.ul`
   display: flex;
   flex-flow: nowrap;
+  padding-bottom: 15px;
 `;
 
 export const Item = styled.li`

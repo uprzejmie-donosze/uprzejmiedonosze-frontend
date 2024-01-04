@@ -1,7 +1,5 @@
 import React from "react";
 import UserNav from "../components/UserNav";
-
-import { Container } from "../styles";
 import { withAuth } from "../config";
 
 type Props = {
@@ -10,11 +8,11 @@ type Props = {
 
 export function UserPage(props: Props) {
   return (
-    <>
+    <section>
       <UserNav />
 
-      <Container>{props.children}</Container>
-    </>
+      {props.children}
+    </section>
   );
 }
 
