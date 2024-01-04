@@ -28,4 +28,6 @@ export type ReportAppState = {
   status: string;
   carImageThumb: string | null;
   contextImageThumb: string | null;
+  plateIdFromImage: string | null;
+  plateImage: string | null;
 };

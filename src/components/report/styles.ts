@@ -14,9 +14,17 @@ export const FormRow = styled.fieldset`
   }
 `;
 
+export const FormRowSpaced = styled(FormRow)`
+  margin-top: 1.5rem;
+
+  ${mediaMin(breakpoints.md)} {
+    align-items: flex-start;
+  }
+`;
+
 export const FormColumn = styled.div`
   ${mediaMin(breakpoints.md)} {
-    width: 49.5%;
+    width: 49%;
   }
 `;
 
@@ -36,6 +44,10 @@ export const CategoryImage = styled.img`
 export const CategoryInfo = styled.figcaption`
   display: flex;
   flex-direction: column;
+
+  & > span:last-child {
+    color: ${colors.textLight};
+  }
 `;
 
 export const FormInfo = styled.div`

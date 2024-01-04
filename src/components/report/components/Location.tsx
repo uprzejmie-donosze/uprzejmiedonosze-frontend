@@ -1,13 +1,16 @@
 import React from "react";
 import { InputField } from "../../Form";
 import { stringRequired } from "../../Form/validation";
-import { FormColumn, FormRow } from "../styles";
+import { FormColumn } from "../styles";
+import { FieldContainer, Map, MapContainer } from "./styles";
 
 export function Location() {
   return (
-    <FormRow>
-      <FormColumn>mapa</FormColumn>
+    <MapContainer>
       <FormColumn>
+        <Map src="/assets/images/map_prev.png" />
+      </FormColumn>
+      <FieldContainer>
         <InputField
           handleChange={() => console.log("hello")}
           contentData={{
@@ -18,7 +21,7 @@ export function Location() {
             validate: stringRequired,
           }}
         />
-      </FormColumn>
-    </FormRow>
+      </FieldContainer>
+    </MapContainer>
   );
 }
