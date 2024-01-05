@@ -3,7 +3,7 @@ import React from "react";
 import { closeNavbar, openNavbar } from "../../store/app";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { LinearLoader } from "../Loader";
-import { BurgerIcon, UserIcon } from "../Icons";
+import { UserIcon } from "../Icons";
 import { ROUTES } from "../../config";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
@@ -30,13 +30,16 @@ function Navbar() {
     <S.Navbar>
       <Layout data-open={isNavOpened}>
         <S.Container>
+          <S.Burger data-active={isNavOpened} onClick={toggleMenu}>
+            <button className="burger" role="switch" aria-checked="true">
+              <span className="burger__icon"></span>
+              <span className="burger__icon"></span>
+            </button>
+          </S.Burger>
+
           <S.Logo onClick={closeNav} to={ROUTES.home}>
             Uprzejmie Donoszę
           </S.Logo>
-
-          <S.Burger onClick={toggleMenu}>
-            <BurgerIcon />
-          </S.Burger>
 
           <S.Overlay onClick={toggleMenu} data-open={isNavOpened} />
 

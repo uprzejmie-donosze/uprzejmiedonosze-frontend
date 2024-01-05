@@ -7,7 +7,6 @@ import { Datetime } from "./components/Datetime";
 import { CarPlates } from "./components/CarePlates";
 import { useAppSelector } from "../../store";
 import { FormNav } from "./components/Nav";
-import { Button } from "../../styles";
 import * as S from "./styles";
 
 type Props = {
@@ -50,9 +49,9 @@ function FormNew({ newReport, create }: Props) {
       </S.FormContainer>
 
       <FormNav>
-        <Button disabled={disabled} onClick={handleSubmit}>
+        <S.Action disabled={disabled} onClick={handleSubmit}>
           dalej
-        </Button>
+        </S.Action>
       </FormNav>
     </>
   );

@@ -5,7 +5,7 @@ export const SIDEBAR_WIDTH_LG = "300px";
 const BUTTON_SIZE = "30px";
 const BUTTON_SIZE_SMALL = "18px";
 
-export const Button = styled.button`
+export const Button = styled.button<{ color?: string }>`
   position: relative;
   height: ${BUTTON_SIZE};
   line-height: ${`calc(${BUTTON_SIZE} - 3px)`};
@@ -25,7 +25,7 @@ export const Button = styled.button`
     background 0.3s ease-in-out;
   cursor: pointer;
   color: ${colors.white};
-  background-color: ${colors.primary};
+  background-color: ${(props) => props.color || colors.primary};
 `;
 
 export const ButtonSmall = styled(Button)`
