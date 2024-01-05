@@ -28,7 +28,7 @@ function Navbar() {
 
   return (
     <S.Navbar>
-      <Layout data-open={isNavOpened}>
+      <Layout>
         <S.Container>
           <S.Burger data-active={isNavOpened} onClick={toggleMenu}>
             <button className="burger" role="switch" aria-checked="true">
