@@ -4,7 +4,7 @@ import { Link } from "@reach/router";
 import CommonLinks, { ExternalLinkFB, ExternalLinkRPO } from "./CommonLinks";
 import { ExternalLinkIcon, ListIcon, PlusIcon } from "../Icons";
 import { ROUTES } from "../../config";
-import { Button } from "../../styles";
+import { Button, colors } from "../../styles";
 import { signOutUser } from "../../store/firebase";
 import { useAppDispatch } from "../../store";
 import * as S from "./styles";
@@ -57,7 +57,9 @@ function SignedInLinks({ closeNav }: Props) {
       <ExternalLinkRPO />
 
       <S.Footer>
-        <Button onClick={signOut}>Wyloguj</Button>
+        <Button color={colors.textLight} onClick={signOut}>
+          Wyloguj
+        </Button>
       </S.Footer>
     </>
   );

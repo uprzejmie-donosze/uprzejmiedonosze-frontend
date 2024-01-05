@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link } from "@reach/router";
-import { colors } from "../../styles/variables";
+import { colors, radius } from "../../styles/variables";
 import mediaMin, { breakpoints } from "../../styles/mediaQueries";
 import { SIDEBAR_WIDTH_LG } from "../../styles/styledComponents";
 
@@ -18,9 +18,10 @@ export const Navbar = styled.nav`
 `;
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-flow: nowrap;
   width: 100%;
   height: 100%;
@@ -76,11 +77,6 @@ export const Overlay = styled.div<MenuProps>`
       transform: translateX(100%);
       opacity: 1;
     `};
-
-  ${mediaMin(breakpoints.lg)} {
-    display: none;
-    pointer-events: none;
-  }
 `;
 
 export const Header = styled.div`
@@ -179,4 +175,79 @@ export const Footer = styled.div`
   border-top: 1px solid ${colors.background};
 `;
 
-export const Burger = styled.div``;
+export const Burger = styled.div<{ "data-active": boolean }>`
+  position: absolute;
+  left: 0;
+  top: calc(100% - 20px);
+  width: 25px;
+  height: 20px;
+
+  .burger {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 25px;
+    height: 20px;
+    border: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+
+    &:active {
+      transform: translateY(2px);
+    }
+  }
+
+  .burger__icon {
+    position: absolute;
+    top: calc((100% - 3px) / 2);
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: ${colors.white};
+    border-radius: ${radius};
+    transition: transform 0.3s ease-in-out;
+
+    &:first-child {
+      &::before,
+      &::after {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: ${colors.white};
+        border-radius: ${radius};
+        content: "";
+        transition: transform 0.2s ease-in-out 0.1s;
+        transform-origin: 50% 50%;
+      }
+
+      &::before {
+        top: 7px;
+      }
+
+      &::after {
+        bottom: 7px;
+      }
+    }
+  }
+
+  ${(props) =>
+    props["data-active"] &&
+    css`
+      .burger__icon:first-child {
+        transform: rotate(45deg);
+      }
+      .burger__icon:last-child {
+        transform: rotate(-45deg);
+      }
+
+      .burger__icon::before,
+      .burger__icon::after {
+        transform: scaleX(0);
+      }
+    `}
+`;

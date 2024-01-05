@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import mediaMin, { breakpoints } from "../../styles/mediaQueries";
-import { colors, convertHex, radius } from "../../styles";
+import { Button, colors, convertHex, radius } from "../../styles";
 
 export const FormRow = styled.fieldset`
   margin: 0;
@@ -71,4 +71,9 @@ export const FormInfo = styled.div`
 export const FormContainer = styled.div`
   padding-top: 15px;
   padding-bottom: 50px;
+`;
+
+export const Action = styled(Button)`
+  display: block;
+  margin-left: auto;
 `;
