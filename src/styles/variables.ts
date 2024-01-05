@@ -100,4 +100,4 @@ export const flowTop = keyframes`
 `;
 
 export const APP_WIDTH_SMALL = "800px";
-export const APP_WIDTH_LARGE = "1200px";
+export const APP_WIDTH_LARGE = "1000px";

@@ -7,7 +7,7 @@ import { BurgerIcon, UserIcon } from "../Icons";
 import { ROUTES } from "../../config";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
-
+import { Layout } from "../Layout";
 import * as S from "./styles";
 
 function Navbar() {
@@ -28,21 +28,23 @@ function Navbar() {
 
   return (
     <S.Navbar>
-      <S.Container>
-        <S.Logo onClick={closeNav} to={ROUTES.home}>
-          Uprzejmie Donoszę
-        </S.Logo>
+      <Layout data-open={isNavOpened}>
+        <S.Container>
+          <S.Logo onClick={closeNav} to={ROUTES.home}>
+            Uprzejmie Donoszę
+          </S.Logo>
 
-        <S.Burger onClick={toggleMenu}>
-          <BurgerIcon />
-        </S.Burger>
+          <S.Burger onClick={toggleMenu}>
+            <BurgerIcon />
+          </S.Burger>
 
-        <S.Overlay onClick={toggleMenu} data-open={isNavOpened} />
+          <S.Overlay onClick={toggleMenu} data-open={isNavOpened} />
 
-        <S.Menu data-open={isNavOpened}>
-          <Menu closeNav={closeNav} />
-        </S.Menu>
-      </S.Container>
+          <S.Menu data-open={isNavOpened}>
+            <Menu closeNav={closeNav} />
+          </S.Menu>
+        </S.Container>
+      </Layout>
     </S.Navbar>
   );
 }

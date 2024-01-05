@@ -5,7 +5,8 @@ import { RouteComponentProps, Router } from "@reach/router";
 import * as Page from "../pages";
 import Navbar from "./Navbar";
 import { ROUTES, useLogin } from "../config";
-import { GlobalStyle, Container } from "../styles";
+import { GlobalStyle } from "../styles";
+import { Layout } from "./Layout";
 import { Fallback } from "./Fallback";
 
 type Props = { component: React.ElementType } & RouteComponentProps;
@@ -25,7 +26,7 @@ function App() {
       <Fallback />
       <Navbar />
 
-      <Container>
+      <Layout>
         <Router primary={false}>
           <Route component={Page.Home} path={ROUTES.home} />
           <Route component={NotFound} default />
@@ -42,7 +43,7 @@ function App() {
             <Page.UserReports path={ROUTES.user.reports} />
           </Page.User>
         </Router>
-      </Container>
+      </Layout>
     </AppContainer>
   );
 }

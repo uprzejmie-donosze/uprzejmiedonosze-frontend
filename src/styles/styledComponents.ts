@@ -1,24 +1,7 @@
 import styled from "styled-components";
-import { APP_WIDTH_LARGE, APP_WIDTH_SMALL, colors, radius } from "./variables";
-import mediaMin, { breakpoints, mediaMax } from "./mediaQueries";
+import { colors, radius } from "./variables";
 
 export const SIDEBAR_WIDTH_LG = "300px";
-
-export const Container = styled.div`
-  width: 100%;
-  color: ${colors.text};
-  margin: 0 auto;
-  padding: 1rem;
-
-  ${mediaMax(breakpoints.lg)} {
-    max-width: ${APP_WIDTH_SMALL};
-  }
-
-  ${mediaMin(breakpoints.lg)} {
-    max-width: ${APP_WIDTH_LARGE};
-  }
-`;
-
 const BUTTON_SIZE = "30px";
 const BUTTON_SIZE_SMALL = "18px";
 
