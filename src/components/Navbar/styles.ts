@@ -1,18 +1,14 @@
 import styled, { css } from "styled-components";
 import { Link } from "@reach/router";
-import {
-  APP_WIDTH_LARGE,
-  APP_WIDTH_SMALL,
-  colors,
-} from "../../styles/variables";
-import mediaMin, { breakpoints, mediaMax } from "../../styles/mediaQueries";
+import { colors } from "../../styles/variables";
+import mediaMin, { breakpoints } from "../../styles/mediaQueries";
 import { SIDEBAR_WIDTH_LG } from "../../styles/styledComponents";
 
 const NAVBAR_HEIGHT = "60px";
 
 export const Navbar = styled.nav`
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: center;
   width: 100%;
   background: ${colors.primary};
@@ -29,16 +25,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   color: ${colors.white};
-  margin: 0 auto;
-  padding: 1rem;
-
-  ${mediaMax(breakpoints.lg)} {
-    max-width: ${APP_WIDTH_SMALL};
-  }
-
-  ${mediaMin(breakpoints.lg)} {
-    max-width: ${APP_WIDTH_LARGE};
-  }
 `;
 
 export const Logo = styled(Link)`
@@ -90,6 +76,11 @@ export const Overlay = styled.div<MenuProps>`
       transform: translateX(100%);
       opacity: 1;
     `};
+
+  ${mediaMin(breakpoints.lg)} {
+    display: none;
+    pointer-events: none;
+  }
 `;
 
 export const Header = styled.div`

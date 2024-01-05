@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Layout } from "../../Layout";
 
 export function FormNav({ children }: { children: React.ReactNode }) {
-  return <NavContainer>{children}</NavContainer>;
+  return (
+    <NavContainer>
+      <Layout>{children}</Layout>
+    </NavContainer>
+  );
 }
 
 const NavContainer = styled.div`
@@ -12,11 +17,6 @@ const NavContainer = styled.div`
   bottom: 0;
   right: 0;
   width: 100%;
-  padding: 1rem;
   background: white;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-
-  & > *:last-child {
-    margin-left: auto;
-  }
 `;
