@@ -33,7 +33,6 @@ type ImageProps = {
   placeholder: string;
 };
 
-// TODO: image description should be fetched from '/config/categories';
 export function Images() {
   const dispatch = useAppDispatch();
   const {
@@ -41,7 +40,7 @@ export function Images() {
     carImageThumb,
     contextImageThumb,
   } = useAppSelector((state) => state.report.app);
-  const { carImage, contextImage, disabled } = useAppSelector(
+  const { carImage, contextImage, disabled, category } = useAppSelector(
     (state) => state.report.form,
   );
 
@@ -68,7 +67,7 @@ export function Images() {
         uploadedImage={contextImage.value}
         loading={contextImage.loading}
         appImage={contextImageThumb}
-        description="Idealne zdjęcie powinno pokazywać pojazd z kilku metrów, w sposób dokumentujący wykroczenie."
+        description={category.contextImageHint}
         placeholder="assets/images/context_image.png"
       />
 
@@ -80,7 +79,7 @@ export function Images() {
         uploadedImage={carImage.value}
         loading={carImage.loading}
         appImage={carImageThumb}
-        description="Idealne zdjęcia przedstawia cały pojazd z przodu lub z tyłu."
+        description={category.carImageHint}
         placeholder="assets/images/car_image.png"
       />
     </FormRow>
