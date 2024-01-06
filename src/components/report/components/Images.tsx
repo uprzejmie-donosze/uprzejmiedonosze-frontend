@@ -33,6 +33,7 @@ type ImageProps = {
   placeholder: string;
 };
 
+// TODO: image description should be fetched from '/config/categories';
 export function Images() {
   const dispatch = useAppDispatch();
   const {
