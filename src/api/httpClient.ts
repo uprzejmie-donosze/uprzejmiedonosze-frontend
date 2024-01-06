@@ -4,9 +4,22 @@ const GENERIC_ERROR_MSG = "Błąd podczas wysyłania danych";
 
 class HTTPError extends Error {
   status: number;
-  constructor(msg: string, status: number) {
+  description: string;
+  param: string;
+  reson: string;
+
+  constructor(
+    msg: string,
+    status: number,
+    description?: string,
+    param?: string,
+    reson?: string,
+  ) {
     super(msg);
     this.status = status;
+    this.description = description || "";
+    this.param = param || "";
+    this.reson = reson || "";
   }
 }
 
@@ -36,9 +49,13 @@ export class HTTPClient {
     if (response.ok) {
       return jsonResponse;
     }
+    const errResp = jsonResponse as ErrorResponse;
     throw new HTTPError(
-      (jsonResponse as ErrorResponse).error || GENERIC_ERROR_MSG,
+      errResp.error || GENERIC_ERROR_MSG,
       response.status,
+      errResp.description,
+      errResp.param,
+      errResp.reson,
     );
   }
 
@@ -67,8 +84,8 @@ export class HTTPClient {
       const data = await HTTPClient.handleResponse(response);
       return data;
     } catch (e) {
-      const err = e as HTTPError;
-      throw new HTTPError(err.message, err.status);
+      console.error(e);
+      throw e;
     }
   }
 
