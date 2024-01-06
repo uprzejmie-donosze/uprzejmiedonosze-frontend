@@ -30,6 +30,7 @@ function ReportPage() {
   const { loaded, loading } = useAppSelector((state) => state.report.app);
 
   useEffect(() => {
+    if (loaded) return;
     if (!!value) {
       dispatch(getOrCreateReport(value, registerNewReport));
       return;
