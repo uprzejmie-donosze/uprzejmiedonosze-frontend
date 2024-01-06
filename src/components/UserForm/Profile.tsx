@@ -28,56 +28,64 @@ export function Profile({ user, onChange }: Props) {
         wymaga SM do przyjęcia zgłoszenia.
       </S.TextHint>
 
-      <InputField
-        handleChange={onChange}
-        contentData={{
-          placeholder: "np. Jan Kowalski",
-          defaultValue: user.name,
-          id: "name",
-          type: "text",
-          label: "Imię i nazwisko",
-          name: "name",
-          validate: stringRequired,
-        }}
-      />
+      <S.Field>
+        <InputField
+          handleChange={onChange}
+          contentData={{
+            placeholder: "np. Jan Kowalski",
+            defaultValue: user.name,
+            id: "name",
+            type: "text",
+            label: "Imię i nazwisko",
+            name: "name",
+            validate: stringRequired,
+          }}
+        />
+      </S.Field>
 
-      <InputField
-        handleChange={onChange}
-        contentData={{
-          placeholder: "np. jan@kowalski.pl",
-          defaultValue: user.email,
-          disabled: true,
-          id: "email",
-          type: "text",
-          label: "E-mail (edycja niemożliwa)",
-          name: "email",
-        }}
-      />
+      <S.Field>
+        <InputField
+          handleChange={onChange}
+          contentData={{
+            placeholder: "np. jan@kowalski.pl",
+            defaultValue: user.email,
+            disabled: true,
+            id: "email",
+            type: "text",
+            label: "E-mail (edycja niemożliwa)",
+            name: "email",
+          }}
+        />
+      </S.Field>
 
-      <InputField
-        handleChange={onChange}
-        contentData={{
-          placeholder: "np. Mickiewicza 4/3, Warszawa",
-          defaultValue: user.address,
-          id: "address",
-          type: "text",
-          label: "Adres zamieszkania",
-          name: "address",
-          validate: stringRequired,
-        }}
-      />
+      <S.Field>
+        <InputField
+          handleChange={onChange}
+          contentData={{
+            placeholder: "np. Mickiewicza 4/3, Warszawa",
+            defaultValue: user.address,
+            id: "address",
+            type: "text",
+            label: "Adres zamieszkania",
+            name: "address",
+            validate: stringRequired,
+          }}
+        />
+      </S.Field>
 
-      <InputField
-        handleChange={onChange}
-        contentData={{
-          placeholder: "np. 666111222",
-          defaultValue: user.msisdn,
-          id: "phone",
-          type: "text",
-          label: "Telefon kontaktowy",
-          name: "phone",
-        }}
-      />
+      <S.Field>
+        <InputField
+          handleChange={onChange}
+          contentData={{
+            placeholder: "np. 666111222",
+            defaultValue: user.msisdn,
+            id: "phone",
+            type: "text",
+            label: "Telefon kontaktowy",
+            name: "phone",
+          }}
+        />
+      </S.Field>
     </S.Fieldset>
   );
 }
