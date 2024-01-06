@@ -127,3 +127,19 @@ export type TermType = {
     text: string;
   };
 }[];
+export type Categories = {
+  [key: string]: Category;
+};
+
+export type Category = {
+  title: string;
+  short: string;
+  desc: string;
+  law: string;
+  price: number;
+  points: number;
+  mandate: string;
+  contextImageHint: string;
+  carImageHint: string;
+  stopAgresjiOnly: boolean;
+};

@@ -1,6 +1,6 @@
 import { HTTPClient } from "./httpClient";
 import { IUpdateUserBody } from "./requests";
-import { IUser, Report, TermsOfUse } from "./responses";
+import { Categories, IUser, Report, TermsOfUse } from "./responses";
 
 export class APIClient {
   private httpClient: HTTPClient;
@@ -49,5 +49,9 @@ export class APIClient {
 
   getReport(token: string, id: string): Promise<Report> {
     return this.httpClient.get(`app/${id}`, token) as Promise<Report>;
+  }
+
+  getCategories(): Promise<Categories> {
+    return this.httpClient.get("config/categories", "") as Promise<Categories>;
   }
 }
