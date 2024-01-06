@@ -21,6 +21,9 @@ export type IUser = {
 
 export type ErrorResponse = {
   error?: string;
+  description?: string; // usually a parent exception error message. Useful to make sentry report more detailed.
+  param?: string; // name of the request param that failed validation
+  reson?: string; // only in staging env for debug/tracebility
 };
 
 export type NewReport = {
