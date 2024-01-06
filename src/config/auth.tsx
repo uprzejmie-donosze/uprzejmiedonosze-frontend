@@ -5,6 +5,7 @@ import { LinearLoader } from "../components/Loader";
 import { ROUTES } from "./routes";
 import { useAppDispatch, useAppSelector } from "../store";
 import { getUser } from "../store/user";
+import { TermsOfUse } from "../components/TermsOfUse";
 
 export function withAuth(Component: React.ElementType) {
   function WithAuth(props: any) {
@@ -24,6 +25,8 @@ export function withAuth(Component: React.ElementType) {
     ) {
       return <Redirect from={location.pathname} to={ROUTES.userEdit} noThrow />;
     }
+
+    if (!user.isEmpty && !user.profile.isTermsConfirmed) return <TermsOfUse />;
 
     return <Component {...props} />;
   }

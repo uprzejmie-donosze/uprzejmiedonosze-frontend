@@ -1,6 +1,6 @@
 import { HTTPClient } from "./httpClient";
 import { IUpdateUserBody } from "./requests";
-import { IUser, Report } from "./responses";
+import { IUser, Report, TermsOfUse } from "./responses";
 
 export class APIClient {
   private httpClient: HTTPClient;
@@ -19,6 +19,10 @@ export class APIClient {
 
   confirmTermsOfUse(token: string): Promise<IUser> {
     return this.httpClient.patch("user/confirm-terms", token) as Promise<IUser>;
+  }
+
+  getTermsOfUse(): Promise<TermsOfUse> {
+    return this.httpClient.get("config/terms", "") as Promise<TermsOfUse>;
   }
 
   sendImage(

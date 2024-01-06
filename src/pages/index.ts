@@ -10,3 +10,4 @@ export * from "./User";
 export * from "./UserProfile";
 export * from "./UserRegistration";
 export * from "./UserReports";
+export * from "./TermsOfUse";

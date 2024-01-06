@@ -1,0 +1,1 @@
+export { TermsOfUse } from "./TermsOfUse";

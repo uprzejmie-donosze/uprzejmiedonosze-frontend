@@ -37,6 +37,7 @@ function App() {
           <Route component={Page.Mandate} path={ROUTES.mandate} />
           <Route component={Page.PrivacyPolicy} path={ROUTES.privavyPolicy} />
           <Route component={Page.Report} path={ROUTES.newReport} />
+          <Route component={Page.TermsOfUsePage} path={ROUTES.termsOfUse} />
           <Page.User path={ROUTES.user.main}>
             <Page.UserProfile path={ROUTES.user.home} />
             <Page.UserRegistration path={ROUTES.user.edit} />
