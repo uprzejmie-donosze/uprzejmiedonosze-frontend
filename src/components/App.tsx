@@ -15,7 +15,7 @@ const Route: FunctionComponent<Props> = ({ component: Component, ...rest }) => (
   <Component {...rest} />
 );
 
-const NotFound = () => <section>Sorry, nothing here</section>;
+const NotFound = () => <section>404 — nie ma takiej strony</section>;
 
 function App() {
   useLogin();
