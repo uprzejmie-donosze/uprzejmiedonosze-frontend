@@ -14,6 +14,19 @@ export function clean() {
   return { type: REPORT_FORM_ACTIONS.clean };
 }
 
+export function setCategory(
+  value: string,
+  contextImageHint: string,
+  carImageHint: string,
+) {
+  return function (dispatch: Dispatch) {
+    dispatch({
+      type: REPORT_FORM_ACTIONS.setCategory,
+      payload: { value, contextImageHint, carImageHint },
+    });
+  };
+}
+
 export function getOrCreateReport(id: string, handleMissingReport: () => void) {
   return async (
     dispatch: Dispatch,

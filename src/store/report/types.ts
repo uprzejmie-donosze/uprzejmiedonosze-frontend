@@ -10,6 +10,11 @@ export type ReportFormState = {
     value: string | null;
     source: string | null;
   };
+  category: {
+    value: string;
+    contextImageHint: string;
+    carImageHint: string;
+  };
 };
 
 export type ImageData = {
