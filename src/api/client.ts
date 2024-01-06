@@ -1,6 +1,6 @@
 import { HTTPClient } from "./httpClient";
 import { IUpdateUserBody } from "./requests";
-import { IUser, NewReport } from "./responses";
+import { IUser, Report } from "./responses";
 
 export class APIClient {
   private httpClient: HTTPClient;
@@ -30,20 +30,20 @@ export class APIClient {
       dateTime?: string;
       latLng?: string;
     },
-  ): Promise<NewReport> {
+  ): Promise<Report> {
     const body = { [pictureType]: image, ...metadata };
     return this.httpClient.post(
       `app/${id}/image`,
       token,
       body,
-    ) as Promise<NewReport>;
+    ) as Promise<Report>;
   }
 
-  createReport(token: string): Promise<NewReport> {
-    return this.httpClient.post("app/new", token) as Promise<NewReport>;
+  createReport(token: string): Promise<Report> {
+    return this.httpClient.post("app/new", token) as Promise<Report>;
   }
 
-  getReport(token: string, id: string): Promise<NewReport> {
-    return this.httpClient.get(`app/${id}`, token) as Promise<NewReport>;
+  getReport(token: string, id: string): Promise<Report> {
+    return this.httpClient.get(`app/${id}`, token) as Promise<Report>;
   }
 }
