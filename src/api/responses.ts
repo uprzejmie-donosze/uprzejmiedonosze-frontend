@@ -114,3 +114,16 @@ export type Report = {
     curl?: object;
   };
 };
+
+export type TermsOfUse = {
+  terms: { li: string | TermType }[];
+  updated: string;
+};
+
+export type TermType = {
+  text?: string;
+  link?: {
+    url: string;
+    text: string;
+  };
+}[];

@@ -7,7 +7,7 @@ export const ROUTES = {
   privavyPolicy: "/polityka-prywatnosci",
   project: "/projekt",
   regulations: "/przepisy",
-  websiteRegulations: "/regulamin",
+  termsOfUse: "/regulamin",
   stats: "/statystyki",
   statusCheck: "/zapytaj-o-status",
   install: "/aplikacja",

@@ -8,6 +8,7 @@ import { LinearLoader } from "../components/Loader";
 import { ROUTES } from "../config";
 import { colors } from "../styles";
 import { useAppSelector } from "../store";
+import { TermsOfUse } from "../components/TermsOfUse";
 
 export function Home() {
   const user = useAppSelector((state) => state.user);
@@ -18,6 +19,8 @@ export function Home() {
 
   if (!user.isEmpty && !user.profile.isRegistered)
     return <Redirect from={ROUTES.home} to={ROUTES.userEdit} noThrow />;
+
+  if (!user.isEmpty && !user.profile.isTermsConfirmed) return <TermsOfUse />;
 
   return (
     <div>

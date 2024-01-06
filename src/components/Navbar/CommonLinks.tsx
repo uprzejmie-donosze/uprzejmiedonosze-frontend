@@ -43,7 +43,7 @@ function CommonLinks({ closeNav }: Props) {
         </S.Item>
 
         <S.Item>
-          <Link onClick={closeNav} to={ROUTES.websiteRegulations}>
+          <Link onClick={closeNav} to={ROUTES.termsOfUse}>
             ‣&nbsp;&nbsp;&nbsp;Regulamin
           </Link>
         </S.Item>
