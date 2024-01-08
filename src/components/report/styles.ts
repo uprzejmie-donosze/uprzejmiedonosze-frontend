@@ -49,6 +49,7 @@ export const CategoriesGrid = styled.div`
   grid-row-gap: ${SPACING};
   grid-template-columns: 1fr;
   grid-template-rows: auto;
+  align-items: flex-start;
 
   ${mediaMin(breakpoints.md)} {
     grid-template-columns: 1fr 1fr;
@@ -64,6 +65,12 @@ export const CategoryItem = styled.div<{ selected: boolean }>`
   &:hover {
     background: ${colors.placeholder};
   }
+`;
+
+export const CategoryWarning = styled.small`
+  display: block;
+  margin-bottom: 10px;
+  color: ${colors.secondary};
 `;
 
 export const Category = styled.figure`

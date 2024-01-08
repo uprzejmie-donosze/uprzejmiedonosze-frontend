@@ -15,6 +15,9 @@ export function Categories() {
   );
 
   const selected = useAppSelector((state) => state.report.form.category.value);
+  const stopAgression = useAppSelector(
+    (state) => state.user.profile.stopAgresji,
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -47,6 +50,12 @@ export function Categories() {
               title={value.desc}
               selected={selected === key}
             >
+              {value.stopAgresjiOnly !== stopAgression && selected === key && (
+                <S.CategoryWarning>
+                  ⚠︎ Miejsce wysyłki (Policja) inne niż wskazane w ustawieniach
+                  konta (Straż Miejska/Gminna).
+                </S.CategoryWarning>
+              )}
               <RadioInputField
                 handleChange={() =>
                   handleCategoryChange(
