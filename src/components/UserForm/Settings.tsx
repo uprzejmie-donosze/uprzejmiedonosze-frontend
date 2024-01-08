@@ -65,7 +65,7 @@ export function Settings({
             handleChange={onChange}
             contentData={{
               selected: policeTypeSelected === POLICE_TYPE_OPTIONS.sm,
-              id: "send-to-minuciple-police",
+              id: "send-to-city-guard-office",
               label:
                 "do Straży Miejskiej/Gminnej właściwej dla miejscowości zgłoszenia (domyślnie)",
               name: "policeType",
