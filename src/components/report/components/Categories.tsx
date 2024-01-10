@@ -42,15 +42,15 @@ export function Categories() {
       <S.CategoriesTitle>Wybierz rodzaj naruszenia</S.CategoriesTitle>
 
       <S.CategoriesGrid>
-        {Object.entries(categories).map(([key, value]) => {
-          if (!value.title) return;
+        {categories.map((category) => {
+          if (!category.title) return;
           return (
             <S.CategoryItem
-              key={key}
-              title={value.desc}
-              selected={selected === key}
+              key={category.id}
+              title={category.desc}
+              selected={selected === category.id}
             >
-              {value.stopAgresjiOnly !== stopAgression && selected === key && (
+              {category.stopAgresjiOnly !== stopAgression && selected === category.id && (
                 <S.CategoryWarning>
                   ⚠︎ Miejsce wysyłki (Policja) inne niż wskazane w ustawieniach
                   konta (Straż Miejska/Gminna).
@@ -59,23 +59,23 @@ export function Categories() {
               <RadioInputField
                 handleChange={() =>
                   handleCategoryChange(
-                    key,
-                    value.contextImageHint,
-                    value.carImageHint,
+                    category.id,
+                    category.contextImageHint,
+                    category.carImageHint,
                   )
                 }
                 contentData={{
-                  id: key,
+                  id: category.id,
                   label: (
                     <Category
-                      image={`${IMAGE_HOST}/img/${key}.jpg`}
-                      description={value.title}
-                      note={value.price ? `💰 mandat: ${value.price}` : ""}
+                      image={`${IMAGE_HOST}/img/${category.id}.jpg`}
+                      description={category.title}
+                      note={category.price ? `💰 mandat: ${category.price}` : ""}
                     />
                   ),
-                  name: key,
-                  selected: selected === key,
-                  value: key,
+                  name: category.id,
+                  selected: selected === category.id,
+                  value: category.id,
                 }}
               />
             </S.CategoryItem>

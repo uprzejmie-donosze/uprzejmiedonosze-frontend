@@ -1,7 +1,7 @@
-import { Categories } from "../../api/responses";
+import { Category } from "../../api/responses";
 
 export type CategoriesState = {
   loading: boolean;
   loaded: boolean;
-  categories: Categories | null;
+  categories: [Category] | null;
 };
