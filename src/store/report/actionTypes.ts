@@ -6,6 +6,7 @@ export const REPORT_FORM_ACTIONS = {
   imageLoaded: "REPORT_FORM/IMAGE_LOADED",
   setDatetime: "REPORT_FORM/DATETIME",
   setAddress: "REPORT_FORM/ADDRESS",
+  setCategory: "REPORT_FORM/CATEGORY",
 };
 
 export const REPORT_APP_ACTIONS = {

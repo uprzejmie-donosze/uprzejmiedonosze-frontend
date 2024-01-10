@@ -1,109 +1,94 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { Link } from "@reach/router";
 import { RadioInputField } from "../../Form";
 import { ROUTES } from "../../../config";
+import { useAppDispatch, useAppSelector } from "../../../store";
 import * as S from "./../styles";
+import { LinearLoader } from "../../Loader";
+import { getCategories } from "../../../store/categories";
+import { IMAGE_HOST } from "../../../constants";
+import { setCategory } from "../../../store/report";
 
-// TODO: add all categories, handle selection
 export function Categories() {
+  const { loading, loaded, categories } = useAppSelector(
+    (state) => state.categories,
+  );
+
+  const selected = useAppSelector((state) => state.report.form.category.value);
+  const stopAgression = useAppSelector(
+    (state) => state.user.profile.stopAgresji,
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!categories) {
+      dispatch(getCategories());
+    }
+  }, []);
+
+  if (loading) return <LinearLoader />;
+  if (!loaded || !categories) return <p>Problem z załadowaniem danych</p>;
+
+  function handleCategoryChange(
+    value: string,
+    contextHint: string,
+    carHint: string,
+  ) {
+    dispatch(setCategory(value, contextHint, carHint));
+  }
+
   return (
     <div>
-      <p>Wybierz rodzaj naruszenia</p>
-      <div>
-        <S.FormRow>
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="💰 mandat: 100zł"
-                />
-              ),
-              name: "pavement",
-              selected: false,
-              value: "pavement",
-            }}
-          />
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="💰 mandat: 100zł"
-                />
-              ),
-              name: "pavement",
-              selected: false,
-              value: "pavement",
-            }}
-          />
-        </S.FormRow>
-        <S.FormRow>
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="💰 mandat: 100zł"
-                />
-              ),
-              name: "pavement",
-              selected: false,
-              value: "pavement",
-            }}
-          />
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="💰 mandat: 100zł"
-                />
-              ),
-              name: "pavement",
-              selected: false,
-              value: "pavement",
-            }}
-          />
-        </S.FormRow>
-        <S.FormRow>
-          <RadioInputField
-            handleChange={() => console.log("hello")}
-            contentData={{
-              id: "pavement",
-              label: (
-                <Category
-                  image="/"
-                  description="Zastawienie chodnika (mniej niż 1,5 m)"
-                  note="💰 mandat:  100zł"
-                />
-              ),
-              name: "pavement",
-              selected: true,
-              value: "pavement",
-            }}
-          />
-        </S.FormRow>
-      </div>
+      <S.CategoriesTitle>Wybierz rodzaj naruszenia</S.CategoriesTitle>
 
-      <p>
+      <S.CategoriesGrid>
+        {Object.entries(categories).map(([key, value]) => {
+          if (!value.title) return;
+          return (
+            <S.CategoryItem
+              key={key}
+              title={value.desc}
+              selected={selected === key}
+            >
+              {value.stopAgresjiOnly !== stopAgression && selected === key && (
+                <S.CategoryWarning>
+                  ⚠︎ Miejsce wysyłki (Policja) inne niż wskazane w ustawieniach
+                  konta (Straż Miejska/Gminna).
+                </S.CategoryWarning>
+              )}
+              <RadioInputField
+                handleChange={() =>
+                  handleCategoryChange(
+                    key,
+                    value.contextImageHint,
+                    value.carImageHint,
+                  )
+                }
+                contentData={{
+                  id: key,
+                  label: (
+                    <Category
+                      image={`${IMAGE_HOST}/img/${key}.jpg`}
+                      description={value.title}
+                      note={value.price ? `💰 mandat: ${value.price}` : ""}
+                    />
+                  ),
+                  name: key,
+                  selected: selected === key,
+                  value: key,
+                }}
+              />
+            </S.CategoryItem>
+          );
+        })}
+      </S.CategoriesGrid>
+
+      <S.CategoriesHint>
         <span>
           Masz wątpliwości którą kategorię wybrać? Przeczytaj nasz&nbsp;
         </span>
         <Link to={ROUTES.regulations}>poradnik</Link>.
-      </p>
+      </S.CategoriesHint>
     </div>
   );
 }
@@ -122,7 +107,7 @@ function Category({
       {image && <S.CategoryImage src={image} />}
       <S.CategoryInfo>
         <span>{description}</span>
-        {note && <span>{note}</span>}
+        {note && <S.CategoryNote>{note}</S.CategoryNote>}
       </S.CategoryInfo>
     </S.Category>
   );

@@ -2,13 +2,11 @@ import styled, { css } from "styled-components";
 import { breakpoints, colors, inputStyles, convertHex } from "../../styles";
 import mediaMin from "../../styles/mediaQueries";
 
-const SPACING = "1.5";
-
 export const Field = styled.div<{ "data-type": string }>`
   position: relative;
   width: 100%;
   margin: 0;
-  padding: ${`${SPACING}rem`} 0 0;
+  padding: 0;
 
   ${(props) =>
     props["data-type"] === "radio" &&

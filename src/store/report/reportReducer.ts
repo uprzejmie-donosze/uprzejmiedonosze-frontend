@@ -24,6 +24,13 @@ const formState: ReportFormState = {
     value: null,
     source: null,
   },
+  category: {
+    value: "0",
+    contextImageHint:
+      "Idealne zdjęcie powinno pokazywać pojazd z kilku metrów, w sposób dokumentujący wykroczenie.",
+    carImageHint:
+      "Idealne zdjęcia przedstawia cały pojazd z przodu lub z tyłu.",
+  },
 };
 
 const appState: ReportAppState = {
@@ -98,6 +105,15 @@ function formReducer(
         datetime: {
           value: action.payload.value,
           source: action.payload.source,
+        },
+      };
+    case REPORT_FORM_ACTIONS.setCategory:
+      return {
+        ...state,
+        category: {
+          value: action.payload.value,
+          contextImageHint: action.payload.contextImageHint,
+          carImageHint: action.payload.carImageHint,
         },
       };
     default:

@@ -48,7 +48,6 @@ export const ImageInput = styled.input`
 export const ImageDescription = styled.span`
   position: relative;
   display: block;
-  padding-top: 1.5rem;
   padding-bottom: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -130,6 +129,7 @@ export const FieldContainer = styled(FormColumn)`
   background: ${convertHex(colors.placeholder, 96)};
   padding: 10px;
   position: relative;
+  margin: 0;
 
   ${mediaMin(breakpoints.md)} {
     height: 100%;

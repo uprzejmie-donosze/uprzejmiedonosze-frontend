@@ -1,15 +1,13 @@
 import React from "react";
 import { InputField } from "../../Form";
 import { stringRequired } from "../../Form/validation";
-import { FormColumn } from "../styles";
 import { FieldContainer, Map, MapContainer } from "./styles";
 
 export function Location() {
   return (
     <MapContainer>
-      <FormColumn>
-        <Map src="/assets/images/map_prev.png" />
-      </FormColumn>
+      <Map src="/assets/images/map_prev.png" />
+
       <FieldContainer>
         <InputField
           handleChange={() => console.log("hello")}

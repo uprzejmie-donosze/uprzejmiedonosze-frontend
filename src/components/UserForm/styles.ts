@@ -14,7 +14,7 @@ export const TextHint = styled.p`
   margin: 0;
   margin-top: 10px;
   color: ${colors.textLight};
-  font-size: 15px;
+  font-size: 16px;
 `;
 
 export const Fieldset = styled.fieldset`
@@ -27,6 +27,10 @@ export const Fieldset = styled.fieldset`
     width: 48%;
     padding: 0;
   }
+`;
+
+export const Field = styled.div`
+  padding-top: 1.5rem;
 `;
 
 export const Legend = styled.legend`
