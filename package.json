@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "/",
+  "engines": {
+    "node": "16.18.X"
+  },
+  "engineStrict": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uprzejmie-donosze/uprzejmiedonosze-frontend.git"
