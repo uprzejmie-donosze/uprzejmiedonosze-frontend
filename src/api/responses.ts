@@ -127,11 +127,9 @@ export type TermType = {
     text: string;
   };
 }[];
-export type Categories = {
-  [key: string]: Category;
-};
 
 export type Category = {
+  id: string;
   title: string;
   short: string;
   desc: string;
@@ -142,4 +140,5 @@ export type Category = {
   contextImageHint: string;
   carImageHint: string;
   stopAgresjiOnly: boolean;
+  order: number;
 };

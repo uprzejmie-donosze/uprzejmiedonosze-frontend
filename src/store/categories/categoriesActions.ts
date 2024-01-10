@@ -8,7 +8,11 @@ export function getCategories() {
     try {
       dispatch({ type: CATEGORIES_ACTIONS.loading });
       const categories = await apiClient.getCategories();
-      dispatch({ type: CATEGORIES_ACTIONS.loaded, payload: { categories } });
+      const sorted = categories.sort((a, b) => a.order - b.order);
+      dispatch({
+        type: CATEGORIES_ACTIONS.loaded,
+        payload: { categories: sorted },
+      });
     } catch (error) {
       dispatch({ type: CATEGORIES_ACTIONS.error });
       dispatch({ type: FALLBACK_ACTIONS.error });

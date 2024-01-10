@@ -1,4 +1,4 @@
-import { Categories } from "../../api/responses";
+import { Category } from "../../api/responses";
 import { CATEGORIES_ACTIONS } from "./actionTypes";
 import { CategoriesState } from "./types";
 
@@ -21,7 +21,7 @@ export function categoriesReducer(state = initialState, action: any) {
         ...state,
         loading: false,
         loaded: true,
-        categories: { ...(action.payload.categories as Categories) },
+        categories: action.payload.categories as [Category],
       };
     case CATEGORIES_ACTIONS.error:
       return {
