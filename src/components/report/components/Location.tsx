@@ -62,7 +62,7 @@ export function Location() {
 
   useEffect(() => {
     if (lat && lng) {
-      stateRef.current && stateRef.current.map.setCenter([lng, lat]);
+      stateRef.current.map && stateRef.current.map.setCenter([lng, lat]);
       dispatch(getAddress(lat, lng));
     }
   }, [lat, lng]);
