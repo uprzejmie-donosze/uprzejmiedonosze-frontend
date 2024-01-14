@@ -18,15 +18,13 @@ export function withAuth(Component: React.ElementType) {
       return <Redirect from={location.pathname} to={ROUTES.login} noThrow />;
     }
 
-    if (
-      !user.isEmpty &&
-      !user.profile.isRegistered &&
-      location.pathname !== ROUTES.userEdit
-    ) {
+    if (!user.profile.isRegistered && location.pathname !== ROUTES.userEdit) {
       return <Redirect from={location.pathname} to={ROUTES.userEdit} noThrow />;
     }
 
-    if (!user.isEmpty && !user.profile.isTermsConfirmed) return <TermsOfUse />;
+    if (!user.profile.isTermsConfirmed && user.profile.isRegistered) {
+      return <TermsOfUse />;
+    }
 
     return <Component {...props} />;
   }

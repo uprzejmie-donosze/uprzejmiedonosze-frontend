@@ -50,12 +50,13 @@ export function Categories() {
               title={category.desc}
               selected={selected === category.id}
             >
-              {category.stopAgresjiOnly !== stopAgression && selected === category.id && (
-                <S.CategoryWarning>
-                  ⚠︎ Miejsce wysyłki (Policja) inne niż wskazane w ustawieniach
-                  konta (Straż Miejska/Gminna).
-                </S.CategoryWarning>
-              )}
+              {category.stopAgresjiOnly !== stopAgression &&
+                selected === category.id && (
+                  <S.CategoryWarning>
+                    ⚠︎ Miejsce wysyłki (Policja) inne niż wskazane w
+                    ustawieniach konta (Straż Miejska/Gminna).
+                  </S.CategoryWarning>
+                )}
               <RadioInputField
                 handleChange={() =>
                   handleCategoryChange(
@@ -70,7 +71,9 @@ export function Categories() {
                     <Category
                       image={`${IMAGE_HOST}/img/${category.id}.jpg`}
                       description={category.title}
-                      note={category.price ? `💰 mandat: ${category.price}` : ""}
+                      note={
+                        category.price ? `💰 mandat: ${category.price}` : ""
+                      }
                     />
                   ),
                   name: category.id,
