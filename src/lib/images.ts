@@ -4,8 +4,8 @@ import { getDateTime } from "./datetime";
 
 type Medatata = {
   location: {
-    lat: string | null;
-    lng: string | null;
+    lat: number | null;
+    lng: number | null;
   };
   dateTime: string | null;
 };

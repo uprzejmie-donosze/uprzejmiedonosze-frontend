@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { REPORT_APP_ACTIONS, REPORT_FORM_ACTIONS } from "./actionTypes";
+import * as ACTIONS from "./actionTypes";
 import {
   getMedatataFromImage,
   invalidImageType,
@@ -9,9 +9,10 @@ import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
 import { REPORT_CAR_IMAGE_NAME, REPORT_DATA_SOURCE } from "../../constants";
 import { addError } from "../fallback";
+import { FormAddress } from "./types";
 
 export function clean() {
-  return { type: REPORT_FORM_ACTIONS.clean };
+  return { type: ACTIONS.REPORT_FORM_CLEAN };
 }
 
 export function setCategory(
@@ -21,7 +22,7 @@ export function setCategory(
 ) {
   return function (dispatch: Dispatch) {
     dispatch({
-      type: REPORT_FORM_ACTIONS.setCategory,
+      type: ACTIONS.REPORT_FORM_CATEGORY,
       payload: { value, contextImageHint, carImageHint },
     });
   };
@@ -37,11 +38,11 @@ export function getOrCreateReport(id: string, handleMissingReport: () => void) {
     try {
       if (firebase.auth().currentUser === null) return;
 
-      dispatch({ type: REPORT_APP_ACTIONS.loading });
+      dispatch({ type: ACTIONS.REPORT_APP_LOADING });
       const token = await firebase.auth().currentUser.getIdToken();
 
       const data = await apiClient.getReport(token, id);
-      dispatch({ type: REPORT_APP_ACTIONS.loaded, payload: { data } });
+      dispatch({ type: ACTIONS.REPORT_APP_LOADED, payload: { data } });
     } catch (error) {
       if (error.status === 404) {
         handleMissingReport();
@@ -62,11 +63,11 @@ export function createReport(action: (id: string) => void) {
     try {
       if (firebase.auth().currentUser === null) return;
 
-      dispatch({ type: REPORT_APP_ACTIONS.loading });
+      dispatch({ type: ACTIONS.REPORT_APP_LOADING });
       const token = await firebase.auth().currentUser.getIdToken();
 
       const data = await apiClient.createReport(token);
-      dispatch({ type: REPORT_APP_ACTIONS.loaded, payload: { data } });
+      dispatch({ type: ACTIONS.REPORT_APP_LOADED, payload: { data } });
       action(data.id);
     } catch (error) {
       dispatch(addError(error.message));
@@ -81,13 +82,13 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
     { getFirebase }: StoreExtraArgs,
   ) => {
     dispatch({
-      type: REPORT_FORM_ACTIONS.imageLoading,
+      type: ACTIONS.REPORT_FORM_IMAGE_LOADING,
       payload: { imageID: inputID },
     });
 
     if (invalidImageType(file.type)) {
       dispatch({
-        type: REPORT_FORM_ACTIONS.imageError,
+        type: ACTIONS.REPORT_FORM_IMAGE_ERROR,
         payload: {
           imageID: inputID,
           imageError: `Zdjęcie o niepoprawnym type ${file.type}`,
@@ -98,41 +99,42 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
     try {
       const resizedImage = await resizeImage(file);
       dispatch({
-        type: REPORT_FORM_ACTIONS.imageResized,
+        type: ACTIONS.REPORT_FORM_IMAGE_RESIZED,
         payload: { imageID: inputID, image: resizedImage },
       });
 
       const imageMetadata: any = {};
 
       if (inputID === REPORT_CAR_IMAGE_NAME) {
-        const imageMeta = await getMedatataFromImage(file);
-        if (imageMeta.dateTime) {
-          imageMetadata.dateTime = imageMeta.dateTime;
+        const { dateTime, location } = await getMedatataFromImage(file);
+        if (dateTime) {
+          imageMetadata.dateTime = dateTime;
 
           dispatch({
-            type: REPORT_FORM_ACTIONS.setDatetime,
+            type: ACTIONS.REPORT_FORM_DATETIME,
             payload: {
-              value: imageMeta.dateTime,
+              value: dateTime,
               source: REPORT_DATA_SOURCE.picture,
             },
           });
         }
 
-        if (
-          !!imageMeta.location.lat?.length &&
-          !!imageMeta.location.lng?.length
-        ) {
-          imageMetadata.latLng = `${imageMeta.location.lat},${imageMeta.location.lng}`;
-          // TODO: get address from image
+        if (location.lat && location.lng) {
+          imageMetadata.latLng = `${location.lat},${location.lng}`;
           dispatch({
-            type: REPORT_FORM_ACTIONS.setAddress,
-            payload: { value: "location", source: REPORT_DATA_SOURCE.picture },
+            type: ACTIONS.REPORT_FORM_SET_COORDS,
+            payload: {
+              lat: location.lat,
+              lng: location.lng,
+              source: REPORT_DATA_SOURCE.picture,
+            },
           });
         }
       }
 
       const firebase = getFirebase();
       if (firebase.auth().currentUser === null) return;
+
       const token = await firebase.auth().currentUser.getIdToken();
       const response = await apiClient.sendImage(
         token,
@@ -141,20 +143,19 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
         inputID,
         imageMetadata,
       );
-
       dispatch({
-        type: REPORT_FORM_ACTIONS.imageLoaded,
+        type: ACTIONS.REPORT_FORM_IMAGE_LOADED,
         payload: { imageID: inputID, image: resizedImage },
       });
       dispatch({
-        type: REPORT_APP_ACTIONS.loaded,
+        type: ACTIONS.REPORT_APP_LOADED,
         payload: { data: response },
       });
     } catch (error) {
       // TODO: add Sentry
       dispatch(addError(error.message));
       dispatch({
-        type: REPORT_FORM_ACTIONS.imageError,
+        type: ACTIONS.REPORT_FORM_IMAGE_ERROR,
         payload: {
           imageID: inputID,
           imageError: error.message,
@@ -162,4 +163,68 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
       });
     }
   };
+}
+
+export function setCoords(lat: number, lng: number, source: string) {
+  return function (dispatch: Dispatch) {
+    dispatch({
+      type: ACTIONS.REPORT_FORM_SET_COORDS,
+      payload: { lat, lng, source },
+    });
+  };
+}
+
+export function getAddress(lat: number, lng: number) {
+  return async (
+    dispatch: Dispatch,
+    _: any,
+    { getFirebase }: StoreExtraArgs,
+  ) => {
+    const firebase = getFirebase();
+    try {
+      if (firebase.auth().currentUser === null) return;
+
+      dispatch({ type: ACTIONS.REPORT_FORM_ADDRESS_LOADING });
+
+      const token = await firebase.auth().currentUser.getIdToken();
+      const location = await getAddressData(token, lat, lng);
+
+      dispatch({
+        type: ACTIONS.REPORT_FORM_ADDRESS_LOADED,
+        payload: { address: location },
+      });
+    } catch (error) {
+      dispatch({ type: ACTIONS.REPORT_FORM_ADDRESS_ERROR });
+      dispatch(addError(error.message));
+    }
+  };
+}
+
+async function getAddressData(
+  token: string,
+  lat: number,
+  lng: number,
+): Promise<FormAddress> {
+  const address = await apiClient.getMapBox(
+    token,
+    lat.toString(),
+    lng.toString(),
+  );
+  const nominatim = await apiClient.getNominatim(
+    token,
+    lat.toString(),
+    lng.toString(),
+  );
+
+  const location: FormAddress = {
+    fullAddress: address.address.address || nominatim.address?.address,
+    city: address.city || nominatim.address?.city,
+    voivodeship: address.voivodeship || nominatim.address?.voivodeship,
+    postcode: address.postcode || nominatim.address?.postcode,
+    municipality: nominatim.address?.municipality,
+    county: nominatim.address?.county,
+    district: nominatim.address?.district,
+  };
+
+  return location;
 }

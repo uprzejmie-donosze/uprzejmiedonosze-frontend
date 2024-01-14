@@ -4,7 +4,7 @@ import FormNew from "../components/report/FormNew";
 import FormConfirm from "../components/report/FormConfirm";
 import { FormBreadcrumbs } from "../components/report/components/Breadcrumbs";
 import { useAppDispatch, useAppSelector } from "../store";
-import { createReport, getOrCreateReport } from "../store/report";
+import { clean, createReport, getOrCreateReport } from "../store/report";
 import { LinearLoader } from "../components/Loader";
 import { withAuth } from "../config";
 
@@ -32,6 +32,7 @@ function ReportPage() {
   useEffect(() => {
     if (loaded) return;
     if (!!value) {
+      dispatch(clean());
       dispatch(getOrCreateReport(value, registerNewReport));
       return;
     }

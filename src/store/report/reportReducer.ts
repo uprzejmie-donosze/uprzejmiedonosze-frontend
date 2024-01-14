@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { REPORT_APP_ACTIONS, REPORT_FORM_ACTIONS } from "./actionTypes";
-import { ReportAppState, ReportFormState } from "./types";
+import * as ACTIONS from "./actionTypes";
+import { FormActionType, ReportAppState, ReportFormState } from "./types";
 
 const formState: ReportFormState = {
   disabled: false,
@@ -16,9 +16,21 @@ const formState: ReportFormState = {
     value: null,
     error: null,
   },
-  address: {
-    value: null,
-    source: null,
+  location: {
+    loading: false,
+    loaded: false,
+    source: "",
+    lat: null,
+    lng: null,
+    address: {
+      fullAddress: "",
+      city: "",
+      voivodeship: "",
+      postcode: "",
+      county: "",
+      district: "",
+      municipality: "",
+    },
   },
   datetime: {
     value: null,
@@ -44,18 +56,26 @@ const appState: ReportAppState = {
   contextImageThumb: null,
   plateIdFromImage: null,
   plateImage: null,
+  address: {
+    latlng: "",
+    address: "",
+    city: "",
+    voivodeship: "",
+    district: "",
+    mapImage: "",
+    county: "",
+    municipality: "",
+    postcode: "",
+  },
 };
 
-function formReducer(
-  state = formState,
-  action: { type: string; payload: any },
-) {
+function formReducer(state = formState, action: FormActionType) {
   switch (action.type) {
-    case REPORT_FORM_ACTIONS.clean:
+    case ACTIONS.REPORT_FORM_CLEAN:
       return {
         ...formState,
       };
-    case REPORT_FORM_ACTIONS.imageLoading:
+    case ACTIONS.REPORT_FORM_IMAGE_LOADING:
       return {
         ...state,
         disabled: true,
@@ -66,7 +86,7 @@ function formReducer(
           error: null,
         },
       };
-    case REPORT_FORM_ACTIONS.imageError:
+    case ACTIONS.REPORT_FORM_IMAGE_ERROR:
       return {
         ...state,
         disabled: false,
@@ -77,7 +97,7 @@ function formReducer(
           error: action.payload.imageError,
         },
       };
-    case REPORT_FORM_ACTIONS.imageResized:
+    case ACTIONS.REPORT_FORM_IMAGE_RESIZED:
       return {
         ...state,
         disabled: false,
@@ -88,7 +108,7 @@ function formReducer(
           error: null,
         },
       };
-    case REPORT_FORM_ACTIONS.imageLoaded:
+    case ACTIONS.REPORT_FORM_IMAGE_LOADED:
       return {
         ...state,
         disabled: false,
@@ -99,7 +119,7 @@ function formReducer(
           error: null,
         },
       };
-    case REPORT_FORM_ACTIONS.setDatetime:
+    case ACTIONS.REPORT_FORM_DATETIME:
       return {
         ...state,
         datetime: {
@@ -107,7 +127,7 @@ function formReducer(
           source: action.payload.source,
         },
       };
-    case REPORT_FORM_ACTIONS.setCategory:
+    case ACTIONS.REPORT_FORM_CATEGORY:
       return {
         ...state,
         category: {
@@ -116,20 +136,59 @@ function formReducer(
           carImageHint: action.payload.carImageHint,
         },
       };
+    case ACTIONS.REPORT_FORM_ADDRESS_LOADING:
+      return {
+        ...state,
+        location: {
+          ...state.location,
+          loading: true,
+          loaded: false,
+        },
+      };
+    case ACTIONS.REPORT_FORM_ADDRESS_ERROR:
+      return {
+        ...state,
+        location: {
+          ...state.location,
+          loading: false,
+          loaded: false,
+        },
+      };
+    case ACTIONS.REPORT_FORM_ADDRESS_LOADED:
+      return {
+        ...state,
+        location: {
+          ...state.location,
+          loading: false,
+          loaded: true,
+          address: { ...action.payload.address },
+        },
+      };
+    case ACTIONS.REPORT_FORM_SET_COORDS:
+      return {
+        ...state,
+        location: {
+          ...state.location,
+          lat: action.payload.lat,
+          lng: action.payload.lng,
+          source: action.payload.source,
+        },
+      };
     default:
       return state || formState;
   }
 }
 
+// TODO: add action types
 function appReducer(state = appState, action: { type: string; payload: any }) {
   switch (action.type) {
-    case REPORT_APP_ACTIONS.loading:
+    case ACTIONS.REPORT_APP_LOADING:
       return {
         ...state,
         loading: true,
         loaded: false,
       };
-    case REPORT_APP_ACTIONS.loaded:
+    case ACTIONS.REPORT_APP_LOADED:
       return {
         ...state,
         loading: false,
@@ -142,6 +201,10 @@ function appReducer(state = appState, action: { type: string; payload: any }) {
         status: action.payload.data.status,
         plateIdFromImage: action.payload.data.carInfo?.plateIdFromImage,
         plateImage: action.payload.data.carInfo?.plateImage,
+        address: {
+          ...state.address,
+          ...action.payload.data.address,
+        },
       };
     default:
       return state || appState;

@@ -54,4 +54,12 @@ export class APIClient {
   getCategories(): Promise<Category[]> {
     return this.httpClient.get("config/categories", "") as Promise<Category[]>;
   }
+  // TODO: add types
+  getNominatim(token: string, lat: string, lng: string): Promise<any> {
+    return this.httpClient.get(`geo/${lat},${lng}/n`, token) as Promise<any>;
+  }
+  // TODO: add types
+  getMapBox(token: string, lat: string, lng: string): Promise<any> {
+    return this.httpClient.get(`geo/${lat},${lng}/m`, token) as Promise<any>;
+  }
 }

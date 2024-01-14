@@ -103,32 +103,82 @@ export const Loader = styled.div`
   background: ${colors.placeholder};
 `;
 
-export const MapContainer = styled(FormRowSpaced)`
-  position: relative;
+export const Map = styled.div`
+  position: absolute;
   width: 100%;
   height: 400px;
-  background: ${colors.placeholder};
-  border-radius: ${radius};
+  top: 0;
+  left: 0;
+  right: 0;
+  background: ${colors.secondary};
+  margin-top: 80px;
   overflow: hidden;
+
+  ${mediaMin(breakpoints.md)} {
+    height: 300px;
+    margin-top: 0;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: ${convertHex(colors.secondary, 80)};
+    border: 2px solid ${colors.secondary};
+    z-index: 1;
+    border-radius: 100%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  &:after {
+    z-index: 1;
+    width: 5px;
+    height: 5px;
+  }
+
+  &:before {
+    width: 100px;
+    height: 100px;
+    opacity: 0.6;
+  }
+
+  .mapboxgl-touch-pan-blocker,
+  .mapbox-improve-map,
+  .mapboxgl-ctrl-bottom-right {
+    display: none;
+  }
+
+  .mapboxgl-control-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+  }
+
+  .mapboxgl-ctrl-zoom-in,
+  .mapboxgl-ctrl-zoom-out,
+  .mapboxgl-ctrl-geolocate {
+    pointer-events: auto;
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+  }
+`;
+
+export const MapContainer = styled(FormRowSpaced)`
+  height: 400px;
 
   ${mediaMin(breakpoints.md)} {
     height: 300px;
   }
 `;
 
-export const Map = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: ${colors.secondary};
-`;
-
 export const FieldContainer = styled(FormColumn)`
-  background: ${convertHex(colors.placeholder, 96)};
-  padding: 10px;
-  position: relative;
   margin: 0;
 
   ${mediaMin(breakpoints.md)} {
