@@ -10,12 +10,17 @@ export function fallbackReducer(state = initialState, action: ActionType) {
     case ACTIONS.FALLBACK_ERROR:
       return {
         ...state,
-        errors: [...state.errors, action.payload.error],
+        errors: [
+          ...state.errors,
+          { msg: action.payload.error, id: Date.now().toString() },
+        ],
       };
     case ACTIONS.FALLBACK_ERROR_CLEAN:
       return {
         ...state,
-        errors: [...state.errors.filter(e => e !== action.payload.error)],
+        errors: [
+          ...state.errors.filter((e) => e.id !== action.payload.errorID),
+        ],
       };
     default:
       return state || initialState;

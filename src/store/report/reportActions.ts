@@ -7,8 +7,8 @@ import {
 } from "../../lib/images";
 import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
-import { FALLBACK_ERROR } from "../fallback/actionTypes";
 import { REPORT_CAR_IMAGE_NAME, REPORT_DATA_SOURCE } from "../../constants";
+import { addError } from "../fallback";
 
 export function clean() {
   return { type: REPORT_FORM_ACTIONS.clean };
@@ -47,7 +47,7 @@ export function getOrCreateReport(id: string, handleMissingReport: () => void) {
         handleMissingReport();
         return;
       }
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
     }
   };
 }
@@ -69,7 +69,7 @@ export function createReport(action: (id: string) => void) {
       dispatch({ type: REPORT_APP_ACTIONS.loaded, payload: { data } });
       action(data.id);
     } catch (error) {
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
     }
   };
 }
@@ -152,7 +152,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
       });
     } catch (error) {
       // TODO: add Sentry
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
       dispatch({
         type: REPORT_FORM_ACTIONS.imageError,
         payload: {

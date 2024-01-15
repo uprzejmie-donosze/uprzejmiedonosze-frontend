@@ -4,8 +4,8 @@ import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
 import { IUser } from "../../api/responses";
 import { UserProfile } from "./types";
-import { FALLBACK_ERROR } from "../fallback/actionTypes";
 import { IUpdateUserBody } from "../../api/requests";
+import { addError } from "../fallback";
 
 export function getUser() {
   return async (
@@ -34,7 +34,7 @@ export function getUser() {
         type: ACTIONS.FETCH_USER_ERROR,
         payload: { error: error.message },
       });
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
       firebase.auth().signOut();
     }
   };
@@ -65,7 +65,7 @@ export function updateUser(user: IUpdateUserBody, successAction: () => void) {
       successAction();
     } catch (error) {
       dispatch({ type: ACTIONS.UPDATE_USER_FAILED });
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
     }
   };
 }
@@ -91,7 +91,7 @@ export function confirmTermsOfUse() {
       });
     } catch (error) {
       dispatch({ type: ACTIONS.UPDATE_USER_FAILED });
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
     }
   };
 }

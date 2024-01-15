@@ -1,53 +1,53 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store";
 import { Toast, Toasts } from "./styles";
-import { cleanError } from "../../store/fallback/fallbackActions";
+import { cleanError, FallbackError } from "../../store/fallback";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 export function Fallback() {
   const { errors } = useAppSelector((state) => state.fallback);
   const dispatch = useAppDispatch();
 
-  function close(err: string) {
-    dispatch(cleanError(err));
+  function deleteToast(id: string) {
+    dispatch(cleanError(id));
   }
 
   return (
     <Toasts>
-      {errors.map(error => <ErrorToast errorMsg={error} close={close} />)}
+      {errors.map((error) => (
+        <ErrorToast key={error.id} error={error} deleteToast={deleteToast} />
+      ))}
     </Toasts>
   );
 }
 
-function ErrorToast({
-  errorMsg,
-  close,
-}: {
-  errorMsg: string | null;
-  close: (err: string) => void;
-}) {
-  useEffect(() => {
-    if (!errorMsg) return;
-    const timeout = setTimeout(remove, 8000);
-    return () => timeout && clearTimeout(timeout);
-  }, [errorMsg]);
+type Props = {
+  error: FallbackError;
+  deleteToast: (err: string) => void;
+};
 
+function ErrorToast({ error, deleteToast }: Props) {
   function remove() {
-    close(errorMsg);
+    deleteToast(error.id);
   }
 
+  useEffect(() => {
+    const timeout = setTimeout(remove, 8000);
+    return () => timeout && clearTimeout(timeout);
+  }, [error.id]);
+
   return (
-    <Toast data-active={!!errorMsg}>
+    <Toast data-active={!!error.id}>
       <div className="content">
         <div className="message">
           <span className="title">Błąd!</span>
-          <span className="text">{errorMsg}</span>
+          <span className="text">{error.msg}</span>
         </div>
       </div>
 
       <button className="close" onClick={remove}>
         ❌
       </button>
-      <div className="progress"></div>
+      <div className="progress" />
     </Toast>
   );
 }
