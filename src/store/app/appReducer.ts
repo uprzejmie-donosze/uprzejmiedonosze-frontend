@@ -1,22 +1,22 @@
 import { ActionType } from "./types";
-import { APP_ACTIONS } from "./actionTypes";
+import * as ACTIONS from "./actionTypes";
 import { AppState } from "./types";
 
 const initialState: AppState = {
-  isNavOpened: false,
+  isNavOpen: false,
 };
 
 export function appReducer(state: AppState = initialState, action: ActionType) {
   switch (action.type) {
-    case APP_ACTIONS.openNav:
+    case ACTIONS.APP_OPEN_NAVBAR:
       return {
         ...state,
-        isNavOpened: action.isNavOpened,
+        isNavOpen: true,
       };
-    case APP_ACTIONS.closeNav:
+    case ACTIONS.APP_CLOSE_NAVBAR:
       return {
         ...state,
-        isNavOpened: action.isNavOpened,
+        isNavOpen: false,
       };
     default:
       return state || initialState;

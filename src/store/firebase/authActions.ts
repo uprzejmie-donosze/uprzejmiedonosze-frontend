@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { StoreExtraArgs } from "..";
 import { GoogleAuthProvider } from "firebase/auth";
-import { USER_ACTIONS } from "../user/actionTypes";
+import { FETCH_USER_EMPTY } from "../user/actionTypes";
 
 export function signInUser() {
   return (dispatch: Dispatch, _: any, { getFirebase }: StoreExtraArgs) => {
@@ -22,7 +22,7 @@ export function signOutUser() {
       .auth()
       .signOut()
       .then(() => {
-        dispatch({ type: USER_ACTIONS.empty });
+        dispatch({ type: FETCH_USER_EMPTY });
       });
   };
 }

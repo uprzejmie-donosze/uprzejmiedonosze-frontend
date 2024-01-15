@@ -1,29 +1,31 @@
-import { Category } from "../../api/responses";
-import { CATEGORIES_ACTIONS } from "./actionTypes";
-import { CategoriesState } from "./types";
+import * as ACTIONS from "./actionTypes";
+import { CategoriesAction, CategoriesState } from "./types";
 
 const initialState: CategoriesState = {
   loading: false,
   loaded: false,
-  categories: null,
+  categories: [],
 };
 
-export function categoriesReducer(state = initialState, action: any) {
+export function categoriesReducer(
+  state = initialState,
+  action: CategoriesAction,
+) {
   switch (action.type) {
-    case CATEGORIES_ACTIONS.loading:
+    case ACTIONS.CATEGORIES_LOADING:
       return {
         ...state,
         loading: true,
         loaded: false,
       };
-    case CATEGORIES_ACTIONS.loaded:
+    case ACTIONS.CATEGORIES_LOADED:
       return {
         ...state,
         loading: false,
         loaded: true,
-        categories: action.payload.categories as [Category],
+        categories: { ...action.payload.categories },
       };
-    case CATEGORIES_ACTIONS.error:
+    case ACTIONS.CATEGORIES_ERROR:
       return {
         ...state,
         loading: false,

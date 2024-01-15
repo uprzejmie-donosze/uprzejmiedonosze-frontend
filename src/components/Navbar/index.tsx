@@ -11,7 +11,7 @@ import { Layout } from "../Layout";
 import * as S from "./styles";
 
 function Navbar() {
-  const isNavOpened = useAppSelector((state) => state.app.isNavOpened);
+  const isNavOpen = useAppSelector((state) => state.app.isNavOpen);
   const dispatch = useAppDispatch();
 
   function closeNav() {
@@ -23,14 +23,14 @@ function Navbar() {
   }
 
   function toggleMenu() {
-    isNavOpened ? closeNav() : openNav();
+    isNavOpen ? closeNav() : openNav();
   }
 
   return (
     <S.Navbar>
       <Layout>
         <S.Container>
-          <S.Burger data-active={isNavOpened} onClick={toggleMenu}>
+          <S.Burger data-active={isNavOpen} onClick={toggleMenu}>
             <button className="burger" role="switch" aria-checked="true">
               <span className="burger__icon"></span>
               <span className="burger__icon"></span>
@@ -41,9 +41,9 @@ function Navbar() {
             Uprzejmie Donoszę
           </S.Logo>
 
-          <S.Overlay onClick={toggleMenu} data-open={isNavOpened} />
+          <S.Overlay onClick={toggleMenu} data-open={isNavOpen} />
 
-          <S.Menu data-open={isNavOpened}>
+          <S.Menu data-open={isNavOpen}>
             <Menu closeNav={closeNav} />
           </S.Menu>
         </S.Container>

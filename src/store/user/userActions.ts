@@ -1,10 +1,10 @@
 import { Dispatch } from "redux";
-import { USER_ACTIONS } from "./actionTypes";
+import * as ACTIONS from "./actionTypes";
 import { apiClient } from "../../api";
 import { StoreExtraArgs } from "..";
 import { IUser } from "../../api/responses";
 import { UserProfile } from "./types";
-import { FALLBACK_ACTIONS } from "../fallback/actionTypes";
+import { FALLBACK_ERROR } from "../fallback/actionTypes";
 import { IUpdateUserBody } from "../../api/requests";
 
 export function getUser() {
@@ -16,19 +16,22 @@ export function getUser() {
     const firebase = getFirebase();
     try {
       if (firebase.auth().currentUser === null) {
-        return dispatch({ type: USER_ACTIONS.empty });
+        return dispatch({ type: ACTIONS.FETCH_USER_EMPTY });
       }
 
-      dispatch({ type: USER_ACTIONS.loading });
+      dispatch({ type: ACTIONS.FETCH_USER_LOADING });
 
       const token = await firebase.auth().currentUser.getIdToken();
       const user = await apiClient.getUser(token);
       const normalisedUser = normaliseUserData(user);
 
-      dispatch({ type: USER_ACTIONS.loaded, user: normalisedUser });
+      dispatch({
+        type: ACTIONS.FETCH_USER_SUCCESS,
+        payload: { user: normalisedUser },
+      });
     } catch (error) {
-      dispatch({ type: USER_ACTIONS.error, error: error.message });
-      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
+      dispatch({ type: ACTIONS.FETCH_USER_ERROR, error: error.message });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
       firebase.auth().signOut();
     }
   };
@@ -43,20 +46,23 @@ export function updateUser(user: IUpdateUserBody, successAction: () => void) {
     const firebase = getFirebase();
     try {
       if (firebase.auth().currentUser === null) {
-        return dispatch({ type: USER_ACTIONS.empty });
+        return dispatch({ type: ACTIONS.FETCH_USER_EMPTY });
       }
 
-      dispatch({ type: USER_ACTIONS.updating });
+      dispatch({ type: ACTIONS.UPDATE_USER_LOADING });
 
       const token = await firebase.auth().currentUser.getIdToken();
       const newUser = await apiClient.updateUser(token, user);
       const normalisedUser = normaliseUserData(newUser);
 
-      dispatch({ type: USER_ACTIONS.updated, user: normalisedUser });
+      dispatch({
+        type: ACTIONS.UPDATE_USER_SUCCESS,
+        payload: { user: normalisedUser },
+      });
       successAction();
     } catch (error) {
-      dispatch({ type: USER_ACTIONS.updateFailed });
-      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
+      dispatch({ type: ACTIONS.UPDATE_USER_FAILED });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }
@@ -70,14 +76,19 @@ export function confirmTermsOfUse() {
     const firebase = getFirebase();
     try {
       if (firebase.auth().currentUser === null) return;
-      dispatch({ type: USER_ACTIONS.updating });
+      dispatch({ type: ACTIONS.UPDATE_USER_LOADING });
+
       const token = await firebase.auth().currentUser.getIdToken();
       const newUser = await apiClient.confirmTermsOfUse(token);
+
       const normalisedUser = normaliseUserData(newUser);
-      dispatch({ type: USER_ACTIONS.updated, user: normalisedUser });
+      dispatch({
+        type: ACTIONS.UPDATE_USER_SUCCESS,
+        payload: { user: normalisedUser },
+      });
     } catch (error) {
-      dispatch({ type: USER_ACTIONS.updateFailed });
-      dispatch({ type: FALLBACK_ACTIONS.error, error: error.message });
+      dispatch({ type: ACTIONS.UPDATE_USER_FAILED });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }

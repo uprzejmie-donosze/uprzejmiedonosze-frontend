@@ -1,4 +1,4 @@
-import { USER_ACTIONS } from "./actionTypes";
+import * as ACTIONS from "./actionTypes";
 
 export type UserProfile = {
   name: string;
@@ -30,34 +30,34 @@ export type UserState = {
 };
 
 export type ErrorAction = {
-  type: typeof USER_ACTIONS.error;
-  error: Error;
+  type: typeof ACTIONS.FETCH_USER_ERROR;
+  payload: { error: Error };
 };
 
 export type LoadingAction = {
-  type: typeof USER_ACTIONS.loading;
+  type: typeof ACTIONS.FETCH_USER_LOADING;
 };
 
 export type UserLoaded = {
-  type: typeof USER_ACTIONS.loaded;
-  user: UserProfile;
+  type: typeof ACTIONS.FETCH_USER_SUCCESS;
+  payload: { user: UserProfile };
 };
 
 export type UserUpdated = {
-  type: typeof USER_ACTIONS.updated;
-  user: UserProfile;
+  type: typeof ACTIONS.UPDATE_USER_SUCCESS;
+  payload: { user: UserProfile };
 };
 
 export type UserUpdating = {
-  type: typeof USER_ACTIONS.updating;
+  type: typeof ACTIONS.UPDATE_USER_LOADING;
 };
 
 export type UserEmpty = {
-  type: typeof USER_ACTIONS.empty;
+  type: typeof ACTIONS.FETCH_USER_EMPTY;
 };
 
 export type UserUpdateFailed = {
-  type: typeof USER_ACTIONS.updateFailed;
+  type: typeof ACTIONS.UPDATE_USER_FAILED;
 };
 
 export type ActionType =
