@@ -5,5 +5,5 @@ export function openNavbar() {
 }
 
 export function closeNavbar() {
-  return { type: ACTIONS.APP_OPEN_NAVBAR };
+  return { type: ACTIONS.APP_CLOSE_NAVBAR };
 }
