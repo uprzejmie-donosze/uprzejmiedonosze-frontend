@@ -1,4 +1,2 @@
-export const FALLBACK_ACTIONS = {
-  error: "ACTION/ERROR",
-  errorClean: "ACTION/ERROR_CLEAN",
-};
+export const FALLBACK_ERROR = "FALLBACK/ERROR";
+export const FALLBACK_ERROR_CLEAN = "FALLBACK/ERROR_CLEAN";

@@ -1,18 +1,18 @@
-import { FALLBACK_ACTIONS } from "./actionTypes";
-import { FallbackState } from "./types";
+import * as ACTIONS from "./actionTypes";
+import { ActionType, FallbackState } from "./types";
 
 const initialState: FallbackState = {
   error: null,
 };
 
-export function fallbackReducer(state = initialState, action: any) {
+export function fallbackReducer(state = initialState, action: ActionType) {
   switch (action.type) {
-    case FALLBACK_ACTIONS.error:
+    case ACTIONS.FALLBACK_ERROR:
       return {
         ...state,
         error: action.error,
       };
-    case FALLBACK_ACTIONS.errorClean:
+    case ACTIONS.FALLBACK_ERROR_CLEAN:
       return {
         ...state,
         error: null,

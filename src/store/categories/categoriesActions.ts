@@ -1,21 +1,21 @@
 import { Dispatch } from "redux";
-import { CATEGORIES_ACTIONS } from "./actionTypes";
+import * as ACTIONS from "./actionTypes";
 import { apiClient } from "../../api";
-import { FALLBACK_ACTIONS } from "../fallback/actionTypes";
+import { FALLBACK_ERROR } from "../fallback/actionTypes";
 
 export function getCategories() {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({ type: CATEGORIES_ACTIONS.loading });
+      dispatch({ type: ACTIONS.CATEGORIES_LOADING });
       const categories = await apiClient.getCategories();
       const sorted = categories.sort((a, b) => a.order - b.order);
       dispatch({
-        type: CATEGORIES_ACTIONS.loaded,
+        type: ACTIONS.CATEGORIES_LOADED,
         payload: { categories: sorted },
       });
     } catch (error) {
-      dispatch({ type: CATEGORIES_ACTIONS.error });
-      dispatch({ type: FALLBACK_ACTIONS.error });
+      dispatch({ type: ACTIONS.CATEGORIES_ERROR });
+      dispatch({ type: FALLBACK_ERROR });
     }
   };
 }

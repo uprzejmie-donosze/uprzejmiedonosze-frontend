@@ -1,17 +1,9 @@
-import { APP_ACTIONS } from "./actionTypes";
+import * as ACTIONS from "./actionTypes";
 
 export type AppState = {
-  isNavOpened: boolean;
+  isNavOpen: boolean;
 };
 
-export type OpenNavAction = {
-  type: typeof APP_ACTIONS.openNav;
-  isNavOpened: boolean;
+export type ActionType = {
+  type: typeof ACTIONS.APP_CLOSE_NAVBAR | typeof ACTIONS.APP_OPEN_NAVBAR;
 };
-
-export type CloseNavAction = {
-  type: typeof APP_ACTIONS.closeNav;
-  isNavOpened: boolean;
-};
-
-export type ActionType = CloseNavAction | OpenNavAction;

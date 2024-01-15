@@ -1,11 +1,5 @@
-import { USER_ACTIONS } from "./actionTypes";
-import {
-  ActionType,
-  ErrorAction,
-  UserLoaded,
-  UserState,
-  UserUpdated,
-} from "./types";
+import * as ACTIONS from "./actionTypes";
+import { ActionType, UserState } from "./types";
 
 const initialState: UserState = {
   profile: null,
@@ -22,7 +16,7 @@ export function userReducer(
   action: ActionType,
 ): UserState {
   switch (action.type) {
-    case USER_ACTIONS.loading:
+    case ACTIONS.FETCH_USER_LOADING:
       return {
         ...state,
         loading: true,
@@ -30,24 +24,24 @@ export function userReducer(
         isLoaded: false,
         isEmpty: true,
       };
-    case USER_ACTIONS.error:
+    case ACTIONS.FETCH_USER_ERROR:
       return {
         ...state,
         loading: false,
-        error: (action as ErrorAction).error,
+        error: action.payload.error,
         isLoaded: true,
         isEmpty: true,
       };
-    case USER_ACTIONS.loaded:
+    case ACTIONS.FETCH_USER_SUCCESS:
       return {
         ...state,
-        profile: { ...(action as UserLoaded).user },
+        profile: { ...action.payload.user },
         loading: false,
         error: null,
         isLoaded: true,
         isEmpty: false,
       };
-    case USER_ACTIONS.empty:
+    case ACTIONS.FETCH_USER_EMPTY:
       return {
         ...state,
         profile: null,
@@ -55,20 +49,20 @@ export function userReducer(
         isEmpty: true,
         error: null,
       };
-    case USER_ACTIONS.updating:
+    case ACTIONS.UPDATE_USER_LOADING:
       return {
         ...state,
         updating: true,
         updated: false,
       };
-    case USER_ACTIONS.updated:
+    case ACTIONS.UPDATE_USER_SUCCESS:
       return {
         ...state,
         updating: false,
         updated: true,
-        profile: { ...(action as UserUpdated).user },
+        profile: { ...action.payload.user },
       };
-    case USER_ACTIONS.updateFailed:
+    case ACTIONS.UPDATE_USER_FAILED:
       return {
         ...state,
         updating: false,
