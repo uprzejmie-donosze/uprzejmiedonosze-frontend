@@ -67,10 +67,16 @@ export class APIClient {
     lat: string,
     lng: string,
   ): Promise<LocationNominatim> {
-    return this.httpClient.get(`geo/${lat},${lng}/n`, token) as Promise<LocationNominatim>;
+    return this.httpClient.get(
+      `geo/${lat},${lng}/n`,
+      token,
+    ) as Promise<LocationNominatim>;
   }
 
   getMapBox(token: string, lat: string, lng: string): Promise<LocationMapBox> {
-    return this.httpClient.get(`geo/${lat},${lng}/m`, token) as Promise<LocationMapBox>;
+    return this.httpClient.get(
+      `geo/${lat},${lng}/m`,
+      token,
+    ) as Promise<LocationMapBox>;
   }
 }
