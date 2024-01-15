@@ -11,7 +11,7 @@ export const FormRow = styled.fieldset`
 
   ${mediaMin(breakpoints.md)} {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
   }
 `;
@@ -21,6 +21,7 @@ export const FormRowSpaced = styled(FormRow)`
 `;
 
 export const FormColumn = styled.div`
+  position: relative;
   margin-top: ${SPACING};
 
   ${mediaMin(breakpoints.md)} {

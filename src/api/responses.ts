@@ -142,3 +142,56 @@ export type Category = {
   stopAgresjiOnly: boolean;
   order: number;
 };
+
+export type LocationMapBox = {
+  mapbox_id?: string;
+  feature_type?: string;
+  name?: string;
+  place_formatted?: string;
+  address?: {
+    address?: string;
+    street?: string;
+    postcode?: string;
+    country?: string;
+    voivodeship?: string;
+    city?: string;
+  };
+};
+
+export type LocationNominatim = {
+  address?: {
+    house_number?: string;
+    road?: string;
+    suburb?: string;
+    borough?: string;
+    city?: string;
+    postcode?: string;
+    country?: string;
+    country_code?: string;
+    voivodeship?: string;
+    district?: string;
+    county?: string;
+    municipality?: string;
+    address?: string;
+    lat?: string;
+    lng?: string;
+    "ISO31662-lvl4"?: string;
+  };
+  sm?: {
+    address?: string[];
+    email?: string;
+    hint?: string;
+    api?: string;
+    city?: string;
+    key?: string;
+  };
+  sa?: {
+    address: string[];
+    email?: string;
+    voivodeship?: string;
+    city?: string;
+    hint?: string;
+    api?: string;
+    key?: string;
+  };
+};

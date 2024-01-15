@@ -21,13 +21,14 @@ export function Categories() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!categories) {
+    if (!categories.length) {
       dispatch(getCategories());
     }
   }, []);
 
   if (loading) return <LinearLoader />;
-  if (!loaded || !categories) return <p>Problem z załadowaniem danych</p>;
+  if (!loaded || !categories.length)
+    return <p>Problem z załadowaniem danych</p>;
 
   function handleCategoryChange(
     value: string,

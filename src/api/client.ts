@@ -1,6 +1,13 @@
 import { HTTPClient } from "./httpClient";
 import { IUpdateUserBody } from "./requests";
-import { Category, IUser, Report, TermsOfUse } from "./responses";
+import {
+  Category,
+  IUser,
+  LocationMapBox,
+  LocationNominatim,
+  Report,
+  TermsOfUse,
+} from "./responses";
 
 export class APIClient {
   private httpClient: HTTPClient;
@@ -53,5 +60,23 @@ export class APIClient {
 
   getCategories(): Promise<Category[]> {
     return this.httpClient.get("config/categories", "") as Promise<Category[]>;
+  }
+
+  getNominatim(
+    token: string,
+    lat: string,
+    lng: string,
+  ): Promise<LocationNominatim> {
+    return this.httpClient.get(
+      `geo/${lat},${lng}/n`,
+      token,
+    ) as Promise<LocationNominatim>;
+  }
+
+  getMapBox(token: string, lat: string, lng: string): Promise<LocationMapBox> {
+    return this.httpClient.get(
+      `geo/${lat},${lng}/m`,
+      token,
+    ) as Promise<LocationMapBox>;
   }
 }

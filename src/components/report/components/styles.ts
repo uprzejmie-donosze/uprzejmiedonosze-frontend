@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { colors, convertHex, inputSize, radius } from "../../../styles";
 import { FormColumn, FormRowSpaced } from "../styles";
-import mediaMin, { breakpoints } from "../../../styles/mediaQueries";
+import mediaMin, { breakpoints, mediaMax } from "../../../styles/mediaQueries";
 
 export const ImageContainer = styled.div<{ valid: boolean }>`
   position: relative;
@@ -103,32 +103,104 @@ export const Loader = styled.div`
   background: ${colors.placeholder};
 `;
 
-export const MapContainer = styled(FormRowSpaced)`
-  position: relative;
-  width: 100%;
-  height: 400px;
-  background: ${colors.placeholder};
-  border-radius: ${radius};
+export const Map = styled.div<{ disabled: boolean }>`
+  background: ${colors.secondary};
   overflow: hidden;
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
+  overflow: hidden;
+  border-radius: ${radius};
+
+  ${mediaMax(breakpoints.md)} {
+    position: relative;
+    width: calc(100vw - 2rem);
+    height: 400px;
+    margin-top: 1.5rem;
+  }
+
+  ${mediaMin(breakpoints.md)} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 300px;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: ${convertHex(colors.secondary, 80)};
+    border: 2px solid ${colors.secondary};
+    z-index: 1;
+    border-radius: 100%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  &:after {
+    z-index: 1;
+    width: 5px;
+    height: 5px;
+  }
+
+  &:before {
+    width: 100px;
+    height: 100px;
+    opacity: 0.6;
+  }
+
+  .mapboxgl-touch-pan-blocker,
+  .mapbox-improve-map,
+  .mapboxgl-ctrl-bottom-right {
+    display: none;
+  }
+
+  .mapboxgl-control-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+  }
+
+  .mapboxgl-ctrl-zoom-in,
+  .mapboxgl-ctrl-zoom-out,
+  .mapboxgl-ctrl-geolocate {
+    pointer-events: auto;
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+  }
+`;
+
+export const PoliceInfo = styled.div`
+  line-height: 0;
+  margin-top: 16px;
+
+  & svg {
+    width: 13px;
+    height: 13px;
+    margin-right: 6px;
+    margin-bottom: -1px;
+  }
+`;
+
+export const MapContainer = styled(FormRowSpaced)`
+  ${mediaMax(breakpoints.md)} {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 
   ${mediaMin(breakpoints.md)} {
     height: 300px;
   }
 `;
 
-export const Map = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: ${colors.secondary};
-`;
-
 export const FieldContainer = styled(FormColumn)`
-  background: ${convertHex(colors.placeholder, 96)};
-  padding: 10px;
-  position: relative;
   margin: 0;
 
   ${mediaMin(breakpoints.md)} {
