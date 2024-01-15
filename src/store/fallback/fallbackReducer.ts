@@ -2,7 +2,7 @@ import * as ACTIONS from "./actionTypes";
 import { ActionType, FallbackState } from "./types";
 
 const initialState: FallbackState = {
-  error: null,
+  errors: [],
 };
 
 export function fallbackReducer(state = initialState, action: ActionType) {
@@ -10,12 +10,12 @@ export function fallbackReducer(state = initialState, action: ActionType) {
     case ACTIONS.FALLBACK_ERROR:
       return {
         ...state,
-        error: action.error,
+        errors: [...state.errors, action.payload.error],
       };
     case ACTIONS.FALLBACK_ERROR_CLEAN:
       return {
         ...state,
-        error: null,
+        errors: [...state.errors.filter(e => e !== action.payload.error)],
       };
     default:
       return state || initialState;

@@ -51,7 +51,7 @@ export class APIClient {
     return this.httpClient.get(`app/${id}`, token) as Promise<Report>;
   }
 
-  getCategories(): Promise<[Category]> {
-    return this.httpClient.get("config/categories", "") as Promise<[Category]>;
+  getCategories(): Promise<Category[]> {
+    return this.httpClient.get("config/categories", "") as Promise<Category[]>;
   }
 }
