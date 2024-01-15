@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { colors, convertHex, inputSize, radius } from "../../../styles";
 import { FormColumn, FormRowSpaced } from "../styles";
-import mediaMin, { breakpoints } from "../../../styles/mediaQueries";
+import mediaMin, { breakpoints, mediaMax } from "../../../styles/mediaQueries";
 
 export const ImageContainer = styled.div<{ valid: boolean }>`
   position: relative;
@@ -103,20 +103,27 @@ export const Loader = styled.div`
   background: ${colors.placeholder};
 `;
 
-export const Map = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 400px;
-  top: 0;
-  left: 0;
-  right: 0;
+export const Map = styled.div<{ disabled: boolean }>`
   background: ${colors.secondary};
-  margin-top: 80px;
   overflow: hidden;
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
+  overflow: hidden;
+  border-radius: ${radius};
+
+  ${mediaMax(breakpoints.md)} {
+    position: relative;
+    width: calc(100vw - 2rem);
+    height: 400px;
+    margin-top: 1.5rem;
+  }
 
   ${mediaMin(breakpoints.md)} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     height: 300px;
-    margin-top: 0;
   }
 
   &:before,
@@ -170,8 +177,23 @@ export const Map = styled.div`
   }
 `;
 
+export const PoliceInfo = styled.div`
+  line-height: 0;
+  margin-top: 16px;
+
+  & svg {
+    width: 13px;
+    height: 13px;
+    margin-right: 6px;
+    margin-bottom: -1px;
+  }
+`;
+
 export const MapContainer = styled(FormRowSpaced)`
-  height: 400px;
+  ${mediaMax(breakpoints.md)} {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 
   ${mediaMin(breakpoints.md)} {
     height: 300px;

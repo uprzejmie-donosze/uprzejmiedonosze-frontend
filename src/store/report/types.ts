@@ -54,6 +54,8 @@ export type FormAddress = {
   county: string;
   district: string;
   municipality: string;
+  sm: string;
+  sa: string;
 };
 
 export type AppAddress = {

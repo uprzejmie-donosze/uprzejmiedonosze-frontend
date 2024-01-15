@@ -23,7 +23,7 @@ export function categoriesReducer(
         ...state,
         loading: false,
         loaded: true,
-        categories: [ ...action.payload.categories ],
+        categories: [...action.payload.categories],
       };
     case ACTIONS.CATEGORIES_ERROR:
       return {

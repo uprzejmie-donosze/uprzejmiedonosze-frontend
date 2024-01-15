@@ -27,7 +27,8 @@ export function Categories() {
   }, []);
 
   if (loading) return <LinearLoader />;
-  if (!loaded || !categories.length) return <p>Problem z załadowaniem danych</p>;
+  if (!loaded || !categories.length)
+    return <p>Problem z załadowaniem danych</p>;
 
   function handleCategoryChange(
     value: string,

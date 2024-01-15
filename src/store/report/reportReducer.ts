@@ -30,6 +30,8 @@ const formState: ReportFormState = {
       county: "",
       district: "",
       municipality: "",
+      sm: "",
+      sa: "",
     },
   },
   datetime: {

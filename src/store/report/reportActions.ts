@@ -205,7 +205,7 @@ async function getAddressData(
   lat: number,
   lng: number,
 ): Promise<FormAddress> {
-  const address = await apiClient.getMapBox(
+  const mapbox = await apiClient.getMapBox(
     token,
     lat.toString(),
     lng.toString(),
@@ -217,13 +217,15 @@ async function getAddressData(
   );
 
   const location: FormAddress = {
-    fullAddress: address.address.address || nominatim.address?.address,
-    city: address.city || nominatim.address?.city,
-    voivodeship: address.voivodeship || nominatim.address?.voivodeship,
-    postcode: address.postcode || nominatim.address?.postcode,
+    fullAddress: mapbox.address.address || nominatim.address?.address,
+    city: mapbox.address?.city || nominatim.address?.city,
+    voivodeship: mapbox.address?.voivodeship || nominatim.address?.voivodeship,
+    postcode: mapbox.address?.postcode || nominatim.address?.postcode,
     municipality: nominatim.address?.municipality,
     county: nominatim.address?.county,
     district: nominatim.address?.district,
+    sm: nominatim.sm?.address?.[0],
+    sa: nominatim.sa?.address?.[0],
   };
 
   return location;

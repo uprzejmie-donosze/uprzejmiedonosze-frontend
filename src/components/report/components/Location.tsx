@@ -3,13 +3,14 @@ import mapboxgl from "mapbox-gl";
 import { InputField } from "../../Form";
 import { stringRequired } from "../../Form/validation";
 import { Spinner } from "../../Loader/styles";
-import { FieldContainer, Map, MapContainer } from "./styles";
+import { FieldContainer, Map, MapContainer, PoliceInfo } from "./styles";
 import { init } from "../../../lib/geolocation";
 import { throttle } from "../../../scripts/optimise";
 import { getAddress, setCoords } from "../../../store/report";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { ReportAppState, ReportFormState } from "../../../store/report/types";
 import { REPORT_DATA_SOURCE } from "../../../constants";
+import { InfoIcon } from "../../Icons";
 
 function coordsFromState(state: {
   form: ReportFormState;
@@ -51,6 +52,11 @@ export function Location() {
     (state) => state.report.form.location.loading,
   );
   const { lat, lng } = useAppSelector((state) => coordsFromState(state.report));
+  const policeType = useAppSelector((state) =>
+    state.user.profile.stopAgresji
+      ? state.report.form.location.address.sa
+      : state.report.form.location.address.sm,
+  );
 
   stateRef.current = { map, lat, lng };
 
@@ -80,7 +86,7 @@ export function Location() {
   return (
     <MapContainer>
       <FieldContainer>
-        <Map ref={mapRef} />
+        <Map ref={mapRef} disabled={addressLoading} />
       </FieldContainer>
 
       <FieldContainer>
@@ -99,7 +105,15 @@ export function Location() {
         {addressSource === REPORT_DATA_SOURCE.picture && (
           <small>adres pobrany ze zdjęcia</small>
         )}
+
         {addressLoading && <Spinner size="30px" />}
+
+        {!addressLoading && !!policeType.length && (
+          <PoliceInfo>
+            <InfoIcon />
+            {policeType}
+          </PoliceInfo>
+        )}
       </FieldContainer>
     </MapContainer>
   );
