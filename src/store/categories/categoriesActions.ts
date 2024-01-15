@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import * as ACTIONS from "./actionTypes";
 import { apiClient } from "../../api";
-import { FALLBACK_ERROR } from "../fallback/actionTypes";
+import { addError } from "../fallback";
 
 export function getCategories() {
   return async (dispatch: Dispatch) => {
@@ -15,7 +15,7 @@ export function getCategories() {
       });
     } catch (error) {
       dispatch({ type: ACTIONS.CATEGORIES_ERROR });
-      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
+      dispatch(addError(error.message));
     }
   };
 }

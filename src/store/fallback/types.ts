@@ -1,7 +1,7 @@
 import * as ACTIONS from "./actionTypes";
 
 export type FallbackState = {
-  errors: string[];
+  errors: FallbackError[];
 };
 
 export type ErrorActionType = {
@@ -11,7 +11,9 @@ export type ErrorActionType = {
 
 export type CleanErrorActionType = {
   type: typeof ACTIONS.FALLBACK_ERROR_CLEAN;
-  payload: { error: string };
+  payload: { errorID: string };
 };
 
 export type ActionType = ErrorActionType | CleanErrorActionType;
+
+export type FallbackError = { id: string; msg: string };

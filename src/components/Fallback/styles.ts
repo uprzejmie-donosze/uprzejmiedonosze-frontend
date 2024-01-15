@@ -15,9 +15,12 @@ export const Toasts = styled.div`
   top: 10px;
   right: 10px;
   z-index: 1000;
-`
+  overflow: scroll;
+  height: 100%;
+`;
 
 export const Toast = styled.div<{ "data-active": boolean }>`
+  position: relative;
   padding: 10px 20px 10px 10px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -25,11 +28,7 @@ export const Toast = styled.div<{ "data-active": boolean }>`
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   border-left: 5px solid ${colors.error};
   overflow: hidden;
-  transform: ${(props) =>
-    props["data-active"] ? "translateX(0)" : "translateX(calc(100% + 10px))"};
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
-
-  .content {
+  transform: "translateX(0)" .content {
     display: flex;
     justify-content: center;
     align-items: center;
