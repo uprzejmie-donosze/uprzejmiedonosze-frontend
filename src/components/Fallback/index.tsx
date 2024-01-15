@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { Toast } from "./styles";
+import { Toast, Toasts } from "./styles";
 import { cleanError } from "../../store/fallback/fallbackActions";
 
 export function Fallback() {
-  const { error } = useAppSelector((state) => state.fallback);
+  const { errors } = useAppSelector((state) => state.fallback);
   const dispatch = useAppDispatch();
 
-  function close() {
-    dispatch(cleanError());
+  function close(err: string) {
+    dispatch(cleanError(err));
   }
 
-  return <ErrorToast errorMsg={error} close={close} />;
+  return (
+    <Toasts>
+      {errors.map(error => <ErrorToast errorMsg={error} close={close} />)}
+    </Toasts>
+  );
 }
 
 function ErrorToast({
@@ -19,13 +23,17 @@ function ErrorToast({
   close,
 }: {
   errorMsg: string | null;
-  close: () => void;
+  close: (err: string) => void;
 }) {
   useEffect(() => {
     if (!errorMsg) return;
-    const timeout = setTimeout(close, 5000);
+    const timeout = setTimeout(remove, 8000);
     return () => timeout && clearTimeout(timeout);
   }, [errorMsg]);
+
+  function remove() {
+    close(errorMsg);
+  }
 
   return (
     <Toast data-active={!!errorMsg}>
@@ -36,7 +44,7 @@ function ErrorToast({
         </div>
       </div>
 
-      <button className="close" onClick={close}>
+      <button className="close" onClick={remove}>
         ❌
       </button>
       <div className="progress"></div>

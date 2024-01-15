@@ -10,20 +10,24 @@ const progress = keyframes`
   }
 `;
 
-export const Toast = styled.div<{ "data-active": boolean }>`
+export const Toasts = styled.div`
   position: fixed;
   top: 10px;
   right: 10px;
+  z-index: 1000;
+`
+
+export const Toast = styled.div<{ "data-active": boolean }>`
+  padding: 10px 20px 10px 10px;
+  margin-bottom: 10px;
   border-radius: 4px;
   background: ${colors.white};
-  padding: 10px 20px 10px 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   border-left: 5px solid ${colors.error};
   overflow: hidden;
   transform: ${(props) =>
     props["data-active"] ? "translateX(0)" : "translateX(calc(100% + 10px))"};
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
-  z-index: 999;
 
   .content {
     display: flex;
@@ -88,7 +92,7 @@ export const Toast = styled.div<{ "data-active": boolean }>`
       ${(props) =>
         props["data-active"] &&
         css`
-          animation: ${progress} 5s linear forwards;
+          animation: ${progress} 8s linear forwards;
         `}
     }
   }

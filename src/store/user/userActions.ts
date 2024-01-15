@@ -30,8 +30,11 @@ export function getUser() {
         payload: { user: normalisedUser },
       });
     } catch (error) {
-      dispatch({ type: ACTIONS.FETCH_USER_ERROR, payload: { error: error.message } });
-      dispatch({ type: FALLBACK_ERROR, error: error.message });
+      dispatch({
+        type: ACTIONS.FETCH_USER_ERROR,
+        payload: { error: error.message },
+      });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
       firebase.auth().signOut();
     }
   };
@@ -62,7 +65,7 @@ export function updateUser(user: IUpdateUserBody, successAction: () => void) {
       successAction();
     } catch (error) {
       dispatch({ type: ACTIONS.UPDATE_USER_FAILED });
-      dispatch({ type: FALLBACK_ERROR, error: error.message });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }
@@ -88,7 +91,7 @@ export function confirmTermsOfUse() {
       });
     } catch (error) {
       dispatch({ type: ACTIONS.UPDATE_USER_FAILED });
-      dispatch({ type: FALLBACK_ERROR, error: error.message });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }

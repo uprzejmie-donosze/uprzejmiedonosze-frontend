@@ -15,7 +15,7 @@ export function getCategories() {
       });
     } catch (error) {
       dispatch({ type: ACTIONS.CATEGORIES_ERROR });
-      dispatch({ type: FALLBACK_ERROR });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }

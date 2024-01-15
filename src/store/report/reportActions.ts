@@ -47,7 +47,7 @@ export function getOrCreateReport(id: string, handleMissingReport: () => void) {
         handleMissingReport();
         return;
       }
-      dispatch({ type: FALLBACK_ERROR, error: error.message });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }
@@ -69,7 +69,7 @@ export function createReport(action: (id: string) => void) {
       dispatch({ type: REPORT_APP_ACTIONS.loaded, payload: { data } });
       action(data.id);
     } catch (error) {
-      dispatch({ type: FALLBACK_ERROR, error: error.message });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
     }
   };
 }
@@ -152,7 +152,7 @@ export function uploadImage(file: Blob, reportID: string, inputID: string) {
       });
     } catch (error) {
       // TODO: add Sentry
-      dispatch({ type: FALLBACK_ERROR, error: error.message });
+      dispatch({ type: FALLBACK_ERROR, payload: { error: error.message } });
       dispatch({
         type: REPORT_FORM_ACTIONS.imageError,
         payload: {
